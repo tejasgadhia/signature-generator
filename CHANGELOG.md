@@ -1,0 +1,146 @@
+# Changelog
+
+All notable changes to the Zoho Email Signature Generator will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.1.0] - 2026-01-17
+
+### 🎉 Initial Release
+
+First public release of the Zoho Email Signature Generator! A professional, privacy-first tool for creating beautiful email signatures.
+
+### ✨ Added
+
+#### Core Features
+- **Live Preview System**: Real-time signature preview that updates as you type
+- **4 Signature Styles**:
+  - Classic: Traditional layout with logo on top
+  - Compact: Minimal single-line design
+  - Modern: Logo on left with vertical red separator
+  - Minimal: Clean text-only without logo
+- **One-Click Copy**: Copy HTML signature to clipboard with proper formatting
+- **Import Instructions Modal**: Detailed guides for:
+  - Zoho Mail (highlighted as recommended)
+  - Gmail
+  - macOS Mail
+  - iOS Mail
+  - Outlook
+
+#### Form & Input System
+- **8 Form Fields** with smart validation:
+  - Name (required)
+  - Job Title (optional, toggleable)
+  - Department (optional, toggleable)
+  - Email Address (optional, toggleable)
+  - Phone Number (optional, toggleable)
+  - LinkedIn Profile (optional, toggleable)
+  - Twitter/X Handle (optional, toggleable)
+  - Company Website (optional, toggleable)
+- **iOS-Style Toggle Switches**: Professional UI to enable/disable optional fields
+- **Clear Buttons**: Quick × buttons to clear individual fields
+- **Sample Data**: Pre-populated with American sample (Sarah Mitchell, Account Executive, Austin TX)
+
+#### Zoho Social Media Integration
+- **Master Toggle**: Enable/disable all Zoho social handles at once
+- **Granular Channel Control**: Individual toggles for:
+  - Twitter/X (@Zoho)
+  - LinkedIn (linkedin.com/company/zoho)
+  - Facebook (facebook.com/zoho)
+  - Instagram (@zoho)
+- **Display Options**: Choose between text links or icon display
+- **Smart Preview**: Social section only appears when explicitly enabled
+
+#### Design & UX
+- **Zoho Branding**: Official Zoho red (#E42527) throughout
+- **Light/Dark Mode Preview**: Test signature in both themes
+- **Fully Responsive**: Optimized for mobile, tablet, and desktop
+- **Smooth Animations**: Fade-up on load, transitions on interactions
+- **Horizontal Label Layout**: Space-efficient side-by-side labels and inputs on desktop
+- **Compact Vertical Spacing**: Reduced padding for less scrolling
+
+#### Technical Implementation
+- **Zero Dependencies**: Pure vanilla HTML, CSS, and JavaScript
+- **Email Compatible**: Table-based layouts with inline styles
+- **Privacy-First**: All processing happens locally in browser
+- **Theme Persistence**: localStorage remembers dark mode preference
+- **Accessibility**: ARIA labels, keyboard navigation, focus management
+- **Modern APIs**: Clipboard API with fallback for older browsers
+
+#### Code Quality
+- **Well-Commented**: JSDoc-style documentation throughout
+- **Semantic HTML5**: Proper use of semantic elements
+- **Modern JavaScript**: ES6+ features (const/let, arrow functions, template literals)
+- **Clean Architecture**: Separation of concerns (app.js, signature.js, modal.js)
+- **Optimized Performance**: Efficient DOM manipulation, 60fps animations
+
+### 📋 Technical Details
+
+**Browser Support**:
+- Chrome/Edge (Chromium) 90+
+- Firefox 88+
+- Safari 14+
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+**Email Client Compatibility**:
+- Gmail (Web, iOS, Android)
+- Apple Mail (macOS, iOS, iPadOS)
+- Outlook (Windows, macOS, Web, iOS, Android)
+- Zoho Mail
+- Yahoo Mail
+- ProtonMail
+- Thunderbird
+
+**File Structure**:
+```
+signature-generator/
+├── index.html           # Main application (16.4 KB)
+├── css/styles.css       # Complete styling (15.2 KB)
+├── js/
+│   ├── app.js          # State management (13.8 KB)
+│   ├── signature.js    # HTML generation (10.1 KB)
+│   └── modal.js        # Modal controller (3.9 KB)
+├── README.md           # Documentation (12.7 KB)
+└── CHANGELOG.md        # This file
+```
+
+### 🎯 Design Decisions
+
+1. **Toggle Switches over Checkboxes**: After creating comparison demo with 4 options (toggle switches, icon buttons, pill badges, plus/minus buttons), chose iOS-style toggle switches for most familiar and professional UX
+
+2. **4 Signature Styles**: Added 4th style (Minimal) for symmetrical 2×2 grid layout instead of asymmetric 3-style layout
+
+3. **Zoho Social Media Granularity**: Implemented master toggle with individual channel controls and text/icon display options for maximum flexibility
+
+4. **American Sample Data**: Pre-populated with realistic Austin, TX-based Account Executive instead of generic or international examples
+
+5. **Zoho Mail Instructions**: Detailed 9-step idiot-proof instructions highlighted in modal as recommended option
+
+6. **Table-Based HTML**: Used HTML tables for signature layout instead of flexbox/grid for maximum email client compatibility
+
+### 🔮 Future Considerations
+
+Not included in v0.1.0 but potential for future versions:
+- Save/load multiple signature profiles
+- Export as image (PNG/JPG) or PDF
+- QR code generation for contact info
+- Bulk generation for teams (CSV import)
+- Admin portal for company-wide templates
+- Custom color scheme picker
+- Image upload for personal photo
+
+### 📦 Release Assets
+
+- Source code (zip)
+- Source code (tar.gz)
+
+### 🙏 Acknowledgments
+
+- Design pattern inspired by Lovable prompt found on X/Twitter
+- Zoho branding and official social handles
+- Toggle UI pattern from iOS/macOS design guidelines
+
+---
+
+**Full Changelog**: https://github.com/tejasgadhia/signature-generator/commits/v0.1.0

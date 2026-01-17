@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoho Email Signature Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Zoho Email Signature Generator</h1>
+            <p class="subtitle">Create a professional email signature for your Zoho account</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Form Section -->
+            <section class="form-section">
+                <h2>Your Information</h2>
+                <form id="signatureForm">
+                    <div class="input-group">
+                        <label for="name">Full Name <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="name" name="name" placeholder="John Doe" value="Sarah Mitchell" required>
+                            <button type="button" class="clear-btn" data-input="name" aria-label="Clear name">×</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="title">Job Title</label>
+                        <div class="input-wrapper">
+                            <div class="toggle-switch active" data-field="title" aria-label="Toggle job title"></div>
+                            <input type="text" id="title" name="title" placeholder="Account Executive" value="Account Executive">
+                            <button type="button" class="clear-btn" data-input="title" aria-label="Clear title">×</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="department">Department</label>
+                        <div class="input-wrapper">
+                            <div class="toggle-switch active" data-field="department" aria-label="Toggle department"></div>
+                            <input type="text" id="department" name="department" placeholder="Sales" value="Enterprise Sales">
+                            <button type="button" class="clear-btn" data-input="department" aria-label="Clear department">×</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <div class="toggle-switch active" data-field="email" aria-label="Toggle email address"></div>
+                            <input type="email" id="email" name="email" placeholder="sarah.mitchell@zoho.com" value="sarah.mitchell@zoho.com">
+                            <button type="button" class="clear-btn" data-input="email" aria-label="Clear email">×</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <div class="input-wrapper">
+                            <div class="toggle-switch active" data-field="phone" aria-label="Toggle phone number"></div>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (512) 555-1234" value="+1 (512) 555-0123">
+                            <button type="button" class="clear-btn" data-input="phone" aria-label="Clear phone">×</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="linkedin">LinkedIn Profile</label>
+                        <div class="input-wrapper">
+                            <div class="toggle-switch active" data-field="linkedin" aria-label="Toggle LinkedIn profile"></div>
+                            <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/sarahmitchell" value="https://linkedin.com/in/sarahmitchell">
+                            <button type="button" class="clear-btn" data-input="linkedin" aria-label="Clear LinkedIn">×</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="twitter">Twitter/X Handle</label>
+                        <div class="input-wrapper">
+                            <div class="toggle-switch active" data-field="twitter" aria-label="Toggle Twitter handle"></div>
+                            <input type="text" id="twitter" name="twitter" placeholder="@sarahmitchell" value="@sarahmitchell">
+                            <button type="button" class="clear-btn" data-input="twitter" aria-label="Clear Twitter">×</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="website">Company Website</label>
+                        <div class="input-wrapper">
+                            <div class="toggle-switch active" data-field="website" aria-label="Toggle company website"></div>
+                            <input type="url" id="website" name="website" placeholder="https://www.zoho.com" value="https://www.zoho.com">
+                            <button type="button" class="clear-btn" data-input="website" aria-label="Clear website">×</button>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="section-title">Zoho Social Media</div>
+                    <div class="zoho-social-options">
+                        <div class="social-header">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="zohoSocialAll" name="zohoSocialAll">
+                                <span>Include Zoho's official social handles</span>
+                            </label>
+                            <div class="social-display-toggle">
+                                <label class="toggle-option">
+                                    <input type="radio" name="socialDisplay" value="text" checked>
+                                    <span>Text</span>
+                                </label>
+                                <label class="toggle-option">
+                                    <input type="radio" name="socialDisplay" value="icons">
+                                    <span>Icons</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="social-channels" id="socialChannels">
+                            <label class="social-channel-option">
+                                <input type="checkbox" class="social-channel-toggle" data-channel="twitter" checked>
+                                <span class="social-icon">𝕏</span>
+                                <span class="social-name">Twitter/X</span>
+                            </label>
+                            <label class="social-channel-option">
+                                <input type="checkbox" class="social-channel-toggle" data-channel="linkedin" checked>
+                                <span class="social-icon">in</span>
+                                <span class="social-name">LinkedIn</span>
+                            </label>
+                            <label class="social-channel-option">
+                                <input type="checkbox" class="social-channel-toggle" data-channel="facebook" checked>
+                                <span class="social-icon">f</span>
+                                <span class="social-name">Facebook</span>
+                            </label>
+                            <label class="social-channel-option">
+                                <input type="checkbox" class="social-channel-toggle" data-channel="instagram" checked>
+                                <span class="social-icon">📷</span>
+                                <span class="social-name">Instagram</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section">
+                <div class="preview-header">
+                    <h2>Preview</h2>
+                    <div class="preview-controls">
+                        <label class="theme-toggle" aria-label="Toggle dark mode preview">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">Dark Mode</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="style-selector-container">
+                    <div class="section-subtitle">Choose a Style:</div>
+                    <div class="style-selector">
+                        <label class="style-option">
+                            <input type="radio" name="signatureStyle" value="classic" checked>
+                            <span class="style-label">Classic</span>
+                            <span class="style-desc">Traditional layout with logo on top</span>
+                        </label>
+                        <label class="style-option">
+                            <input type="radio" name="signatureStyle" value="compact">
+                            <span class="style-label">Compact</span>
+                            <span class="style-desc">Minimal design, all in one line</span>
+                        </label>
+                        <label class="style-option">
+                            <input type="radio" name="signatureStyle" value="modern">
+                            <span class="style-label">Modern</span>
+                            <span class="style-desc">Logo on left with vertical line</span>
+                        </label>
+                        <label class="style-option">
+                            <input type="radio" name="signatureStyle" value="minimal">
+                            <span class="style-label">Minimal</span>
+                            <span class="style-desc">Clean text-only, no logo</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="preview-container" id="previewContainer">
+                    <div id="signaturePreview" class="signature-preview"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" id="copyButton" class="btn btn-primary">
+                        <span class="btn-text">Copy Signature</span>
+                        <span class="btn-icon">📋</span>
+                    </button>
+                    <button type="button" id="howToButton" class="btn btn-secondary">
+                        How to Import?
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Import Instructions Modal -->
+    <div id="modal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">How to Import Your Signature</h2>
+                <button type="button" class="modal-close" aria-label="Close modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="instruction-section highlighted">
+                    <h3>✉️ Zoho Mail (Recommended)</h3>
+                    <ol>
+                        <li><strong>Step 1:</strong> Click the <strong>Copy Signature</strong> button above to copy your signature</li>
+                        <li><strong>Step 2:</strong> Open Zoho Mail and click the <strong>Settings</strong> icon (gear ⚙️) in the top-right corner</li>
+                        <li><strong>Step 3:</strong> In the left sidebar menu, click <strong>Mail</strong> to expand options</li>
+                        <li><strong>Step 4:</strong> Click on <strong>Signature</strong> from the expanded menu</li>
+                        <li><strong>Step 5:</strong> You'll see the signature editor. Click inside the editor box</li>
+                        <li><strong>Step 6:</strong> Paste your signature using <strong>Ctrl+V</strong> (Windows) or <strong>Cmd+V</strong> (Mac)</li>
+                        <li><strong>Step 7:</strong> Important: Uncheck <strong>"Add signature while composing new messages"</strong> if you don't want it auto-added</li>
+                        <li><strong>Step 8:</strong> Click <strong>Save</strong> button at the bottom of the page</li>
+                        <li><strong>Step 9:</strong> Compose a test email to yourself to verify the signature looks correct</li>
+                    </ol>
+                    <div class="tip-box">
+                        <strong>💡 Pro Tip:</strong> If the logo doesn't appear, make sure you're connected to the internet and try refreshing your browser. The logo loads from Zoho's servers.
+                    </div>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>📧 Gmail</h3>
+                    <ol>
+                        <li>Click the <strong>Copy Signature</strong> button above</li>
+                        <li>Open Gmail and click the gear icon (⚙️) → <strong>See all settings</strong></li>
+                        <li>Scroll down to the <strong>Signature</strong> section</li>
+                        <li>Click <strong>Create new</strong> and give it a name</li>
+                        <li>Paste your signature (Cmd/Ctrl + V) into the signature box</li>
+                        <li>Scroll down and click <strong>Save Changes</strong></li>
+                    </ol>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>🍎 macOS Mail</h3>
+                    <ol>
+                        <li>Click the <strong>Copy Signature</strong> button above</li>
+                        <li>Open Mail app → <strong>Mail</strong> menu → <strong>Settings</strong></li>
+                        <li>Click the <strong>Signatures</strong> tab</li>
+                        <li>Select your email account in the middle column</li>
+                        <li>Click the <strong>+</strong> button to create a new signature</li>
+                        <li>Paste your signature (Cmd + V) into the signature editor</li>
+                        <li>Uncheck "Always match my default message font" if needed</li>
+                    </ol>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>📱 iOS Mail</h3>
+                    <ol>
+                        <li>Click the <strong>Copy Signature</strong> button above</li>
+                        <li>Open <strong>Settings</strong> → <strong>Mail</strong> → <strong>Signature</strong></li>
+                        <li>Select <strong>Per Account</strong> if you have multiple accounts</li>
+                        <li>Tap in the signature field and paste (long-press → Paste)</li>
+                        <li>Your signature is automatically saved</li>
+                    </ol>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>📬 Outlook</h3>
+                    <ol>
+                        <li>Click the <strong>Copy Signature</strong> button above</li>
+                        <li>Open Outlook → <strong>File</strong> → <strong>Options</strong> → <strong>Mail</strong></li>
+                        <li>Click <strong>Signatures</strong> button</li>
+                        <li>Click <strong>New</strong> to create a signature</li>
+                        <li>Paste your signature (Ctrl + V) into the editor</li>
+                        <li>Click <strong>OK</strong> to save</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/signature.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
