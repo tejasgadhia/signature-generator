@@ -2,14 +2,26 @@
 
 A professional email signature generator for Zoho employees. Create beautiful, email-compatible HTML signatures with live preview and multiple styles.
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)
 ![License](https://img.shields.io/badge/license-Internal-green.svg)
+
+**Live Demo**: [https://tejasgadhia.github.io/signature-generator](https://tejasgadhia.github.io/signature-generator)
+
+## What's New (v0.2.0)
+
+- ✅ **Design System**: 370+ CSS design tokens for consistent theming
+- ✅ **Keyboard Accessibility**: Toggle switches now work with Enter/Space keys
+- ✅ **Visual Validation**: Form inputs show red/green borders for invalid/valid states
+- ✅ **Bug Fixes**: Fixed modal memory leak, improved clear button tap targets
 
 ## Features
 
 - **4 Signature Styles**: Classic, Compact, Modern, and Minimal layouts
-- **iOS-Style Toggle Switches**: Professional UI for including/excluding optional fields
+- **iOS-Style Toggle Switches**: Professional UI with full keyboard accessibility
 - **Live Preview**: Real-time updates with light/dark mode toggle
+- **Visual Form Validation**: Immediate feedback with red/green border states
+- **Smart Validation**: Email domain enforcement and flexible phone formatting
+- **URL Cleanup**: Automatic removal of tracking parameters from LinkedIn URLs
 - **Zoho Social Integration**: Include official Zoho social handles with granular control
 - **One-Click Copy**: Copy HTML signature to clipboard
 - **Import Instructions**: Step-by-step guides for Zoho Mail, Gmail, macOS Mail, iOS Mail, and Outlook
@@ -31,11 +43,18 @@ A professional email signature generator for Zoho employees. Create beautiful, e
 - **Name** (required) - Your full name
 - **Job Title** (optional) - Your position at Zoho
 - **Department** (optional) - Your team or department
-- **Email Address** (optional) - Your work email
-- **Phone Number** (optional) - Your contact number
-- **LinkedIn Profile** (optional) - Your LinkedIn URL
+- **Email Address** (optional) - Your work email (must be @zohocorp.com)
+- **Phone Number** (optional) - Your contact number (international formats accepted)
+- **LinkedIn Profile** (optional) - Your LinkedIn URL (tracking parameters auto-removed)
 - **Twitter/X Handle** (optional) - Your Twitter/X handle
 - **Company Website** (optional) - Defaults to zoho.com
+
+### Smart Validation
+
+- **Email**: Must end with `@zohocorp.com` (Zoho employees only)
+- **Phone**: Accepts various formats (+1, +91, etc.), requires 10+ digits
+- **LinkedIn**: Automatically removes `?utm_*` and `?trk=*` tracking parameters
+- **URLs**: Auto-adds `https://` if missing
 
 ## Signature Styles
 
@@ -98,8 +117,31 @@ Works with:
 - ✅ No data collection - zero tracking or cookies
 - ✅ Theme preference stored in localStorage only
 
+## Changelog
+
+### v0.2.0 (January 21, 2026)
+- Design system with 370+ CSS custom property tokens
+- Keyboard-accessible toggle switches (Enter/Space keys)
+- ARIA attributes for screen reader support (`role="switch"`, `aria-checked`)
+- Visual validation feedback (red/green borders on form inputs)
+- Fixed modal focus trap memory leak
+- Improved clear button tap targets (28x28px minimum)
+- Refactored demo page to use design system tokens
+- Replaced all hardcoded colors with semantic design tokens
+
+### v0.1.0 (January 17, 2026)
+- Initial release with 4 signature styles
+- iOS-style toggle switches for optional fields
+- Live preview with dark mode support
+- Zoho social media integration
+- Copy to clipboard functionality
+- Import instructions modal
+- Smart validation (email domain, phone format, URL cleanup)
+- Privacy-first design (100% client-side processing)
+
 ## Future Enhancements
 
+- [ ] Enhanced social media section UI (6 design options in development)
 - [ ] Save/load multiple signature profiles
 - [ ] Export as image (PNG/JPG)
 - [ ] QR code generation
@@ -118,6 +160,6 @@ Internal tool for Zoho employees. Not for public distribution.
 
 ---
 
-**Version**: 0.1.0
-**Release Date**: January 17, 2026
+**Version**: 0.2.0
+**Release Date**: January 21, 2026
 **Repository**: https://github.com/tejasgadhia/signature-generator

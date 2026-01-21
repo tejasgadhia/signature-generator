@@ -7,6 +7,7 @@ const ModalController = {
     modal: null,
     closeButton: null,
     backdrop: null,
+    handleTabKey: null,  // Store reference for cleanup
 
     /**
      * Initialize modal controller
@@ -70,6 +71,12 @@ const ModalController = {
 
         // Restore body scroll
         document.body.style.overflow = '';
+
+        // Clean up focus trap event listener to prevent memory leak
+        if (this.handleTabKey) {
+            document.removeEventListener('keydown', this.handleTabKey);
+            this.handleTabKey = null;
+        }
     },
 
     /**
@@ -92,13 +99,19 @@ const ModalController = {
 
         // Focus first element when modal opens
         setTimeout(() => {
-            firstElement.focus();
+            if (firstElement) {
+                firstElement.focus();
+            }
         }, 100);
 
-        // Trap focus within modal
-        const handleTabKey = (e) => {
+        // Remove any existing handler before adding new one
+        if (this.handleTabKey) {
+            document.removeEventListener('keydown', this.handleTabKey);
+        }
+
+        // Trap focus within modal - store reference for cleanup
+        this.handleTabKey = (e) => {
             if (!this.isOpen()) {
-                document.removeEventListener('keydown', handleTabKey);
                 return;
             }
 
@@ -119,7 +132,7 @@ const ModalController = {
             }
         };
 
-        document.addEventListener('keydown', handleTabKey);
+        document.addEventListener('keydown', this.handleTabKey);
     }
 };
 

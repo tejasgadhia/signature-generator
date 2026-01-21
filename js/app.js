@@ -124,8 +124,8 @@ function setupFieldToggles() {
             input.disabled = !isActive;
         }
 
-        // Listen for clicks
-        toggle.addEventListener('click', () => {
+        // Handle toggle action (shared between click and keyboard)
+        const handleToggle = () => {
             const isNowActive = !toggle.classList.contains('active');
 
             // Toggle active class
@@ -134,6 +134,9 @@ function setupFieldToggles() {
             } else {
                 toggle.classList.remove('active');
             }
+
+            // Update ARIA state for accessibility
+            toggle.setAttribute('aria-checked', isNowActive);
 
             // Update state
             AppState.fieldToggles[fieldName] = isNowActive;
@@ -151,6 +154,17 @@ function setupFieldToggles() {
             }
 
             updatePreview();
+        };
+
+        // Listen for clicks
+        toggle.addEventListener('click', handleToggle);
+
+        // Listen for keyboard events (Enter and Space)
+        toggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleToggle();
+            }
         });
     });
 }

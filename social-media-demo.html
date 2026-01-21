@@ -4,30 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media Section Comparison</title>
+    <!-- Import Design System Tokens -->
+    <link rel="stylesheet" href=".ui-design/tokens/tokens.css">
     <style>
+        /* Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --zoho-red: #E42527;
-            --color-bg: #ffffff;
-            --color-surface: #f5f5f5;
-            --color-border: #e0e0e0;
-            --color-text-primary: #333333;
-            --color-text-secondary: #666666;
-            --spacing-sm: 1rem;
-            --spacing-md: 1.5rem;
-            --radius-md: 10px;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-            padding: 2rem;
-            line-height: 1.6;
+            font-family: var(--font-family-sans);
+            background: linear-gradient(135deg, var(--color-neutral-100) 0%, var(--color-bg-elevated) 100%);
+            padding: var(--spacing-8);
+            line-height: var(--line-height-normal);
         }
 
         .container {
@@ -37,59 +28,50 @@
 
         h1 {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: var(--spacing-8);
             color: var(--color-text-primary);
         }
 
         .comparison-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
         }
 
         .option-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: var(--radius-md);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: var(--color-bg-elevated);
+            padding: var(--spacing-6);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
         }
 
         .option-card h2 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--zoho-red);
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-4);
+            color: var(--color-primary-500);
             border-bottom: 2px solid var(--color-border);
-            padding-bottom: 0.5rem;
+            padding-bottom: var(--spacing-2);
         }
 
         .divider {
             height: 1px;
             background: var(--color-border);
-            margin: 1.5rem 0;
+            margin: var(--spacing-6) 0;
         }
 
         .section-title {
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
             color: var(--color-text-primary);
-            margin-bottom: 1rem;
+            margin-bottom: var(--spacing-4);
         }
 
-        /* Option 1: Current Design (Checkbox with Pills) */
-        .social-header-1 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
+        /* Shared checkbox/toggle styles */
         .checkbox-option {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-2);
             cursor: pointer;
         }
 
@@ -97,45 +79,46 @@
             width: 18px;
             height: 18px;
             cursor: pointer;
-            accent-color: var(--zoho-red);
+            accent-color: var(--color-primary-500);
         }
 
         .social-display-toggle {
             display: flex;
             gap: 4px;
             background: var(--color-surface);
-            border-radius: 6px;
+            border-radius: var(--radius-md);
             padding: 2px;
         }
 
         .toggle-option {
             padding: 4px 12px;
-            font-size: 0.85rem;
+            font-size: var(--font-size-sm);
             cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
+            border-radius: var(--radius-sm);
+            transition: all var(--duration-fast) var(--ease-default);
+            color: var(--color-text-secondary);
         }
 
         .toggle-option.active {
-            background: var(--zoho-red);
-            color: white;
-            font-weight: 500;
+            background: var(--color-primary-500);
+            color: var(--color-text-inverse);
+            font-weight: var(--font-weight-medium);
         }
 
         .social-channels {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
+            gap: var(--spacing-2);
         }
 
         .social-channel-option {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
+            gap: var(--spacing-2);
+            padding: var(--spacing-2);
             cursor: pointer;
-            border-radius: 6px;
-            transition: background 0.2s;
+            border-radius: var(--radius-md);
+            transition: background var(--duration-fast) var(--ease-default);
         }
 
         .social-channel-option:hover {
@@ -146,13 +129,23 @@
             width: 16px;
             height: 16px;
             cursor: pointer;
-            accent-color: var(--zoho-red);
+            accent-color: var(--color-primary-500);
         }
 
         .social-icon {
-            font-size: 1.2rem;
+            font-size: var(--font-size-lg);
             width: 24px;
             text-align: center;
+        }
+
+        /* Option 1: Current Design (Checkbox with Pills) */
+        .social-header-1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-2);
+            margin-bottom: var(--spacing-4);
         }
 
         /* Option 2: Toggle Switch with Dropdown */
@@ -163,12 +156,12 @@
             background: var(--color-border);
             border-radius: 100px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background var(--duration-slow) var(--ease-default);
             flex-shrink: 0;
         }
 
         .toggle-switch.active {
-            background: var(--zoho-red);
+            background: var(--color-primary-500);
         }
 
         .toggle-switch::before {
@@ -178,10 +171,10 @@
             left: 3px;
             width: 20px;
             height: 20px;
-            background: white;
+            background: var(--color-bg-elevated);
             border-radius: 50%;
-            transition: transform 0.3s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform var(--duration-slow) var(--ease-default);
+            box-shadow: var(--shadow-sm);
         }
 
         .toggle-switch.active::before {
@@ -189,16 +182,16 @@
         }
 
         .social-dropdown {
-            margin-top: 1rem;
-            padding: 1rem;
+            margin-top: var(--spacing-4);
+            padding: var(--spacing-4);
             background: var(--color-surface);
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
         }
 
         .social-dropdown-label {
-            font-size: 0.875rem;
+            font-size: var(--font-size-sm);
             color: var(--color-text-secondary);
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--spacing-2);
             display: block;
         }
 
@@ -206,163 +199,163 @@
         .social-cards {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-            margin-top: 1rem;
+            gap: var(--spacing-3);
+            margin-top: var(--spacing-4);
         }
 
         .social-card {
-            padding: 1rem;
+            padding: var(--spacing-4);
             border: 2px solid var(--color-border);
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all var(--duration-slow) var(--ease-default);
             text-align: center;
         }
 
         .social-card:hover {
-            border-color: var(--zoho-red);
-            background: #fff5f5;
+            border-color: var(--color-primary-500);
+            background: var(--color-primary-50);
         }
 
         .social-card.selected {
-            border-color: var(--zoho-red);
-            background: #fff5f5;
+            border-color: var(--color-primary-500);
+            background: var(--color-primary-50);
             box-shadow: 0 0 0 2px rgba(228, 37, 39, 0.2);
         }
 
         .social-card-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--spacing-2);
         }
 
         .social-card-name {
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
         }
 
         /* Option 4: Horizontal Pills */
         .social-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-4);
         }
 
         .social-pill {
-            padding: 0.5rem 1rem;
+            padding: var(--spacing-2) var(--spacing-4);
             border: 2px solid var(--color-border);
             border-radius: 100px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all var(--duration-slow) var(--ease-default);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.875rem;
+            gap: var(--spacing-2);
+            font-size: var(--font-size-sm);
         }
 
         .social-pill:hover {
-            border-color: var(--zoho-red);
+            border-color: var(--color-primary-500);
         }
 
         .social-pill.selected {
-            background: var(--zoho-red);
-            border-color: var(--zoho-red);
-            color: white;
+            background: var(--color-primary-500);
+            border-color: var(--color-primary-500);
+            color: var(--color-text-inverse);
         }
 
         /* Option 5: Compact Inline */
         .social-inline {
-            margin-top: 1rem;
+            margin-top: var(--spacing-4);
         }
 
         .social-inline-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.75rem;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-3);
         }
 
         .social-inline-label {
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
             color: var(--color-text-secondary);
         }
 
         .social-inline-icons {
             display: flex;
-            gap: 0.5rem;
+            gap: var(--spacing-2);
         }
 
         .social-icon-btn {
             width: 36px;
             height: 36px;
             border: 2px solid var(--color-border);
-            border-radius: 8px;
-            background: white;
+            border-radius: var(--radius-lg);
+            background: var(--color-bg-elevated);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s;
+            font-size: var(--font-size-lg);
+            transition: all var(--duration-slow) var(--ease-default);
         }
 
         .social-icon-btn:hover {
-            border-color: var(--zoho-red);
+            border-color: var(--color-primary-500);
             transform: scale(1.1);
         }
 
         .social-icon-btn.selected {
-            background: var(--zoho-red);
-            border-color: var(--zoho-red);
-            color: white;
+            background: var(--color-primary-500);
+            border-color: var(--color-primary-500);
+            color: var(--color-text-inverse);
         }
 
         /* Option 6: List with Toggle Switches */
         .social-list {
-            margin-top: 1rem;
+            margin-top: var(--spacing-4);
         }
 
         .social-list-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
+            padding: var(--spacing-3) var(--spacing-4);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-2);
             background: var(--color-surface);
         }
 
         .social-list-left {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: var(--spacing-3);
         }
 
         .social-list-icon {
-            font-size: 1.5rem;
+            font-size: var(--font-size-2xl);
             width: 32px;
             text-align: center;
         }
 
         .social-list-name {
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
         }
 
         .note {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-            border-radius: 4px;
+            margin-top: var(--spacing-8);
+            padding: var(--spacing-4);
+            background: var(--color-success-light);
+            border-left: 4px solid var(--color-success);
+            border-radius: var(--radius-sm);
             color: #155724;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Social Media Section Comparison - Pick Your Favorite! 🎨</h1>
+        <h1>Social Media Section Comparison - Pick Your Favorite!</h1>
 
         <div class="comparison-grid">
             <!-- Option 1: Current Design -->
@@ -385,7 +378,7 @@
                 <div class="social-channels">
                     <label class="social-channel-option">
                         <input type="checkbox" checked>
-                        <span class="social-icon">𝕏</span>
+                        <span class="social-icon">X</span>
                         <span>Twitter/X</span>
                     </label>
                     <label class="social-channel-option">
@@ -400,7 +393,7 @@
                     </label>
                     <label class="social-channel-option">
                         <input type="checkbox" checked>
-                        <span class="social-icon">📸</span>
+                        <span class="social-icon">IG</span>
                         <span>Instagram</span>
                     </label>
                 </div>
@@ -422,7 +415,7 @@
                     <div class="social-channels">
                         <label class="social-channel-option">
                             <input type="checkbox" checked>
-                            <span class="social-icon">𝕏</span>
+                            <span class="social-icon">X</span>
                             <span>Twitter/X</span>
                         </label>
                         <label class="social-channel-option">
@@ -437,7 +430,7 @@
                         </label>
                         <label class="social-channel-option">
                             <input type="checkbox" checked>
-                            <span class="social-icon">📸</span>
+                            <span class="social-icon">IG</span>
                             <span>Instagram</span>
                         </label>
                     </div>
@@ -463,7 +456,7 @@
 
                 <div class="social-cards">
                     <div class="social-card selected">
-                        <div class="social-card-icon">𝕏</div>
+                        <div class="social-card-icon">X</div>
                         <div class="social-card-name">Twitter/X</div>
                     </div>
                     <div class="social-card selected">
@@ -475,7 +468,7 @@
                         <div class="social-card-name">Facebook</div>
                     </div>
                     <div class="social-card selected">
-                        <div class="social-card-icon">📸</div>
+                        <div class="social-card-icon">IG</div>
                         <div class="social-card-name">Instagram</div>
                     </div>
                 </div>
@@ -494,11 +487,11 @@
                 <div class="divider"></div>
                 <div class="section-title">Zoho Social Media</div>
 
-                <p style="font-size: 0.875rem; color: #666; margin-bottom: 0.5rem;">Click to toggle channels:</p>
+                <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 0.5rem;">Click to toggle channels:</p>
 
                 <div class="social-pills">
                     <div class="social-pill selected">
-                        <span class="social-icon">𝕏</span>
+                        <span class="social-icon">X</span>
                         <span>Twitter/X</span>
                     </div>
                     <div class="social-pill selected">
@@ -510,7 +503,7 @@
                         <span>Facebook</span>
                     </div>
                     <div class="social-pill selected">
-                        <span class="social-icon">📸</span>
+                        <span class="social-icon">IG</span>
                         <span>Instagram</span>
                     </div>
                 </div>
@@ -534,10 +527,10 @@
                         <span class="social-inline-label">Select channels:</span>
                     </div>
                     <div class="social-inline-icons">
-                        <button class="social-icon-btn selected">𝕏</button>
+                        <button class="social-icon-btn selected">X</button>
                         <button class="social-icon-btn selected">in</button>
                         <button class="social-icon-btn selected">f</button>
-                        <button class="social-icon-btn selected">📸</button>
+                        <button class="social-icon-btn selected">IG</button>
                     </div>
                 </div>
 
@@ -558,7 +551,7 @@
                 <div class="social-list">
                     <div class="social-list-item">
                         <div class="social-list-left">
-                            <span class="social-list-icon">𝕏</span>
+                            <span class="social-list-icon">X</span>
                             <span class="social-list-name">Twitter/X</span>
                         </div>
                         <div class="toggle-switch active"></div>
@@ -579,7 +572,7 @@
                     </div>
                     <div class="social-list-item">
                         <div class="social-list-left">
-                            <span class="social-list-icon">📸</span>
+                            <span class="social-list-icon">IG</span>
                             <span class="social-list-name">Instagram</span>
                         </div>
                         <div class="toggle-switch active"></div>
@@ -596,13 +589,13 @@
         </div>
 
         <div class="note">
-            <strong>🎯 Try them all!</strong> Each design offers different benefits:<br>
-            • <strong>Option 1</strong>: Current - familiar, compact<br>
-            • <strong>Option 2</strong>: Toggle switch - clearer hierarchy<br>
-            • <strong>Option 3</strong>: Cards - visual, easy to scan<br>
-            • <strong>Option 4</strong>: Pills - minimal, one-click toggle<br>
-            • <strong>Option 5</strong>: Inline - most compact, icon-focused<br>
-            • <strong>Option 6</strong>: List - iOS-style, consistent with field toggles
+            <strong>Try them all!</strong> Each design offers different benefits:<br>
+            - <strong>Option 1</strong>: Current - familiar, compact<br>
+            - <strong>Option 2</strong>: Toggle switch - clearer hierarchy<br>
+            - <strong>Option 3</strong>: Cards - visual, easy to scan<br>
+            - <strong>Option 4</strong>: Pills - minimal, one-click toggle<br>
+            - <strong>Option 5</strong>: Inline - most compact, icon-focused<br>
+            - <strong>Option 6</strong>: List - iOS-style, consistent with field toggles
         </div>
     </div>
 </body>
