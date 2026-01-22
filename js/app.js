@@ -149,6 +149,42 @@ function setupSmartTitleCase() {
     });
 }
 
+/**
+ * Generate tracked zoho.com URL with UTM parameters
+ */
+function getTrackedWebsiteURL() {
+    const emailPrefixInput = document.getElementById('email-prefix');
+    const emailPrefix = emailPrefixInput?.value.trim() || 'zoho-employee';
+    const baseURL = 'https://www.zoho.com';
+
+    // Build UTM parameters
+    const params = new URLSearchParams({
+        utm_source: 'email-signature',
+        utm_medium: 'signature',
+        utm_campaign: emailPrefix
+    });
+
+    return `${baseURL}?${params.toString()}`;
+}
+
+/**
+ * Setup website URL tracking
+ */
+function setupWebsiteTracking() {
+    const emailPrefixInput = document.getElementById('email-prefix');
+
+    if (emailPrefixInput) {
+        // Update tracked URL when email changes
+        emailPrefixInput.addEventListener('input', () => {
+            AppState.formData.website = getTrackedWebsiteURL();
+            updatePreview();
+        });
+    }
+
+    // Set initial tracked URL
+    AppState.formData.website = getTrackedWebsiteURL();
+}
+
 // DOM elements
 const elements = {
     form: document.getElementById('signatureForm'),
@@ -202,6 +238,7 @@ function init() {
     setupImportButtons();
     setupFormatLockIcons();   // Smart title case lock icons
     setupSmartTitleCase();    // Smart title case formatting
+    setupWebsiteTracking();   // URL tracking for zoho.com
 
     // Initial preview update
     updatePreview();
@@ -306,10 +343,25 @@ function setupFormListeners() {
         });
     }
 
+    // Bookings ID handler
+    const bookingsIdInput = document.getElementById('bookings-id');
+    if (bookingsIdInput) {
+        bookingsIdInput.addEventListener('input', (e) => {
+            const bookingsId = e.target.value.trim();
+            AppState.formData.bookings = bookingsId ? `https://bookings.zohocorp.com/#/${bookingsId}` : '';
+            updatePreview();
+        });
+
+        bookingsIdInput.addEventListener('blur', (e) => {
+            validateField(e.target);
+        });
+    }
+
     textInputs.forEach(input => {
-        // Skip special handling for name, email-prefix, linkedin-username, twitter-username (handled above)
+        // Skip special handling for name, email-prefix, linkedin-username, twitter-username, bookings-id (handled above)
         if (input.id === 'name' || input.id === 'email-prefix' ||
-            input.id === 'linkedin-username' || input.id === 'twitter-username') {
+            input.id === 'linkedin-username' || input.id === 'twitter-username' ||
+            input.id === 'bookings-id') {
             return;
         }
 
@@ -346,6 +398,8 @@ function setupFieldToggles() {
             inputId = 'linkedin-username';
         } else if (fieldName === 'twitter') {
             inputId = 'twitter-username';
+        } else if (fieldName === 'bookings') {
+            inputId = 'bookings-id';
         }
         const input = document.getElementById(inputId);
 
@@ -393,6 +447,10 @@ function setupFieldToggles() {
                         // For Twitter, add @ to username
                         const username = input.value.trim();
                         AppState.formData[fieldName] = username ? `@${username}` : '';
+                    } else if (fieldName === 'bookings') {
+                        // For Bookings, construct full URL from ID
+                        const bookingsId = input.value.trim();
+                        AppState.formData[fieldName] = bookingsId ? `https://bookings.zohocorp.com/#/${bookingsId}` : '';
                     } else {
                         AppState.formData[fieldName] = input.value.trim();
                     }

@@ -24,12 +24,12 @@
                 <!-- Quick Start -->
                 <div class="quick-start">
                     <h3 class="quick-start-title">Quick Start:</h3>
-                    <ul>
+                    <ol>
                         <li>Fill in your information</li>
                         <li>Choose a signature style</li>
                         <li>Toggle dark mode to preview</li>
                         <li>Copy and import to email</li>
-                    </ul>
+                    </ol>
                 </div>
 
                 <hr class="sidebar-separator">
@@ -174,16 +174,16 @@
                     </div>
                 </div>
 
-                <!-- Twitter/X Handle (Optional with toggle) -->
+                <!-- X Handle (Optional with toggle) -->
                 <div class="input-group">
                     <label for="twitter-username">
-                        Twitter/X Handle
-                        <span class="info-icon" data-tooltip="Enter just your handle (e.g., sarahmitchell). Full URL: twitter.com/username">ⓘ</span>
+                        X Handle
+                        <span class="info-icon" data-tooltip="Enter just your handle (e.g., sarahmitchell). Full URL: x.com/username">ⓘ</span>
                     </label>
                     <div class="input-wrapper">
-                        <div class="toggle-switch active" data-field="twitter" role="switch" aria-checked="true" aria-label="Toggle Twitter handle" tabindex="0"></div>
+                        <div class="toggle-switch active" data-field="twitter" role="switch" aria-checked="true" aria-label="Toggle X handle" tabindex="0"></div>
                         <div class="url-prefix-input">
-                            <span class="url-prefix">twitter.com/</span>
+                            <span class="url-prefix">x.com/</span>
                             <input type="text"
                                    id="twitter-username"
                                    name="twitter-username"
@@ -194,15 +194,23 @@
                     </div>
                 </div>
 
-                <!-- Zoho Bookings Link (NEW - Optional with toggle and validation) -->
+                <!-- Zoho Bookings Link (Optional with toggle) -->
                 <div class="input-group">
-                    <label for="bookings">
+                    <label for="bookings-id">
                         Zoho Bookings Link
-                        <span class="info-icon" data-tooltip="For scheduling meetings. Enter your Bookings URL.">ⓘ</span>
+                        <span class="info-icon" data-tooltip="Enter your Bookings ID or custom slug. Full URL: bookings.zohocorp.com/#/your-id">ⓘ</span>
                     </label>
                     <div class="input-wrapper">
                         <div class="toggle-switch" data-field="bookings" role="switch" aria-checked="false" aria-label="Toggle Zoho Bookings link" tabindex="0"></div>
-                        <input type="url" id="bookings" name="bookings" placeholder="https://zoho.com/bookings/yourname" disabled>
+                        <div class="url-prefix-input bookings-disabled">
+                            <span class="url-prefix">bookings.zohocorp.com/#/</span>
+                            <input type="text"
+                                   id="bookings-id"
+                                   name="bookings-id"
+                                   placeholder="your-booking-id"
+                                   class="url-username-field"
+                                   disabled>
+                        </div>
                         <span class="validation-icon" style="display: none;"></span>
                     </div>
                 </div>
@@ -220,7 +228,7 @@
 
                 <!-- Zoho Social Media -->
                 <div class="section-title">Zoho Social Media</div>
-                <p class="section-hint">Drag to reorder • Click to toggle • Space + Arrows for keyboard</p>
+                <p class="section-hint">Customize your links: Click to toggle on/off • Drag to reorder</p>
 
                 <div class="social-compact-container">
                     <!-- Master Toggle -->
@@ -233,10 +241,10 @@
 
                     <!-- Horizontal Compact Toggles -->
                     <div class="social-compact-grid" id="socialCompactGrid">
-                        <div class="social-compact-card active" draggable="true" data-channel="twitter" role="button" tabindex="0" aria-label="Twitter/X - Click to toggle, drag to reorder">
+                        <div class="social-compact-card active" draggable="true" data-channel="twitter" role="button" tabindex="0" aria-label="X - Click to toggle, drag to reorder">
                             <span class="social-drag-handle">⋮⋮</span>
                             <span class="social-compact-icon">𝕏</span>
-                            <span class="social-compact-label">Twitter</span>
+                            <span class="social-compact-label">X</span>
                         </div>
                         <div class="social-compact-card active" draggable="true" data-channel="linkedin" role="button" tabindex="0" aria-label="LinkedIn - Click to toggle, drag to reorder">
                             <span class="social-drag-handle">⋮⋮</span>

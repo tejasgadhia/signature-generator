@@ -124,9 +124,10 @@ body {
     margin-bottom: 12px;
 }
 
-.quick-start ul {
+.quick-start ol {
     list-style: none;
     padding: 0;
+    counter-reset: quick-start-counter;
 }
 
 .quick-start li {
@@ -134,12 +135,13 @@ body {
     color: #333333;
     line-height: 1.6;
     margin-bottom: 8px;
-    padding-left: 16px;
+    padding-left: 20px;
     position: relative;
+    counter-increment: quick-start-counter;
 }
 
 .quick-start li::before {
-    content: '•';
+    content: counter(quick-start-counter) ".";
     position: absolute;
     left: 0;
     color: #E42527;
@@ -443,13 +445,12 @@ body {
     content: 'Aa';  /* Always show "Aa" to indicate title case */
 }
 
-/* Lock icon tooltip */
+/* Lock icon tooltip - appears ABOVE the icon to avoid clipping */
 .format-lock-icon:hover::after {
     content: 'Title Case OFF';
     position: absolute;
-    right: 0;
-    top: 100%;
-    margin-top: 6px;
+    bottom: calc(100% + 8px);
+    right: -4px;
     background: #333;
     color: white;
     padding: 6px 10px;
@@ -457,12 +458,12 @@ body {
     font-size: 11px;
     font-weight: 400;
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 10000;
+    pointer-events: none;
 }
 
 .format-lock-icon.locked:hover::after {
     content: 'Title Case ON - auto-capitalizes';
-}
 }
 
 .input-wrapper input:focus {
@@ -927,123 +928,116 @@ body {
     margin-bottom: var(--spacing-2);
 }
 
-/* Social Media Compact Grid */
+/* Social Media Compact Grid - Split button style like Mail/Desk buttons */
 .social-compact-container {
     margin-top: 16px;
 }
 
 .social-compact-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);  /* 2 columns for horizontal cards */
+    grid-template-columns: repeat(4, 1fr);  /* Single row with all 4 icons */
     gap: 8px;
     margin-top: 16px;
 }
 
+/* Split button style: white logo area + colored text area */
 .social-compact-card {
     width: 100%;
-    height: 44px;
+    height: 36px;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0;
+    align-items: stretch;
     padding: 0;
     border: none;
-    border-radius: 22px;  /* Pill shape */
-    background: linear-gradient(to right, #F5F5F5 0%, #FAFAFA 100%);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-radius: 6px;
+    overflow: hidden;
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
     user-select: none;
-    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    opacity: 0.5;  /* Disabled by default */
 }
 
 .social-compact-card:hover {
     transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
 .social-compact-card.active {
-    border-color: #E42527;
-    background: #FFF5F5;
+    opacity: 1;  /* Full opacity when enabled */
 }
 
 .social-compact-card.dragging {
-    opacity: 0.5;
+    opacity: 0.3;
     transform: scale(0.95);
 }
 
+/* Drag handle - hidden for cleaner look in 4-column layout */
 .social-drag-handle {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 12px;
-    color: #BBB;
-    opacity: 0;
-    line-height: 1;
-    transition: opacity 0.2s ease;
+    display: none;
 }
 
-.social-compact-card:hover .social-drag-handle {
-    opacity: 0.6;
-}
-
+/* Icon in white box on left */
 .social-compact-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    margin: 4px;
-    border-radius: 10px;
-    background: white;
-    font-size: 16px;
+    width: 32px;
+    height: 100%;
+    background: #FFFFFF;
+    font-size: 12px;
     font-weight: bold;
     flex-shrink: 0;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    border-right: 1px solid rgba(0,0,0,0.1);
 }
 
+/* Label in colored area on right */
 .social-compact-label {
     flex: 1;
-    font-size: 12px;
-    color: #666;
-    font-weight: 500;
-    padding-left: 8px;
-}
-
-/* Colored accent bar on right */
-.social-compact-card::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: #E0E0E0;
-    border-radius: 0 22px 22px 0;
-}
-
-.social-compact-card.active .social-compact-label {
-    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #FFFFFF;
     font-weight: 600;
+    padding: 0 6px;
+    background: #999;  /* Default gray */
+    white-space: nowrap;
 }
 
-/* Brand-specific accent colors */
-.social-compact-card[data-channel="facebook"]::after { background: #1877F2; }
-.social-compact-card[data-channel="linkedin"]::after { background: #0A66C2; }
-.social-compact-card[data-channel="twitter"]::after { background: #000000; }
-.social-compact-card[data-channel="instagram"]::after { background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); }
-
-/* Active state styling */
-.social-compact-card.active {
-    background: white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* Brand-specific background colors for the text area */
+.social-compact-card[data-channel="twitter"] .social-compact-label {
+    background: #000000;
 }
 
-.social-compact-card.active .social-compact-icon {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.social-compact-card[data-channel="linkedin"] .social-compact-label {
+    background: #0A66C2;
+}
+
+.social-compact-card[data-channel="facebook"] .social-compact-label {
+    background: #1877F2;
+}
+
+.social-compact-card[data-channel="instagram"] .social-compact-label {
+    background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF);
+}
+
+/* Brand-specific icon colors */
+.social-compact-card[data-channel="twitter"] .social-compact-icon {
+    color: #000000;
+}
+
+.social-compact-card[data-channel="linkedin"] .social-compact-icon {
+    color: #0A66C2;
+}
+
+.social-compact-card[data-channel="facebook"] .social-compact-icon {
+    color: #1877F2;
+}
+
+.social-compact-card[data-channel="instagram"] .social-compact-icon {
+    color: #DD2A7B;
 }
 
 /* Master toggle styling */
@@ -1107,36 +1101,37 @@ body {
     cursor: help;
 }
 
+/* Info icon tooltip - appears ABOVE the icon to avoid clipping */
 .info-icon:hover::after,
 .info-icon:focus::after {
     content: attr(data-tooltip);
     position: absolute;
-    right: 0;
-    top: 100%;
-    margin-top: 8px;
+    bottom: calc(100% + 10px);
+    right: -10px;
     background: #333;
     color: white;
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-radius: 6px;
     font-size: 12px;
     white-space: normal;
     line-height: 1.4;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    min-width: 200px;
-    max-width: 280px;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    min-width: 220px;
+    max-width: 300px;
+    pointer-events: none;
 }
 
+/* Arrow pointing down toward the icon */
 .info-icon:hover::before,
 .info-icon:focus::before {
     content: '';
     position: absolute;
-    right: 4px;
-    top: 100%;
-    margin-top: 2px;
+    bottom: calc(100% + 4px);
+    right: 3px;
     border: 6px solid transparent;
-    border-bottom-color: #333;
-    z-index: 1001;
+    border-top-color: #333;
+    z-index: 10001;
 }
 
 /* URL Prefix Input (LinkedIn, Twitter, etc.) */
