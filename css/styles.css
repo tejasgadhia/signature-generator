@@ -443,6 +443,28 @@ body {
     content: 'Aa';  /* Always show "Aa" to indicate title case */
 }
 
+/* Lock icon tooltip */
+.format-lock-icon:hover::after {
+    content: 'Title Case OFF';
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 6px;
+    background: #333;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 400;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+.format-lock-icon.locked:hover::after {
+    content: 'Title Case ON - auto-capitalizes';
+}
+}
+
 .input-wrapper input:focus {
     outline: none;
     border-color: var(--zoho-red);
@@ -919,26 +941,27 @@ body {
 
 .social-compact-card {
     width: 100%;
-    height: 48px;  /* Shorter for horizontal layout */
+    height: 44px;
     display: flex;
-    flex-direction: row;  /* Horizontal: icon left, label right */
+    flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 8px;
-    padding: 0 12px;
-    border: 1px solid #E0E0E0;
-    border-radius: 8px;
-    background: #FFFFFF;
+    gap: 0;
+    padding: 0;
+    border: none;
+    border-radius: 22px;  /* Pill shape */
+    background: linear-gradient(to right, #F5F5F5 0%, #FAFAFA 100%);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
     user-select: none;
+    overflow: hidden;
 }
 
 .social-compact-card:hover {
-    border-color: #CCCCCC;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
 }
 
 .social-compact-card.active {
@@ -953,29 +976,74 @@ body {
 
 .social-drag-handle {
     position: absolute;
-    right: 8px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 10px;
-    color: #999;
-    opacity: 0.4;
+    font-size: 12px;
+    color: #BBB;
+    opacity: 0;
     line-height: 1;
+    transition: opacity 0.2s ease;
+}
+
+.social-compact-card:hover .social-drag-handle {
+    opacity: 0.6;
 }
 
 .social-compact-icon {
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 4px;
+    border-radius: 10px;
+    background: white;
+    font-size: 16px;
     font-weight: bold;
     flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .social-compact-label {
+    flex: 1;
     font-size: 12px;
     color: #666;
     font-weight: 500;
+    padding-left: 8px;
+}
+
+/* Colored accent bar on right */
+.social-compact-card::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #E0E0E0;
+    border-radius: 0 22px 22px 0;
 }
 
 .social-compact-card.active .social-compact-label {
-    color: #E42527;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Brand-specific accent colors */
+.social-compact-card[data-channel="facebook"]::after { background: #1877F2; }
+.social-compact-card[data-channel="linkedin"]::after { background: #0A66C2; }
+.social-compact-card[data-channel="twitter"]::after { background: #000000; }
+.social-compact-card[data-channel="instagram"]::after { background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); }
+
+/* Active state styling */
+.social-compact-card.active {
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.social-compact-card.active .social-compact-icon {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* Master toggle styling */
@@ -1040,12 +1108,12 @@ body {
 }
 
 .info-icon:hover::after,
-.input-group:focus-within .info-icon::after {
+.info-icon:focus::after {
     content: attr(data-tooltip);
     position: absolute;
-    left: 520px;  /* Position at right edge of form */
-    top: 50%;
-    transform: translateY(-50%);
+    right: 0;
+    top: 100%;
+    margin-top: 8px;
     background: #333;
     color: white;
     padding: 8px 12px;
@@ -1056,18 +1124,18 @@ body {
     z-index: 1000;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     min-width: 200px;
-    max-width: 300px;
+    max-width: 280px;
 }
 
 .info-icon:hover::before,
-.input-group:focus-within .info-icon::before {
+.info-icon:focus::before {
     content: '';
     position: absolute;
-    left: 512px;  /* Arrow before tooltip box */
-    top: 50%;
-    transform: translateY(-50%);
+    right: 4px;
+    top: 100%;
+    margin-top: 2px;
     border: 6px solid transparent;
-    border-right-color: #333;
+    border-bottom-color: #333;
     z-index: 1001;
 }
 
