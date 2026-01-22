@@ -46,10 +46,18 @@ body {
 
 /* Sidebar */
 .sidebar {
+    display: flex;
+    flex-direction: column;
     background: #FAFAFA;
-    padding: 24px;
-    overflow-y: auto;
     border-right: 1px solid #E0E0E0;
+    overflow: hidden;  /* Changed from overflow-y: auto */
+    height: 100vh;     /* Ensure full height */
+}
+
+.sidebar-scrollable {
+    flex: 1;               /* Take all available space */
+    overflow-y: auto;      /* Only this section scrolls */
+    padding: 24px;
 }
 
 .sidebar-logo {
@@ -74,15 +82,16 @@ body {
     line-height: 1.5;
 }
 
-/* Disclaimer Box */
+/* Disclaimer Box (pinned to bottom) */
 .disclaimer-box {
+    flex-shrink: 0;        /* Never shrink */
     background: #F9B21D;
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 24px;
+    padding: 16px 24px;    /* Horizontal padding matches sidebar */
+    margin: 0;             /* Remove margin-bottom */
     display: flex;
     gap: 12px;
     align-items: flex-start;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);  /* Subtle separator */
 }
 
 .disclaimer-icon {

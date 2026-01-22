@@ -11,66 +11,70 @@
     <div class="layout-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-branding">
-                <img src="https://www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-web.svg"
-                     alt="Zoho Logo"
-                     class="sidebar-logo">
-                <h1 class="sidebar-title">Email Signature Generator</h1>
-                <p class="sidebar-subtitle">Create a professional email signature for your Zoho account</p>
-            </div>
-
-            <!-- Quick Start -->
-            <div class="quick-start">
-                <h3 class="quick-start-title">Quick Start:</h3>
-                <ul>
-                    <li>Fill in your information</li>
-                    <li>Choose a signature style</li>
-                    <li>Toggle dark mode to preview</li>
-                    <li>Copy and import to email</li>
-                </ul>
-            </div>
-
-            <hr class="sidebar-separator">
-
-            <!-- Import Instructions -->
-            <div class="import-instructions">
-                <h3 class="import-section-title">Import Instructions</h3>
-
-                <button class="import-btn import-btn-split import-btn-zoho-mail" data-client="zoho-mail">
-                    <span class="import-btn-logo-wrapper">
-                        <img src="assets/mail-full.svg" alt="" class="import-btn-logo">
-                    </span>
-                    <span class="import-btn-text">Zoho Mail</span>
-                </button>
-
-                <button class="import-btn import-btn-split import-btn-zoho-desk" data-client="zoho-desk">
-                    <span class="import-btn-logo-wrapper">
-                        <img src="assets/desk-full.svg" alt="" class="import-btn-logo">
-                    </span>
-                    <span class="import-btn-text">Zoho Desk</span>
-                </button>
-
-                <div class="import-section-divider">
-                    <span>Other Email Clients</span>
+            <!-- Scrollable content wrapper -->
+            <div class="sidebar-scrollable">
+                <div class="sidebar-branding">
+                    <img src="https://www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-web.svg"
+                         alt="Zoho Logo"
+                         class="sidebar-logo">
+                    <h1 class="sidebar-title">Email Signature Generator</h1>
+                    <p class="sidebar-subtitle">Create a professional email signature for your Zoho account</p>
                 </div>
 
-                <button class="import-btn import-btn-secondary" data-client="gmail">
-                    <img src="assets/gmail-logo.svg" alt="" class="import-btn-logo">
-                    Gmail
-                </button>
+                <!-- Quick Start -->
+                <div class="quick-start">
+                    <h3 class="quick-start-title">Quick Start:</h3>
+                    <ul>
+                        <li>Fill in your information</li>
+                        <li>Choose a signature style</li>
+                        <li>Toggle dark mode to preview</li>
+                        <li>Copy and import to email</li>
+                    </ul>
+                </div>
 
-                <button class="import-btn import-btn-secondary" data-client="apple-mail">
-                    <img src="assets/apple-mail-logo.svg" alt="" class="import-btn-logo">
-                    Apple Mail
-                </button>
+                <hr class="sidebar-separator">
 
-                <button class="import-btn import-btn-secondary" data-client="outlook">
-                    <img src="assets/outlook-logo.svg" alt="" class="import-btn-logo">
-                    Outlook
-                </button>
+                <!-- Import Instructions -->
+                <div class="import-instructions">
+                    <h3 class="import-section-title">Import Instructions</h3>
+
+                    <button class="import-btn import-btn-split import-btn-zoho-mail" data-client="zoho-mail">
+                        <span class="import-btn-logo-wrapper">
+                            <img src="assets/mail-full.svg" alt="" class="import-btn-logo">
+                        </span>
+                        <span class="import-btn-text">Zoho Mail</span>
+                    </button>
+
+                    <button class="import-btn import-btn-split import-btn-zoho-desk" data-client="zoho-desk">
+                        <span class="import-btn-logo-wrapper">
+                            <img src="assets/desk-full.svg" alt="" class="import-btn-logo">
+                        </span>
+                        <span class="import-btn-text">Zoho Desk</span>
+                    </button>
+
+                    <div class="import-section-divider">
+                        <span>Other Email Clients</span>
+                    </div>
+
+                    <button class="import-btn import-btn-secondary" data-client="gmail">
+                        <img src="assets/gmail-logo.svg" alt="" class="import-btn-logo">
+                        Gmail
+                    </button>
+
+                    <button class="import-btn import-btn-secondary" data-client="apple-mail">
+                        <img src="assets/apple-mail-logo.svg" alt="" class="import-btn-logo">
+                        Apple Mail
+                    </button>
+
+                    <button class="import-btn import-btn-secondary" data-client="outlook">
+                        <img src="assets/outlook-logo.svg" alt="" class="import-btn-logo">
+                        Outlook
+                    </button>
+                </div>
             </div>
+            <!-- End scrollable wrapper -->
 
-            <!-- Disclaimer Box -->
+            <!-- Disclaimer Box (pinned to bottom) -->
             <div class="disclaimer-box">
                 <span class="disclaimer-icon">⚠️</span>
                 <p class="disclaimer-text">This is an unofficial community tool, not endorsed by Zoho Corporation.</p>
