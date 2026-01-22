@@ -235,9 +235,11 @@ body {
 }
 
 .import-btn-logo {
-    width: 24px;
     height: 24px;
+    width: auto;  /* Changed from fixed 24px to allow natural scaling */
     margin-right: 8px;
+    display: block;
+    object-fit: contain;
     vertical-align: middle;
 }
 
