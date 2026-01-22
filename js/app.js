@@ -26,12 +26,15 @@ const AppState = {
     },
     signatureStyle: 'classic',
     socialOptions: {
-        enabled: false,
+        enabled: true,
         channels: ['twitter', 'linkedin', 'facebook', 'instagram'],
         displayType: 'text'
     },
     isDarkMode: false
 };
+
+// Expose AppState globally for debugging and testing
+window.AppState = AppState;
 
 // DOM elements
 const elements = {
@@ -132,7 +135,8 @@ function setupFormListeners() {
  * Setup field toggle switches
  */
 function setupFieldToggles() {
-    const toggles = document.querySelectorAll('.toggle-switch');
+    // Exclude social toggles (they have their own handler)
+    const toggles = document.querySelectorAll('.toggle-switch:not(.social-toggle)');
 
     toggles.forEach(toggle => {
         const fieldName = toggle.dataset.field;
@@ -229,27 +233,75 @@ function setupStyleSelector() {
  * Setup Zoho social media controls
  */
 function setupZohoSocialControls() {
-    const socialAllToggle = document.getElementById('zohoSocialAll');
-    const socialChannels = document.getElementById('socialChannels');
+    // Get all social toggle switches
+    const socialToggles = document.querySelectorAll('[data-field^="social-"]');
     const socialDisplayRadios = document.querySelectorAll('input[name="socialDisplay"]');
-    const channelToggles = document.querySelectorAll('.social-channel-toggle');
 
-    // Main toggle for all social media
-    if (socialAllToggle && socialChannels) {
-        socialAllToggle.addEventListener('change', (e) => {
-            AppState.socialOptions.enabled = e.target.checked;
+    // Define canonical order for social channels (this determines display order)
+    const canonicalOrder = ['twitter', 'linkedin', 'facebook', 'instagram'];
 
-            if (e.target.checked) {
-                socialChannels.classList.add('active');
+    // Helper function to sort channels by canonical order
+    const sortChannels = (channels) => {
+        return channels.sort((a, b) => {
+            return canonicalOrder.indexOf(a) - canonicalOrder.indexOf(b);
+        });
+    };
+
+    // Initialize all channels as enabled by default
+    AppState.socialOptions.enabled = true;
+    AppState.socialOptions.channels = [...canonicalOrder]; // Use spread to create a copy
+
+    // Setup individual toggle handlers
+    socialToggles.forEach(toggle => {
+        const channel = toggle.dataset.field.replace('social-', ''); // Extract channel name
+
+        // Handle toggle action (shared between click and keyboard)
+        const handleToggle = () => {
+            // Toggle the active state
+            const isNowActive = !toggle.classList.contains('active');
+
+            // Update visual state
+            if (isNowActive) {
+                toggle.classList.add('active');
             } else {
-                socialChannels.classList.remove('active');
+                toggle.classList.remove('active');
             }
 
-            updatePreview();
-        });
-    }
+            // Update ARIA state for accessibility
+            toggle.setAttribute('aria-checked', isNowActive);
 
-    // Display type toggle (text vs icons)
+            // Update AppState channels array
+            if (isNowActive) {
+                // Add channel to enabled list
+                if (!AppState.socialOptions.channels.includes(channel)) {
+                    AppState.socialOptions.channels.push(channel);
+                    // Sort to maintain canonical order
+                    AppState.socialOptions.channels = sortChannels(AppState.socialOptions.channels);
+                }
+            } else {
+                // Remove channel from enabled list
+                AppState.socialOptions.channels = AppState.socialOptions.channels.filter(c => c !== channel);
+            }
+
+            // Enable social section if any channels are active
+            AppState.socialOptions.enabled = AppState.socialOptions.channels.length > 0;
+
+            updatePreview();
+        };
+
+        // Listen for clicks
+        toggle.addEventListener('click', handleToggle);
+
+        // Listen for keyboard events (Enter and Space)
+        toggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleToggle();
+            }
+        });
+    });
+
+    // Text/Icon display toggle (unchanged)
     socialDisplayRadios.forEach(radio => {
         radio.addEventListener('change', (e) => {
             AppState.socialOptions.displayType = e.target.value;
@@ -257,19 +309,250 @@ function setupZohoSocialControls() {
         });
     });
 
-    // Individual channel toggles
-    channelToggles.forEach(toggle => {
-        toggle.addEventListener('change', () => {
-            // Rebuild channels array from checked boxes
-            AppState.socialOptions.channels = [];
-            channelToggles.forEach(t => {
-                if (t.checked) {
-                    AppState.socialOptions.channels.push(t.dataset.channel);
-                }
+    // Setup drag-and-drop for reordering
+    setupSocialDragAndDrop(canonicalOrder, sortChannels);
+}
+
+/**
+ * Setup drag-and-drop functionality for social media list
+ * Implements modern UX best practices:
+ * - Mouse drag with visual feedback
+ * - Keyboard navigation (Space to grab, Arrow keys to move, Space to drop)
+ * - Screen reader announcements
+ * - Touch support
+ * - Smooth animations
+ */
+function setupSocialDragAndDrop(canonicalOrder, sortChannels) {
+    const socialList = document.querySelector('.social-list');
+    const listItems = document.querySelectorAll('.social-list-item');
+
+    // Create ARIA live region for screen reader announcements
+    const liveRegion = document.createElement('div');
+    liveRegion.setAttribute('role', 'status');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+    liveRegion.className = 'sr-only';
+    document.body.appendChild(liveRegion);
+
+    // State management
+    let draggedItem = null;
+    let keyboardGrabbedItem = null;
+
+    // Helper: Announce to screen readers
+    const announce = (message) => {
+        liveRegion.textContent = message;
+    };
+
+    // Helper: Get current position
+    const getItemPosition = (item) => {
+        return Array.from(socialList.children).indexOf(item) + 1;
+    };
+
+    // Helper: Get item label
+    const getItemLabel = (item) => {
+        return item.querySelector('.social-list-name').textContent;
+    };
+
+    // Helper: Save order to state and localStorage
+    const saveOrder = () => {
+        const newOrder = Array.from(socialList.querySelectorAll('.social-list-item'))
+            .map(item => item.dataset.channel);
+
+        canonicalOrder.length = 0;
+        canonicalOrder.push(...newOrder);
+
+        AppState.socialOptions.channels = sortChannels(AppState.socialOptions.channels);
+        localStorage.setItem('socialChannelOrder', JSON.stringify(newOrder));
+        updatePreview();
+    };
+
+    // Helper: Animate drop with smooth transition
+    const animateDrop = (item) => {
+        item.style.transition = 'all 100ms ease-out';
+        setTimeout(() => {
+            item.style.transition = '';
+        }, 100);
+    };
+
+    // Setup mouse/touch drag for each item
+    listItems.forEach((item) => {
+        const dragHandle = item.querySelector('.drag-handle');
+        const toggle = item.querySelector('.toggle-switch');
+
+        // Make drag handle focusable
+        dragHandle.setAttribute('tabindex', '0');
+        dragHandle.setAttribute('role', 'button');
+        dragHandle.setAttribute('aria-label', `Reorder ${getItemLabel(item)}. Press space to grab, arrow keys to move, space to drop.`);
+
+        // Prevent drag from triggering on toggle switch
+        toggle.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+        });
+
+        // Mouse drag events
+        item.addEventListener('dragstart', (e) => {
+            draggedItem = item;
+            item.classList.add('dragging');
+            socialList.classList.add('drag-active');
+
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', item.innerHTML);
+
+            // Custom drag image with offset
+            const rect = item.getBoundingClientRect();
+            e.dataTransfer.setDragImage(item, e.clientX - rect.left, e.clientY - rect.top);
+
+            announce(`Grabbed ${getItemLabel(item)}`);
+
+            // Haptic feedback on mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(10);
+            }
+        });
+
+        item.addEventListener('dragend', () => {
+            item.classList.remove('dragging');
+            socialList.classList.remove('drag-active');
+
+            // Remove all drag-over classes
+            listItems.forEach(i => {
+                i.classList.remove('drag-over-top', 'drag-over-bottom');
             });
-            updatePreview();
+
+            animateDrop(item);
+            saveOrder();
+
+            announce(`Dropped ${getItemLabel(item)} at position ${getItemPosition(item)}`);
+
+            // Haptic feedback on mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(20);
+            }
+
+            draggedItem = null;
+        });
+
+        // Drag over - live reordering with visual feedback
+        item.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+
+            if (draggedItem && draggedItem !== item) {
+                const rect = item.getBoundingClientRect();
+
+                // Live reorder: move items in real-time as user drags
+                const afterElement = (e.clientY - rect.top) > (rect.height / 2);
+
+                if (afterElement) {
+                    // Insert after this item
+                    const nextSibling = item.nextSibling;
+                    if (nextSibling !== draggedItem) {
+                        socialList.insertBefore(draggedItem, nextSibling);
+                    }
+                } else {
+                    // Insert before this item
+                    if (item !== draggedItem) {
+                        socialList.insertBefore(draggedItem, item);
+                    }
+                }
+            }
+        });
+
+        // Drop - just finalize the position and save
+        item.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Position is already set from live reordering in dragover
+        });
+
+        // Keyboard navigation
+        dragHandle.addEventListener('keydown', (e) => {
+            // Space to grab/drop
+            if (e.key === ' ') {
+                e.preventDefault();
+
+                if (keyboardGrabbedItem === item) {
+                    // Drop
+                    item.classList.remove('keyboard-grabbed');
+                    keyboardGrabbedItem = null;
+                    
+                    animateDrop(item);
+                    saveOrder();
+
+                    announce(`Dropped ${getItemLabel(item)} at position ${getItemPosition(item)}`);
+
+                    // Haptic feedback
+                    if (navigator.vibrate) {
+                        navigator.vibrate(20);
+                    }
+                } else {
+                    // Grab
+                    keyboardGrabbedItem = item;
+                    item.classList.add('keyboard-grabbed');
+
+                    announce(`Grabbed ${getItemLabel(item)} at position ${getItemPosition(item)}. Use arrow keys to move, space to drop.`);
+
+                    // Haptic feedback
+                    if (navigator.vibrate) {
+                        navigator.vibrate(10);
+                    }
+                }
+            }
+
+            // Arrow keys to move when grabbed
+            if (keyboardGrabbedItem === item && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+                e.preventDefault();
+
+                const allItems = Array.from(socialList.children);
+                const currentIndex = allItems.indexOf(item);
+
+                if (e.key === 'ArrowUp' && currentIndex > 0) {
+                    // Move up
+                    socialList.insertBefore(item, allItems[currentIndex - 1]);
+                    announce(`Moved ${getItemLabel(item)} to position ${getItemPosition(item)}`);
+                } else if (e.key === 'ArrowDown' && currentIndex < allItems.length - 1) {
+                    // Move down
+                    socialList.insertBefore(item, allItems[currentIndex + 2]);
+                    announce(`Moved ${getItemLabel(item)} to position ${getItemPosition(item)}`);
+                }
+
+                // Haptic feedback
+                if (navigator.vibrate) {
+                    navigator.vibrate(5);
+                }
+            }
+
+            // Escape to cancel
+            if (e.key === 'Escape' && keyboardGrabbedItem === item) {
+                item.classList.remove('keyboard-grabbed');
+                keyboardGrabbedItem = null;
+                                announce(`Cancelled reordering ${getItemLabel(item)}`);
+            }
         });
     });
+
+    // Load custom order from localStorage if it exists
+    const savedOrder = localStorage.getItem('socialChannelOrder');
+    if (savedOrder) {
+        try {
+            const customOrder = JSON.parse(savedOrder);
+
+            canonicalOrder.length = 0;
+            canonicalOrder.push(...customOrder);
+
+            customOrder.forEach(channel => {
+                const item = socialList.querySelector(`[data-channel="${channel}"]`);
+                if (item) {
+                    socialList.appendChild(item);
+                }
+            });
+
+            AppState.socialOptions.channels = sortChannels(AppState.socialOptions.channels);
+            updatePreview();
+        } catch (e) {
+            console.error('Failed to load custom social channel order:', e);
+        }
+    }
 }
 
 /**

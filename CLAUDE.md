@@ -5,21 +5,37 @@
 Zoho Email Signature Generator is a professional, privacy-first web application that allows Zoho employees to create beautiful, email-compatible HTML email signatures. It offers 4 signature styles with live preview, iOS-style toggles, and one-click copy to clipboard.
 
 **Live Demo**: https://tejasgadhia.github.io/signature-generator
-**Version**: 0.2.1
+**Version**: 0.3.0
 **Last Updated**: January 22, 2026
 
-## Recent Changes (v0.2.1)
+## Recent Changes (v0.3.0)
 
-### Polish Improvements
-- **Design system consistency** - All hardcoded colors and spacing replaced with design tokens
-- **Button accessibility** - Increased tap targets to 44x44px minimum (WCAG compliance)
-- **Copy button loading state** - Shows "Copying..." feedback during clipboard operation
-- **Visual validation feedback** - Error messages display below inputs with ARIA support
-- **Defensive coding** - Null checks prevent crashes if DOM elements missing
+### Social Media Section Redesign (Option 6)
+- **iOS-style toggle list** - Replaced checkbox-based controls with consistent toggle switches
+- **Drag-and-drop reordering** - Live reordering with 200ms smooth animations
+- **Research-driven UX** - Implemented best practices from NN/G, Atlassian, Salesforce
+- **Instagram icon update** - Changed from camera emoji (📸) to "IG" text for consistency
+
+### Drag-and-Drop Implementation
+- **Live reordering** - Items reposition in real-time as you drag (no guessing)
+- **Smooth animations** - 200ms cubic-bezier transitions (industry standard)
+- **Keyboard navigation** - Space to grab, Arrow keys to move, Space to drop, Escape to cancel
+- **Screen reader support** - ARIA live regions announce all actions
+- **Haptic feedback** - Mobile vibration on grab (10ms), drop (20ms), move (5ms)
+- **Order persistence** - Custom order saves to localStorage
+- **Consistent ordering** - Channels maintain canonical order when toggled
+
+### Accessibility (WCAG 2.2 Compliant)
+- **Full keyboard support** - All drag-and-drop functionality accessible via keyboard
+- **ARIA announcements** - "Grabbed Twitter/X", "Moved to position 2", "Dropped at position 2"
+- **Screen reader labels** - Drag handles describe available actions
+- **Focus indicators** - Clear visual focus states for keyboard users
+- **Touch targets** - Drag handles meet 44x44px minimum (Success Criterion 2.5.5)
 
 ### Bug Fixes
-- **GitHub Pages deployment** - Added `.nojekyll` file to serve `.ui-design` directory
-- **Pre-deployment checklist** - Added comprehensive testing steps to catch deployment issues
+- **Event handler collision** - Fixed conflict between field toggles and social toggles
+- **Ordering issue** - Channels no longer jump to end when re-enabled
+- **State synchronization** - AppState, canonicalOrder, and DOM stay in sync
 
 ## Recent Changes (v0.2.0)
 

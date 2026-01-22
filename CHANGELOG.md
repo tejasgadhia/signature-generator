@@ -5,6 +5,61 @@ All notable changes to the Zoho Email Signature Generator will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-01-22
+
+### ✨ Added
+
+#### Social Media Section Redesign
+- **iOS-Style Toggle List**: Replaced checkbox-based controls with consistent toggle switch list (Option 6 design)
+- **Drag-and-Drop Reordering**: Premium drag-and-drop with live reordering and smooth 200ms animations
+- **Keyboard Navigation**: Full keyboard support - Space to grab, Arrow keys to move, Space to drop, Escape to cancel
+- **Screen Reader Support**: ARIA live regions announce all actions ("Grabbed Twitter/X", "Moved to position 2", etc.)
+- **Haptic Feedback**: Mobile vibration on grab (10ms), drop (20ms), and move (5ms) actions
+- **Always-Visible Drag Handles**: ☰ handles show at 50% opacity, 100% on hover for clear affordance
+- **Drag Instructions**: Added hint text "Drag to reorder • Space + Arrows for keyboard"
+
+#### UX Improvements
+- **Live Reordering**: Items reposition in real-time as you drag (no guessing where items will land)
+- **Order Persistence**: Custom channel order saves to localStorage and survives page refresh
+- **Consistent Ordering**: Channels maintain canonical order when toggled on/off (no more "pushed to end")
+- **Smooth Animations**: 200ms cubic-bezier transitions matching industry standards (Trello, Asana, Notion)
+- **Visual Feedback**: Dragged items become 40% transparent, other items smoothly slide into place
+- **Hover Effects**: Subtle elevation and background changes on list items
+
+#### Accessibility (WCAG 2.2 Compliant)
+- **Success Criterion 2.5.7**: Non-dragging keyboard alternative for all drag-and-drop functions
+- **Success Criterion 2.5.5**: 44x44px minimum touch targets for drag handles
+- **ARIA Labels**: Drag handles have descriptive labels ("Reorder Twitter/X. Press space to grab...")
+- **Focus Management**: Clear visual focus indicators for keyboard users
+- **Screen Reader Announcements**: All state changes announced to assistive technologies
+
+### 🔧 Changed
+- **Instagram Icon**: Changed from camera emoji (📸) to "IG" text for consistency with LinkedIn ("in") and Facebook ("f")
+- **Event Handler Architecture**: Separated field toggles from social toggles to prevent collision (`.social-toggle` class)
+- **Canonical Order System**: Implemented sortable order array that maintains proper sequencing
+
+### 🐛 Fixed
+- **Event Handler Collision**: Social toggles no longer trigger field toggle handlers (used to cause double-toggle bug)
+- **Ordering Issue**: Re-enabling a channel now returns it to correct position instead of pushing to end
+- **State Synchronization**: AppState, canonicalOrder array, and DOM now stay in perfect sync
+
+### 📚 Research Sources
+Implementation based on best practices from:
+- Nielsen Norman Group: Drag-and-Drop Design Guidelines
+- Atlassian Design System: Pragmatic Drag and Drop
+- Salesforce UX: 4 Major Patterns for Accessible Drag and Drop
+- Smart Interface Design Patterns: Drag-and-Drop UX
+- LogRocket: Designing Drag and Drop UIs
+
+### 🎯 Design Philosophy
+This release embodies a research-driven approach to UI/UX:
+1. Researched industry best practices before implementation
+2. Studied patterns from Trello, Asana, Notion, Jira
+3. Implemented consensus best practices (200ms animations, live reordering, keyboard support)
+4. Exceeded WCAG 2.2 requirements for accessibility
+
+---
+
 ## [0.1.0] - 2026-01-17
 
 ### 🎉 Initial Release

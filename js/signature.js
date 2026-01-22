@@ -68,7 +68,7 @@ const SignatureGenerator = {
             twitter: { url: 'https://twitter.com/Zoho', text: 'Twitter', icon: '𝕏' },
             linkedin: { url: 'https://www.linkedin.com/company/zoho', text: 'LinkedIn', icon: 'in' },
             facebook: { url: 'https://www.facebook.com/zoho', text: 'Facebook', icon: 'f' },
-            instagram: { url: 'https://www.instagram.com/zoho/', text: 'Instagram', icon: '📸' }
+            instagram: { url: 'https://www.instagram.com/zoho/', text: 'Instagram', icon: 'IG' }
         };
 
         const links = [];

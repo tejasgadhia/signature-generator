@@ -2,17 +2,21 @@
 
 A professional email signature generator for Zoho employees. Create beautiful, email-compatible HTML signatures with live preview and multiple styles.
 
-![Version](https://img.shields.io/badge/version-0.2.1-blue.svg)
+![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)
 ![License](https://img.shields.io/badge/license-Internal-green.svg)
 
 **Live Demo**: [https://tejasgadhia.github.io/signature-generator](https://tejasgadhia.github.io/signature-generator)
 
-## What's New (v0.2.1)
+## What's New (v0.3.0)
 
-- ✅ **Polish Improvements**: 44x44px button tap targets, loading states, error messages
-- ✅ **Design System**: All hardcoded colors/spacing replaced with design tokens
-- ✅ **Deployment Safety**: Pre-push check script to catch GitHub Pages issues
-- ✅ **Bug Fix**: Added `.nojekyll` file to serve design tokens on GitHub Pages
+- ✨ **Social Media Redesign**: iOS-style toggle list replaces checkbox-based controls
+- 🎯 **Drag-and-Drop Reordering**: Live reordering with smooth animations (200ms transitions)
+- ⌨️ **Full Keyboard Support**: Space to grab, Arrow keys to move, Space to drop
+- 🔊 **Screen Reader Announcements**: ARIA live regions for accessibility (WCAG 2.2)
+- 📱 **Haptic Feedback**: Vibration on mobile for grab/move/drop actions
+- 🎨 **Visual Polish**: Always-visible drag handles, hover effects, smooth animations
+- 🔧 **Consistent Ordering**: Social channels maintain order when toggled on/off
+- 💾 **Order Persistence**: Custom channel order saves to localStorage
 
 ## Features
 
@@ -22,7 +26,7 @@ A professional email signature generator for Zoho employees. Create beautiful, e
 - **Visual Form Validation**: Immediate feedback with red/green border states
 - **Smart Validation**: Email domain enforcement and flexible phone formatting
 - **URL Cleanup**: Automatic removal of tracking parameters from LinkedIn URLs
-- **Zoho Social Integration**: Include official Zoho social handles with granular control
+- **Zoho Social Integration**: Include official Zoho social handles with drag-and-drop reordering
 - **One-Click Copy**: Copy HTML signature to clipboard
 - **Import Instructions**: Step-by-step guides for Zoho Mail, Gmail, macOS Mail, iOS Mail, and Outlook
 - **Zero Dependencies**: Pure vanilla HTML, CSS, and JavaScript

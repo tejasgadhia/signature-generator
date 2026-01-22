@@ -92,12 +92,46 @@
                     <div class="divider"></div>
 
                     <div class="section-title">Zoho Social Media</div>
+                    <p class="section-hint">Drag to reorder • Space + Arrows for keyboard</p>
                     <div class="zoho-social-options">
-                        <div class="social-header">
-                            <label class="checkbox-option">
-                                <input type="checkbox" id="zohoSocialAll" name="zohoSocialAll">
-                                <span>Include Zoho's official social handles</span>
-                            </label>
+                        <div class="social-list">
+                            <div class="social-list-item" draggable="true" data-channel="twitter">
+                                <div class="social-list-left">
+                                    <span class="drag-handle">☰</span>
+                                    <span class="social-list-icon">𝕏</span>
+                                    <span class="social-list-name">Twitter/X</span>
+                                </div>
+                                <div class="toggle-switch social-toggle active" data-field="social-twitter" role="switch" aria-checked="true" aria-label="Toggle Twitter/X" tabindex="0"></div>
+                            </div>
+                            <div class="social-list-item" draggable="true" data-channel="linkedin">
+                                <div class="social-list-left">
+                                    <span class="drag-handle">☰</span>
+                                    <span class="social-list-icon">in</span>
+                                    <span class="social-list-name">LinkedIn</span>
+                                </div>
+                                <div class="toggle-switch social-toggle active" data-field="social-linkedin" role="switch" aria-checked="true" aria-label="Toggle LinkedIn" tabindex="0"></div>
+                            </div>
+                            <div class="social-list-item" draggable="true" data-channel="facebook">
+                                <div class="social-list-left">
+                                    <span class="drag-handle">☰</span>
+                                    <span class="social-list-icon">f</span>
+                                    <span class="social-list-name">Facebook</span>
+                                </div>
+                                <div class="toggle-switch social-toggle active" data-field="social-facebook" role="switch" aria-checked="true" aria-label="Toggle Facebook" tabindex="0"></div>
+                            </div>
+                            <div class="social-list-item" draggable="true" data-channel="instagram">
+                                <div class="social-list-left">
+                                    <span class="drag-handle">☰</span>
+                                    <span class="social-list-icon">IG</span>
+                                    <span class="social-list-name">Instagram</span>
+                                </div>
+                                <div class="toggle-switch social-toggle active" data-field="social-instagram" role="switch" aria-checked="true" aria-label="Toggle Instagram" tabindex="0"></div>
+                            </div>
+                        </div>
+
+                        <!-- Text/Icon Display Toggle -->
+                        <div class="social-display-section">
+                            <div class="social-display-label">Display as:</div>
                             <div class="social-display-toggle">
                                 <label class="toggle-option">
                                     <input type="radio" name="socialDisplay" value="text" checked>
@@ -108,28 +142,6 @@
                                     <span>Icons</span>
                                 </label>
                             </div>
-                        </div>
-                        <div class="social-channels" id="socialChannels">
-                            <label class="social-channel-option">
-                                <input type="checkbox" class="social-channel-toggle" data-channel="twitter" checked>
-                                <span class="social-icon">𝕏</span>
-                                <span class="social-name">Twitter/X</span>
-                            </label>
-                            <label class="social-channel-option">
-                                <input type="checkbox" class="social-channel-toggle" data-channel="linkedin" checked>
-                                <span class="social-icon">in</span>
-                                <span class="social-name">LinkedIn</span>
-                            </label>
-                            <label class="social-channel-option">
-                                <input type="checkbox" class="social-channel-toggle" data-channel="facebook" checked>
-                                <span class="social-icon">f</span>
-                                <span class="social-name">Facebook</span>
-                            </label>
-                            <label class="social-channel-option">
-                                <input type="checkbox" class="social-channel-toggle" data-channel="instagram" checked>
-                                <span class="social-icon">📸</span>
-                                <span class="social-name">Instagram</span>
-                            </label>
                         </div>
                     </div>
                 </form>
