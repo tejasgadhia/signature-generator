@@ -82,12 +82,18 @@ body {
     line-height: 1.5;
 }
 
-/* Disclaimer Box (pinned to bottom) */
+/* Sidebar footer (pinned to bottom) */
+.sidebar-footer {
+    flex-shrink: 0;
+    padding: 0 24px 24px 24px;
+    background: #FAFAFA;
+}
+
+/* Disclaimer Box */
 .disclaimer-box {
-    flex-shrink: 0;        /* Never shrink */
     background: #F9B21D;
     padding: 16px;
-    margin: 0 24px 24px 24px;  /* Match sidebar padding, keep rounded look */
+    margin-top: 16px;
     border-radius: 8px;
     display: flex;
     gap: 12px;
@@ -332,6 +338,7 @@ body {
     position: relative;
     display: flex;
     align-items: center;
+    flex: 1;  /* Take full available width */
 }
 
 .input-wrapper input[type="text"],
@@ -341,9 +348,9 @@ body {
     width: 100%;
     padding: 0.625rem 2.5rem 0.625rem 0.875rem;
     font-size: 0.95rem;
-    border: 2px solid var(--color-border);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background: var(--color-bg);
+    background: #FFFFFF;  /* Always white background */
     color: var(--color-text-primary);
     transition: all var(--transition-base);
     min-height: 42px;
@@ -354,7 +361,7 @@ body {
     position: relative;
     width: 48px;
     height: 26px;
-    background: var(--color-border);
+    background: #DC2626;  /* Red when disabled */
     border-radius: 100px;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -363,7 +370,7 @@ body {
 }
 
 .toggle-switch.active {
-    background: var(--zoho-red);
+    background: #16A34A;  /* Green when enabled */
 }
 
 .toggle-switch::before {
@@ -393,10 +400,10 @@ body {
 }
 
 .input-wrapper input[readonly] {
-    background: var(--color-surface);
+    background: #F5F5F5;  /* Light gray for readonly */
     cursor: not-allowed;
-    color: var(--color-neutral-700);  /* Make URL text darker */
-    font-weight: 500;                 /* Make it stand out more */
+    color: var(--color-neutral-700);
+    font-weight: 500;
 }
 
 .input-wrapper input:focus {
@@ -941,11 +948,12 @@ body {
 .email-split-input {
     display: flex;
     align-items: center;
-    border: 2px solid var(--color-border);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: white;
     overflow: hidden;
     transition: all var(--transition-base);
+    flex: 1;  /* Take full available width */
 }
 
 .email-split-input:focus-within {
@@ -1027,11 +1035,12 @@ body {
 .url-prefix-input {
     display: flex;
     align-items: center;
-    border: 2px solid var(--color-border);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: white;
     overflow: hidden;
     transition: all var(--transition-base);
+    flex: 1;  /* Take full available width */
 }
 
 .url-prefix-input:focus-within {
