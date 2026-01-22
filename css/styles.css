@@ -40,7 +40,7 @@ body {
 @keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(var(--spacing-5));
     }
     to {
         opacity: 1;
@@ -328,7 +328,7 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--color-text-primary);
-    margin-bottom: 2px;
+    margin-bottom: var(--spacing-0-5);
 }
 
 .style-desc {
@@ -374,16 +374,16 @@ body {
 
 .social-display-toggle {
     display: flex;
-    gap: 4px;
+    gap: var(--spacing-1);
     background: var(--color-surface);
     border-radius: var(--radius-sm);
-    padding: 2px;
+    padding: var(--spacing-0-5);
 }
 
 .toggle-option {
     display: flex;
     align-items: center;
-    padding: 4px 12px;
+    padding: var(--spacing-1) var(--spacing-3);
     font-size: 0.85rem;
     cursor: pointer;
     border-radius: var(--radius-sm);
@@ -540,12 +540,12 @@ body {
 }
 
 .preview-container.dark-mode .signature-preview a {
-    color: #9ca3af !important;
+    color: var(--color-neutral-400) !important;
 }
 
 .preview-container.dark-mode .signature-preview td,
 .preview-container.dark-mode .signature-preview div {
-    color: #e5e7eb !important;
+    color: var(--color-neutral-200) !important;
 }
 
 .signature-preview {

@@ -4,6 +4,9 @@
  */
 
 const SignatureGenerator = {
+    // Zoho brand colors (email-compatible constants)
+    ZOHO_RED: '#E42527',
+
     /**
      * Generate HTML signature from form data
      * @param {Object} data - Form data object
@@ -198,7 +201,7 @@ const SignatureGenerator = {
         return `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">
     <tr>
-        <td style="padding-right: 16px; vertical-align: top; border-right: 3px solid #E42527;">
+        <td style="padding-right: 16px; vertical-align: top; border-right: 3px solid ${this.ZOHO_RED};">
             <a href="${websiteUrl}" style="text-decoration: none; display: inline-block;">
                 <img src="${logoUrl}" alt="Zoho" style="height: 48px; display: block; border: 0;" height="48">
             </a>
@@ -240,7 +243,7 @@ const SignatureGenerator = {
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">
     <tr>
         <td>
-            <div style="font-size: 16px; font-weight: bold; color: #E42527; margin-bottom: 4px;">
+            <div style="font-size: 16px; font-weight: bold; color: ${this.ZOHO_RED}; margin-bottom: 4px;">
                 ${this.escapeHtml(data.name)}
             </div>
             ${titleLine ? `
@@ -254,7 +257,7 @@ const SignatureGenerator = {
             </div>
             ` : ''}
             <div style="font-size: 12px; color: #999999;">
-                <a href="${websiteUrl}" style="color: #E42527; text-decoration: none; font-weight: 500;">Zoho Corporation</a>
+                <a href="${websiteUrl}" style="color: ${this.ZOHO_RED}; text-decoration: none; font-weight: 500;">Zoho Corporation</a>
             </div>
             ${zohoSocialHtml}
         </td>
