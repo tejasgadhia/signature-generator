@@ -238,22 +238,20 @@ const SignatureGenerator = {
         if (data.title) titleParts.push(this.escapeHtml(data.title));
         if (data.department) titleParts.push(this.escapeHtml(data.department));
 
-        const parts = [this.escapeHtml(data.name)];
-        if (titleParts.length) parts.push(titleParts.join(' | '));
+        const parts = [`<span class="sig-name" style="font-weight: bold; color: #333333;">${this.escapeHtml(data.name)}</span>`];
+        if (titleParts.length) parts.push(`<span class="sig-title" style="color: #666666;">${titleParts.join(' | ')}</span>`);
         parts.push(...contacts);
 
-        const allContent = parts.join(' <span style="color: #cccccc;">•</span> ');
+        const allContent = parts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ');
 
-        return `
+        return this.getDarkModeStyles() + `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
     <tr>
         <td style="padding-right: 12px; vertical-align: middle;">
-            <a href="${websiteUrl}" style="text-decoration: none; display: inline-block;">
-                <img src="${logoUrl}" alt="Zoho" style="height: 24px; display: block; border: 0;" height="24">
-            </a>
+            ${this.generateDualLogos(websiteUrl, 24)}
         </td>
         <td style="vertical-align: middle;">
-            <span style="font-weight: bold;">${allContent}</span>
+            ${allContent}
             ${zohoSocialHtml}
         </td>
     </tr>
