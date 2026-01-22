@@ -38,6 +38,91 @@ const AppState = {
 // Expose AppState globally for debugging and testing
 window.AppState = AppState;
 
+// Acronyms to preserve in title case formatting
+const PRESERVED_ACRONYMS = [
+    // Job Roles
+    'VP', 'SVP', 'EVP', 'CEO', 'CTO', 'CFO', 'COO', 'CMO', 'CIO',
+    // Tech Terms
+    'iOS', 'API', 'UI', 'UX', 'IT', 'HR',
+    // Business Terms
+    'B2B', 'B2C', 'SaaS', 'SMB'
+];
+
+// Smart title case function that preserves acronyms
+function toSmartTitleCase(str) {
+    if (!str || typeof str !== 'string') return str;
+
+    // First, apply standard title case
+    let result = str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+
+    // Then, restore preserved acronyms
+    PRESERVED_ACRONYMS.forEach(acronym => {
+        const regex = new RegExp('\\b' + acronym + '\\b', 'gi');
+        result = result.replace(regex, acronym);
+    });
+
+    return result;
+}
+
+// Initialize formatting state from localStorage
+const formatLockState = {
+    name: localStorage.getItem('format-lock-name') !== 'false',
+    title: localStorage.getItem('format-lock-title') !== 'false',
+    department: localStorage.getItem('format-lock-department') !== 'false'
+};
+
+// Setup format lock icons
+function setupFormatLockIcons() {
+    document.querySelectorAll('.format-lock-icon').forEach(icon => {
+        const fieldId = icon.dataset.field;
+
+        // Set initial state from localStorage
+        if (!formatLockState[fieldId]) {
+            icon.classList.remove('locked');
+            icon.title = 'Auto-format disabled (click to enable)';
+        }
+
+        // Toggle on click
+        icon.addEventListener('click', () => {
+            formatLockState[fieldId] = !formatLockState[fieldId];
+            icon.classList.toggle('locked');
+
+            if (formatLockState[fieldId]) {
+                icon.title = 'Auto-format enabled (click to disable)';
+            } else {
+                icon.title = 'Auto-format disabled (click to enable)';
+            }
+
+            // Save to localStorage
+            localStorage.setItem(`format-lock-${fieldId}`, formatLockState[fieldId]);
+        });
+    });
+}
+
+// Apply smart title case formatting on blur and paste
+function setupSmartTitleCase() {
+    ['name', 'title', 'department'].forEach(fieldId => {
+        const input = document.getElementById(fieldId);
+        if (!input) return;
+
+        const applyFormatting = () => {
+            if (formatLockState[fieldId] && input.value.trim()) {
+                input.value = toSmartTitleCase(input.value);
+                AppState.formData[fieldId] = input.value;
+                updatePreview();
+            }
+        };
+
+        // Apply on blur
+        input.addEventListener('blur', applyFormatting);
+
+        // Apply on paste (wait for paste to complete)
+        input.addEventListener('paste', () => {
+            setTimeout(applyFormatting, 10);
+        });
+    });
+}
+
 // DOM elements
 const elements = {
     form: document.getElementById('signatureForm'),
@@ -88,7 +173,9 @@ function init() {
     setupZohoSocialControls();
     setupCopyButton();
     setupThemeToggle();
-    setupImportButtons();  // New: Setup sidebar import buttons
+    setupImportButtons();
+    setupFormatLockIcons();   // Smart title case lock icons
+    setupSmartTitleCase();    // Smart title case formatting
 
     // Initial preview update
     updatePreview();

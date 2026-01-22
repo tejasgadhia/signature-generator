@@ -407,6 +407,34 @@ body {
     font-weight: 500;
 }
 
+/* Format lock/unlock icon for title case */
+.format-lock-icon {
+    position: absolute;
+    right: 40px;  /* Position before validation icon */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.format-lock-icon:hover {
+    opacity: 1;
+}
+
+.format-lock-icon.locked::before {
+    content: '🔒';
+}
+
+.format-lock-icon:not(.locked)::before {
+    content: '🔓';
+}
+
 .input-wrapper input:focus {
     outline: none;
     border-color: var(--zoho-red);
