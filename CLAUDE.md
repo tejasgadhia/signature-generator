@@ -5,8 +5,74 @@
 Zoho Email Signature Generator is a professional, privacy-first web application that allows Zoho employees to create beautiful, email-compatible HTML email signatures. It offers 4 signature styles with live preview, iOS-style toggles, and one-click copy to clipboard.
 
 **Live Demo**: https://tejasgadhia.github.io/signature-generator
-**Version**: 0.3.0
+**Version**: 0.5.0
 **Last Updated**: January 22, 2026
+
+## Recent Changes (v0.5.0)
+
+### Session 3: UX Enhancements & Polish
+
+**Twitter → X Rebrand**
+- Updated all references from "Twitter" to "X" throughout the application
+- Changed URL prefix from `twitter.com/` to `x.com/`
+- Updated signature.js social links to use X branding and x.com URL
+
+**Bookings URL Pattern**
+- Changed from free-form URL input to username-style pattern
+- Now consistent with LinkedIn/Twitter fields: `bookings.zohocorp.com/#/[your-id]`
+- Accepts both numeric IDs (e.g., `3846319000027543122`) and custom slugs
+- Full URL constructed automatically from ID input
+
+**Quick Start Numbered List**
+- Changed from `<ul>` bullets to `<ol>` numbered list (semantic HTML)
+- Numbers styled in Zoho red (#E42527) using CSS counters
+- Screen readers now announce "step 1 of 4" etc.
+
+**Social Media Hint Text**
+- Updated to: "Customize your links: Click to toggle on/off • Drag to reorder"
+- More descriptive and action-oriented
+
+**UTM Tracking for zoho.com**
+- Main zoho.com link now includes tracking parameters
+- Format: `?utm_source=email-signature&utm_medium=signature&utm_campaign=[email-prefix]`
+- Fallback to "zoho-employee" if email field empty
+- Enables analytics to track which employees drive website traffic
+
+### Session 2: Layout Refinements
+
+**Split Button Design for Zoho Products**
+- Zoho Mail and Zoho Desk buttons redesigned with logo + text layout
+- Full-branded logos (`mail-full.svg`, `desk-full.svg`) instead of icon-only
+- Professional third-party logos from Simple Icons (Gmail, Apple Mail, Outlook)
+
+**Sidebar Footer Section**
+- "Other Email Clients" section pinned to bottom of sidebar
+- Scrollable content wrapper for main sidebar content
+- Disclaimer always visible at bottom
+
+**Tooltip Positioning Fix**
+- Tooltips now positioned above icons (not to the right)
+- Fixed z-index to prevent clipping by other elements
+- Consistent positioning across all info icons
+
+**Text Readability Improvements**
+- Field labels changed to `--color-neutral-700` (#374151) for 11:1 contrast
+- Readonly fields use font-weight 500 for emphasis
+- All text passes WCAG AAA contrast requirements
+
+**Compact Social Media Cards**
+- Height reduced from 90px to 75px
+- Icon size: 24px, Label size: 10px
+- Still exceeds 44x44px WCAG touch target minimum
+
+### Session 1: Smart Title Case
+
+**Auto-Formatting with Lock Icons**
+- Name, Title, Department fields auto-format to title case
+- Preserves ~18 common acronyms (VP, CEO, iOS, API, B2B, etc.)
+- Lock icon (🔒/🔓) toggles formatting per field
+- State persists in localStorage (`format-lock-*` keys)
+- Applies on blur and paste events
 
 ## Recent Changes (v0.3.0)
 
@@ -66,9 +132,9 @@ Zoho Email Signature Generator is a professional, privacy-first web application 
 - **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3
 - **Design System**: CSS Custom Properties (370+ tokens in `.ui-design/`)
 - **No Dependencies**: Zero npm packages or build tools
-- **Browser APIs**: Clipboard API, localStorage, URL API
+- **Browser APIs**: Clipboard API, localStorage, URL API, URLSearchParams API
 - **Deployment**: GitHub Pages (main branch)
-- **Version**: 0.2.0
+- **Version**: 0.5.0
 
 ## Architecture Principles
 
@@ -86,12 +152,97 @@ const AppState = {
     socialOptions: {},      // Zoho social media config
     isDarkMode: false       // Theme preference
 };
+
+// formData includes:
+// - website: Tracked URL with UTM params (auto-generated)
+// - bookings: Full URL constructed from bookings-id input
+```
+
+### localStorage Keys
+```javascript
+'theme'                    // 'dark' or null (light mode)
+'social-order'             // JSON array of channel order
+'format-lock-name'         // boolean (default: true)
+'format-lock-title'        // boolean (default: true)
+'format-lock-department'   // boolean (default: true)
 ```
 
 ### Email Client Compatibility
 - **Table-based HTML** (not div-based)
 - **Inline styles** (no external CSS)
 - **Maximum compatibility** with Gmail, Outlook, Apple Mail, etc.
+
+### Key Implementation Patterns
+
+**URL Prefix Input Pattern**
+Used for LinkedIn, X (Twitter), and Bookings fields:
+```html
+<div class="url-prefix-input">
+    <span class="url-prefix">bookings.zohocorp.com/#/</span>
+    <input type="text" id="bookings-id" class="url-username-field">
+</div>
+```
+- User types only the identifier, not full URL
+- Full URL constructed in JavaScript
+- Consistent UX across all URL fields
+
+**Smart Title Case with Acronym Preservation**
+```javascript
+const PRESERVED_ACRONYMS = [
+    'VP', 'SVP', 'EVP', 'CEO', 'CTO', 'CFO', 'COO', 'CMO', 'CIO',
+    'iOS', 'API', 'IT', 'HR', 'B2B', 'B2C', 'SaaS', 'SMB'
+];
+
+function toSmartTitleCase(str) {
+    let result = str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+    PRESERVED_ACRONYMS.forEach(acronym => {
+        const regex = new RegExp('\\b' + acronym + '\\b', 'gi');
+        result = result.replace(regex, acronym);
+    });
+    return result;
+}
+```
+
+**UTM Tracking URL Generation**
+```javascript
+function getTrackedWebsiteURL() {
+    const emailPrefix = document.getElementById('email-prefix')?.value.trim() || 'zoho-employee';
+    const params = new URLSearchParams({
+        utm_source: 'email-signature',
+        utm_medium: 'signature',
+        utm_campaign: emailPrefix
+    });
+    return `https://www.zoho.com?${params.toString()}`;
+}
+```
+
+**Tooltip Positioning (Above Icon)**
+```css
+.info-icon::after {
+    position: absolute;
+    bottom: calc(100% + 8px);  /* Position ABOVE the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;  /* Prevent clipping */
+}
+```
+- Tooltips above icons avoid clipping by form elements
+- High z-index ensures visibility over other elements
+
+**Split Button Design**
+For Zoho product buttons with logo + text:
+```css
+.import-btn-split {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+}
+.import-btn-logo-wrapper {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+}
+```
 
 ## Code Conventions
 
@@ -250,6 +401,12 @@ npx serve
 - [ ] Dark mode persists across sessions
 - [ ] LinkedIn URL cleanup works
 - [ ] Modal keyboard navigation (Tab, Escape)
+- [ ] Smart title case formats on blur (Name, Title, Department)
+- [ ] Lock icons toggle formatting on/off
+- [ ] Bookings URL constructed from ID input
+- [ ] UTM tracking parameters in signature links
+- [ ] Social media drag-and-drop reordering
+- [ ] Quick Start shows numbered list (not bullets)
 
 ### Email Client Testing
 Test copied signatures in:
@@ -368,9 +525,9 @@ const ModalController = {
 ### Resuming After Break
 1. Check git status: `git status`
 2. Review recent commits: `git log --oneline -5`
-3. Check `social-media-demo.html` for pending design decisions
-4. Open `index.html` in browser to test current state
-5. Review `AppState` in browser console to debug issues
+3. Open `index.html` in browser to test current state
+4. Review `AppState` in browser console to debug issues
+5. Check localStorage for persisted user preferences
 
 ### Local Development
 ```bash
@@ -392,19 +549,6 @@ npx serve
 ---
 
 ## Common Tasks
-
-### Implementing Social Media Design Choice
-
-**Context**: User needs to choose from 6 designs in `social-media-demo.html`
-
-**Steps**:
-1. Ask user: "Which design option do you prefer? (1-6)"
-2. Copy HTML/CSS from chosen design in `social-media-demo.html`
-3. Replace social media section in `index.html`
-4. Update event handlers in `js/app.js` if needed
-5. Test toggle functionality
-6. Test signature generation with social links
-7. Commit with message: `feat: implement [design name] for social media section`
 
 ### Adding a New Signature Style
 
@@ -447,15 +591,19 @@ case 'new-style':
 
 ### Adding Social Media Links
 
-1. Add to Zoho social options:
+1. Add to Zoho social options in `signature.js`:
 ```javascript
-const socialOptions = {
-    twitter: 'https://twitter.com/zoho',
-    newPlatform: 'https://newplatform.com/zoho'
+const SOCIAL_CHANNELS = {
+    twitter: { url: 'https://x.com/Zoho', text: 'X', icon: '𝕏' },
+    linkedin: { url: 'https://www.linkedin.com/company/zoho', text: 'LinkedIn', icon: 'in' },
+    facebook: { url: 'https://www.facebook.com/zoho', text: 'Facebook', icon: 'f' },
+    instagram: { url: 'https://www.instagram.com/zoho', text: 'Instagram', icon: 'IG' },
+    newPlatform: { url: 'https://newplatform.com/zoho', text: 'Platform', icon: '🆕' }
 };
 ```
 
-2. Add icon/link in signature generation logic
+2. Add toggle card in `index.html` social grid
+3. Update `AppState.socialOptions` initialization in `app.js`
 
 ## Security Considerations
 
@@ -476,9 +624,11 @@ function escapeHtml(text) {
 
 ### Privacy
 - No cookies
-- No tracking
-- No data storage (except theme preference in localStorage)
+- No server-side tracking (UTM params are for recipient analytics only)
+- No data storage (except user preferences in localStorage)
 - No server communication
+- All processing happens client-side
+- UTM tracking enables Zoho to see signature traffic attribution
 
 ## Accessibility
 
@@ -664,6 +814,30 @@ These files MUST return HTTP 200 on GitHub Pages:
 4. Ensure images use absolute URLs
 5. Check for email client-specific CSS quirks
 
+### Title Case Not Working
+**Problem**: Text not auto-formatting when clicking away
+**Solutions**:
+1. Check if lock icon shows 🔒 (locked = formatting enabled)
+2. Verify `formatLockState` in browser console
+3. Check localStorage for `format-lock-*` keys
+4. Ensure blur event fires (click outside the input)
+
+### Bookings URL Not Appearing in Signature
+**Problem**: Bookings link missing from preview
+**Solutions**:
+1. Check if Bookings toggle is enabled (toggle should be red/active)
+2. Verify ID is entered in the input field
+3. Check `AppState.formData.bookings` in console
+4. Ensure field isn't disabled
+
+### Tooltips Clipped or Hidden
+**Problem**: Tooltip text cut off or invisible
+**Solutions**:
+1. Check z-index (should be 1000+)
+2. Verify tooltip positioned above icon (not to the right)
+3. Check for overflow:hidden on parent elements
+4. Test in different screen sizes
+
 ---
 
 ## File Change Impact Map
@@ -746,7 +920,6 @@ git commit -m "style: improve mobile responsive layout"
 ### Documentation Files
 - **README.md** - User-facing instructions (how to use)
 - **CLAUDE.md** - This file (how to develop)
-- **social-media-demo.html** - Design option prototypes
 - **.ui-design/docs/design-system.md** - Design token documentation
 
 ### Design System Files
