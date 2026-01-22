@@ -48,20 +48,44 @@ const PRESERVED_ACRONYMS = [
     'B2B', 'B2C', 'SaaS', 'SMB'
 ];
 
-// Smart title case function that preserves acronyms
+// Words that should remain lowercase (unless first word)
+const LOWERCASE_WORDS = [
+    'a', 'an', 'the',           // Articles
+    'and', 'but', 'or', 'nor',  // Conjunctions
+    'of', 'at', 'by', 'for', 'in', 'on', 'to', 'up', 'with', 'as'  // Prepositions
+];
+
+// Smart title case function that preserves acronyms and handles lowercase words
 function toSmartTitleCase(str) {
     if (!str || typeof str !== 'string') return str;
 
-    // First, apply standard title case
-    let result = str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+    // Split into words
+    const words = str.toLowerCase().split(/\s+/);
 
-    // Then, restore preserved acronyms
+    // Process each word
+    const result = words.map((word, index) => {
+        // Always capitalize first word
+        if (index === 0) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }
+
+        // Check if it's a lowercase word
+        if (LOWERCASE_WORDS.includes(word)) {
+            return word;
+        }
+
+        // Capitalize first letter
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+
+    // Restore preserved acronyms
+    let finalResult = result;
     PRESERVED_ACRONYMS.forEach(acronym => {
         const regex = new RegExp('\\b' + acronym + '\\b', 'gi');
-        result = result.replace(regex, acronym);
+        finalResult = finalResult.replace(regex, acronym);
     });
 
-    return result;
+    return finalResult;
 }
 
 // Initialize formatting state from localStorage
@@ -79,7 +103,9 @@ function setupFormatLockIcons() {
         // Set initial state from localStorage
         if (!formatLockState[fieldId]) {
             icon.classList.remove('locked');
-            icon.title = 'Auto-format disabled (click to enable)';
+            icon.title = 'Title Case OFF - click to enable auto-capitalization';
+        } else {
+            icon.title = 'Title Case ON - auto-capitalizes on blur';
         }
 
         // Toggle on click
@@ -88,9 +114,9 @@ function setupFormatLockIcons() {
             icon.classList.toggle('locked');
 
             if (formatLockState[fieldId]) {
-                icon.title = 'Auto-format enabled (click to disable)';
+                icon.title = 'Title Case ON - auto-capitalizes on blur';
             } else {
-                icon.title = 'Auto-format disabled (click to enable)';
+                icon.title = 'Title Case OFF - click to enable auto-capitalization';
             }
 
             // Save to localStorage

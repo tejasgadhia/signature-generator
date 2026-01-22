@@ -320,7 +320,8 @@ body {
     grid-template-columns: 140px 1fr;
     gap: var(--spacing-sm);
     align-items: center;
-    position: relative;  /* Positioning context for tooltips */
+    position: relative;
+    padding-right: 28px;  /* Space for right-aligned info icons */
 }
 
 .input-group label {
@@ -407,32 +408,39 @@ body {
     font-weight: 500;
 }
 
-/* Format lock/unlock icon for title case */
+/* Format lock/unlock button for title case */
 .format-lock-icon {
     position: absolute;
-    right: 40px;  /* Position before validation icon */
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+    background: #E5E7EB;  /* Gray when disabled */
     border: none;
-    font-size: 14px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
     cursor: pointer;
-    padding: 4px;
+    padding: 4px 6px;
     line-height: 1;
-    opacity: 0.5;
-    transition: opacity 0.2s ease;
+    color: #6B7280;
+    transition: all 0.2s ease;
 }
 
 .format-lock-icon:hover {
-    opacity: 1;
+    background: #D1D5DB;
 }
 
-.format-lock-icon.locked::before {
-    content: '🔒';
+.format-lock-icon.locked {
+    background: #D1FAE5;  /* Light green when enabled */
+    color: #059669;
 }
 
-.format-lock-icon:not(.locked)::before {
-    content: '🔓';
+.format-lock-icon.locked:hover {
+    background: #A7F3D0;
+}
+
+.format-lock-icon::before {
+    content: 'Aa';  /* Always show "Aa" to indicate title case */
 }
 
 .input-wrapper input:focus {
@@ -904,18 +912,20 @@ body {
 
 .social-compact-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);  /* 2 columns for horizontal cards */
+    gap: 8px;
     margin-top: 16px;
 }
 
 .social-compact-card {
     width: 100%;
-    height: 75px;  /* Reduced from 90px */
+    height: 48px;  /* Shorter for horizontal layout */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;  /* Horizontal: icon left, label right */
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 0 12px;
     border: 1px solid #E0E0E0;
     border-radius: 8px;
     background: #FFFFFF;
@@ -943,23 +953,23 @@ body {
 
 .social-drag-handle {
     position: absolute;
-    top: 4px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 10px;
     color: #999;
-    opacity: 0.5;
+    opacity: 0.4;
     line-height: 1;
 }
 
 .social-compact-icon {
-    font-size: 24px;  /* Reduced from 28px */
-    margin-bottom: 4px;
+    font-size: 20px;
     font-weight: bold;
+    flex-shrink: 0;
 }
 
 .social-compact-label {
-    font-size: 10px;  /* Reduced from 11px */
+    font-size: 12px;
     color: #666;
     font-weight: 500;
 }
@@ -1013,19 +1023,20 @@ body {
 
 /* Info icon with tooltip */
 .info-icon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: #E0E0E0;
     color: #666;
     font-size: 11px;
     cursor: help;
-    margin-left: 4px;
-    position: relative;
-    vertical-align: middle;
 }
 
 .info-icon:hover::after,
@@ -1201,16 +1212,30 @@ body {
 
 /* Field Tooltips */
 .field-tooltip {
-    font-size: 12px;
-    color: #666666;
-    margin-top: 4px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #E0E0E0;
+    color: #666;
+    font-size: 11px;
+    cursor: help;
 }
 
 .field-tooltip-icon {
-    font-size: 14px;
+    font-size: 11px;
+    line-height: 1;
+}
+
+/* Hide the text in field-tooltip, show on hover */
+.field-tooltip span:not(.field-tooltip-icon) {
+    display: none;
 }
 
 /* Validation States */
