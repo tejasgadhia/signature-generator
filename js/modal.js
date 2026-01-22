@@ -14,8 +14,18 @@ const ModalController = {
      */
     init() {
         this.modal = document.getElementById('modal');
+
+        if (!this.modal) {
+            console.warn('Modal element not found. Modal functionality disabled.');
+            return;
+        }
+
         this.closeButton = this.modal.querySelector('.modal-close');
         this.backdrop = this.modal.querySelector('.modal-backdrop');
+
+        if (!this.closeButton || !this.backdrop) {
+            console.warn('Modal child elements missing. Modal may not function correctly.');
+        }
 
         this.setupEventListeners();
     },
@@ -25,14 +35,18 @@ const ModalController = {
      */
     setupEventListeners() {
         // Close button click
-        this.closeButton.addEventListener('click', () => {
-            this.close();
-        });
+        if (this.closeButton) {
+            this.closeButton.addEventListener('click', () => {
+                this.close();
+            });
+        }
 
         // Backdrop click to close
-        this.backdrop.addEventListener('click', () => {
-            this.close();
-        });
+        if (this.backdrop) {
+            this.backdrop.addEventListener('click', () => {
+                this.close();
+            });
+        }
 
         // Escape key to close
         document.addEventListener('keydown', (e) => {
@@ -43,15 +57,22 @@ const ModalController = {
 
         // Prevent modal content clicks from closing
         const modalContent = this.modal.querySelector('.modal-content');
-        modalContent.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
+        if (modalContent) {
+            modalContent.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
     },
 
     /**
      * Open the modal
      */
     open() {
+        if (!this.modal) {
+            console.warn('Cannot open modal: modal element not initialized');
+            return;
+        }
+
         this.modal.classList.add('active');
         this.modal.setAttribute('aria-hidden', 'false');
 
@@ -66,6 +87,8 @@ const ModalController = {
      * Close the modal
      */
     close() {
+        if (!this.modal) return;
+
         this.modal.classList.remove('active');
         this.modal.setAttribute('aria-hidden', 'true');
 

@@ -45,9 +45,30 @@ const elements = {
 };
 
 /**
+ * Defensive null check for critical elements
+ */
+function validateDOMElements() {
+    const requiredElements = ['form', 'preview', 'previewContainer', 'copyButton'];
+    const missing = requiredElements.filter(key => !elements[key]);
+
+    if (missing.length > 0) {
+        console.warn('Warning: Missing required DOM elements:', missing);
+        console.warn('Application may not function correctly.');
+    }
+
+    return missing.length === 0;
+}
+
+/**
  * Initialize the application
  */
 function init() {
+    // Validate DOM elements exist
+    if (!validateDOMElements()) {
+        console.error('Critical DOM elements missing. Halting initialization.');
+        return;
+    }
+
     // Load saved theme preference
     loadThemePreference();
 
@@ -262,6 +283,11 @@ function setupCopyButton() {
             return;
         }
 
+        // Set loading state
+        const originalText = elements.copyButton.querySelector('.btn-text').textContent;
+        elements.copyButton.disabled = true;
+        elements.copyButton.querySelector('.btn-text').textContent = 'Copying...';
+
         try {
             // Build filtered form data based on toggles
             const filteredData = getFilteredFormData();
@@ -275,7 +301,6 @@ function setupCopyButton() {
 
             // Modern clipboard API
             if (navigator.clipboard && navigator.clipboard.write) {
-                // Create a blob with HTML content
                 const blob = new Blob([signatureHtml], { type: 'text/html' });
                 const plainTextBlob = new Blob([signatureHtml], { type: 'text/plain' });
 
@@ -286,10 +311,8 @@ function setupCopyButton() {
 
                 await navigator.clipboard.write([clipboardItem]);
             } else if (navigator.clipboard && navigator.clipboard.writeText) {
-                // Fallback to plain text
                 await navigator.clipboard.writeText(signatureHtml);
             } else {
-                // Fallback for older browsers
                 copyToClipboardFallback(signatureHtml);
             }
 
@@ -298,7 +321,6 @@ function setupCopyButton() {
             showToast('Signature copied to clipboard!', 'success');
         } catch (error) {
             console.error('Failed to copy:', error);
-            // Try fallback method
             try {
                 const filteredData = getFilteredFormData();
                 const signatureHtml = SignatureGenerator.generate(
@@ -312,6 +334,10 @@ function setupCopyButton() {
             } catch (fallbackError) {
                 showToast('Failed to copy. Please try again.', 'error');
             }
+        } finally {
+            // Restore button state
+            elements.copyButton.disabled = false;
+            elements.copyButton.querySelector('.btn-text').textContent = originalText;
         }
     });
 }
