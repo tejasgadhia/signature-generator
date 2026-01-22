@@ -25,6 +25,9 @@ Temporary Items
 # Claude plans
 .claude/
 
+# Git worktrees
+.worktrees/
+
 # Editor directories and files
 .vscode/
 .idea/
