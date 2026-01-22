@@ -153,21 +153,21 @@ const SignatureGenerator = {
             if (socialData[channel]) {
                 const social = socialData[channel];
                 if (displayType === 'icons') {
-                    links.push(`<a href="${social.url}" style="color: #666666; text-decoration: none; font-size: 16px; margin-right: 8px;" title="${social.text}">${social.icon}</a>`);
+                    links.push(`<a href="${social.url}" class="sig-link" style="color: #666666; text-decoration: none; font-size: 16px; margin-right: 8px;" title="${social.text}">${social.icon}</a>`);
                 } else {
-                    links.push(`<a href="${social.url}" style="color: #666666; text-decoration: none;">${social.text}</a>`);
+                    links.push(`<a href="${social.url}" class="sig-link" style="color: #666666; text-decoration: none;">${social.text}</a>`);
                 }
             }
         });
 
-        const separator = displayType === 'icons' ? '' : ' <span style="color: #cccccc;">•</span> ';
+        const separator = displayType === 'icons' ? '' : ' <span class="sig-separator" style="color: #cccccc;">•</span> ';
         const linksHtml = displayType === 'icons'
             ? links.join('')
             : links.join(separator);
 
         return `
             <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e0e0;">
-                <div style="font-size: 12px; color: #999999; margin-bottom: 6px;">Follow Zoho:</div>
+                <div class="sig-title" style="font-size: 12px; color: #999999; margin-bottom: 6px;">Follow Zoho:</div>
                 <div style="font-size: 12px;">
                     ${linksHtml}
                 </div>
