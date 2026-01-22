@@ -5,8 +5,41 @@
 Zoho Email Signature Generator is a professional, privacy-first web application that allows Zoho employees to create beautiful, email-compatible HTML email signatures. It offers 4 signature styles with live preview, iOS-style toggles, and one-click copy to clipboard.
 
 **Live Demo**: https://tejasgadhia.github.io/signature-generator
-**Version**: 0.5.0
+**Version**: 0.6.0
 **Last Updated**: January 22, 2026
+
+## Recent Changes (v0.6.0)
+
+### Dark Mode Email Signature Support
+
+**CSS Media Query Implementation**
+- All 4 signature styles now include `<style>` block with `@media (prefers-color-scheme: dark)`
+- High contrast color scheme: White text (#FFFFFF), light gray titles (#E0E0E0), blue links (#4A9EFF)
+- Graceful degradation: Legacy email clients fall back to inline styles (light mode)
+
+**Dual Logo Strategy**
+- Every signature includes both light and dark Zoho logos
+- CSS `display: none/block` toggles visibility based on color scheme
+- Logo URLs point to GitHub Pages: `tejasgadhia.github.io/signature-generator/assets/`
+
+**Email Client Support**
+- ✅ Gmail (web + mobile): Full dark mode support
+- ✅ Apple Mail (macOS + iOS): Full dark mode support
+- ⚠️ Outlook Web: Partial support (may strip some styles)
+- ❌ Outlook Desktop: Fallback to light mode (inline styles only)
+
+**Helper Functions**
+- `getDarkModeStyles()`: Generates CSS style block with media queries
+- `getLogoUrls()`: Returns light/dark logo URLs from GitHub Pages
+- `generateDualLogos()`: Creates HTML with both logo variants
+
+**CSS Classes for Dark Mode**
+- `.sig-name`: Primary text (name field)
+- `.sig-title`: Secondary text (title, department, labels)
+- `.sig-link`: All links (phone, email, social, website)
+- `.sig-separator`: Bullet separators (•)
+- `.sig-logo-light`: Light background logo (visible by default)
+- `.sig-logo-dark`: Dark background logo (hidden by default, shown in dark mode)
 
 ## Recent Changes (v0.5.0)
 
@@ -165,6 +198,22 @@ const AppState = {
 'format-lock-name'         // boolean (default: true)
 'format-lock-title'        // boolean (default: true)
 'format-lock-department'   // boolean (default: true)
+```
+
+### Dark Mode Implementation
+```javascript
+// Logo URLs from GitHub Pages
+const logos = SignatureGenerator.getLogoUrls();
+// {
+//   light: "https://tejasgadhia.github.io/signature-generator/assets/zoho-logo-light.png",
+//   dark: "https://tejasgadhia.github.io/signature-generator/assets/zoho-logo-dark.png"
+// }
+
+// Every signature includes:
+// 1. Dark mode CSS style block (getDarkModeStyles())
+// 2. Dual logos (generateDualLogos())
+// 3. CSS classes on all text elements
+// 4. Inline styles as fallback
 ```
 
 ### Email Client Compatibility
@@ -407,6 +456,16 @@ npx serve
 - [ ] UTM tracking parameters in signature links
 - [ ] Social media drag-and-drop reordering
 - [ ] Quick Start shows numbered list (not bullets)
+
+### Dark Mode Testing
+- [ ] All 4 signature styles include `<style>` block
+- [ ] Both logos present in HTML (light + dark)
+- [ ] CSS classes on all text elements (.sig-name, .sig-title, etc.)
+- [ ] Inline styles present as fallback
+- [ ] Test in Gmail web (dark mode)
+- [ ] Test in Gmail mobile (dark mode)
+- [ ] Test in Apple Mail (dark mode)
+- [ ] Outlook Desktop shows readable light mode
 
 ### Email Client Testing
 Test copied signatures in:
