@@ -160,8 +160,13 @@ function generateEmail(fullName) {
     }
 }
 
-// Display: [sarah.mitchell] @zohocorp.com
-// User can edit the username portion only
+// Display format:
+// [editable input: sarah.mitchell] @zohocorp.com (locked suffix)
+// User can edit the prefix, domain is fixed
+
+// Add info icon with tooltip:
+// ⓘ "Email auto-generated from your name (firstname.lastname@zohocorp.com)"
+// Tooltip shows on hover or focus
 ```
 
 ### Social URL Pre-population
@@ -175,31 +180,98 @@ linkedinInput.dataset.prefix = "https://linkedin.com/in/";
 const fullLinkedInUrl = linkedinInput.dataset.prefix + linkedinInput.value;
 ```
 
-### Compact Social Media Toggles (Option B)
+### Info Icon Tooltip Implementation
 ```html
-<!-- Instead of full-width list items -->
+<!-- Example: Email field with info icon -->
+<div class="input-group">
+    <label for="email">
+        Email Address
+        <span class="info-icon" data-tooltip="Email auto-generated from your name (firstname.lastname@zohocorp.com). You can edit the prefix.">ⓘ</span>
+    </label>
+    <div class="input-wrapper">
+        <input type="text" id="email-prefix" placeholder="firstname.lastname">
+        <span class="email-suffix">@zohocorp.com</span>
+    </div>
+</div>
+```
+
+```css
+/* Info icon styling */
+.info-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 50%;
+    background: #E0E0E0;
+    color: #666;
+    font-size: 12px;
+    cursor: help;
+    margin-left: 4px;
+    position: relative;
+}
+
+/* Tooltip appears on hover or when input is focused */
+.info-icon:hover::after,
+.input-group:focus-within .info-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Tooltip arrow */
+.info-icon:hover::before,
+.input-group:focus-within .info-icon::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 4px solid transparent;
+    border-right-color: #333;
+    z-index: 1001;
+}
+```
+
+### Compact Social Media Toggles (Horizontal Drag-and-Drop)
+```html
+<!-- Horizontal row with drag handles - matches preview layout -->
 <div class="social-compact-toggles">
-    <button class="social-icon-toggle active" data-channel="twitter">
+    <div class="social-icon-toggle active" draggable="true" data-channel="twitter">
+        <span class="drag-handle">⋮⋮</span>
         <span class="icon">𝕏</span>
         <span class="label">Twitter</span>
-    </button>
-    <button class="social-icon-toggle active" data-channel="linkedin">
+    </div>
+    <div class="social-icon-toggle active" draggable="true" data-channel="linkedin">
+        <span class="drag-handle">⋮⋮</span>
         <span class="icon">in</span>
         <span class="label">LinkedIn</span>
-    </button>
+    </div>
     <!-- etc -->
 </div>
 
-<!-- CSS: Display as row with small icons -->
+<!-- CSS: Display as horizontal row -->
 .social-compact-toggles {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: 12px;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    align-items: center;
 }
 
 .social-icon-toggle {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -207,38 +279,70 @@ const fullLinkedInUrl = linkedinInput.dataset.prefix + linkedinInput.value;
     border: 2px solid #E0E0E0;
     border-radius: 8px;
     background: #FFFFFF;
-    cursor: pointer;
+    cursor: grab;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
 .social-icon-toggle.active {
     border-color: #E42527;
     background: #FFF5F5;
 }
+
+.social-icon-toggle.dragging {
+    opacity: 0.5;
+}
+
+.drag-handle {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #999;
+    opacity: 0.5;
+}
+
+/* Drag left/right, not up/down - matches preview display */
+/* Live reordering as user drags horizontally */
 ```
+
+**Key Changes from Vertical:**
+- Drag handle at top (⋮⋮) instead of left (☰)
+- Horizontal flexbox layout
+- Drag left/right to reorder (not up/down)
+- Matches how social links appear in signature preview
+- More intuitive visual mapping
 
 ---
 
-## Assets Needed
+## Assets Available & Needed
 
-### Logos (PNG or SVG, transparent background)
-1. **Zoho Corporation Logo** (full color for sidebar header)
-2. **Zoho Mail Logo** (blue variant for button)
-3. **Zoho Desk Logo** (green variant for button)
-4. **Gmail Logo** (Google's official branding)
-5. **Apple Mail Logo** (Apple's official branding)
-6. **Outlook Logo** (Microsoft's official branding)
-7. **Zoho Logo - Dark Mode Variant** (light-colored version for dark backgrounds)
+### ✅ Available in `/assets/`
+1. **Zoho Mail Logo** - `mail-logo.svg` (icon), `mail-full.svg` (full logo)
+2. **Zoho Desk Logo** - `desk-logo.svg` (icon), `desk-full.svg` (full logo)
+
+### ❌ Still Needed
+3. **Zoho Corporation Logo** (for sidebar header)
+   - Fallback: Use text "Zoho" with brand color
+4. **Gmail Logo** (for import button)
+   - Fallback: Use emoji 📧 or text "Gmail"
+5. **Apple Mail Logo** (for import button)
+   - Fallback: Use emoji 🍎 or text "Apple Mail"
+6. **Outlook Logo** (for import button)
+   - Fallback: Use emoji 📮 or text "Outlook"
+7. **Zoho Logo - Dark Mode Variant** (for signature preview)
+   - Fallback: Add white stroke/glow via CSS filter
 
 ### Size Requirements
 - Sidebar header logo: 80-100px width
-- Button logos: 20-24px square
+- Button logos: 20-24px square (use `-logo.svg` versions)
 - Signature logo (in preview): Existing size (looks fine)
 
-### Fallback Plan
-If official logos unavailable:
-- Use high-quality emoji as temporary placeholder
-- Use text-based icons (e.g., "ZM" for Zoho Mail)
-- Link to official brand asset pages in comments
+### Implementation Plan
+- Use available SVGs for Zoho Mail and Zoho Desk
+- Use emoji/text fallbacks for Gmail, Apple, Outlook (can upgrade later)
+- For Zoho corporate logo, use styled text as placeholder
 
 ---
 
@@ -263,12 +367,27 @@ If official logos unavailable:
 
 ---
 
-## Questions to Answer Before Next Chat
+## Implementation Answers (Ready to Go)
 
-1. **Logo Assets:** Do you have access to official Zoho product logos, or should I use placeholders?
-2. **Email Override:** Should users be able to completely override the auto-generated email, or lock it strictly?
-3. **Social Media Drag-and-Drop:** Keep drag-and-drop in compact mode, or remove it to save complexity?
-4. **Validation Behavior:** Should inline tooltips show on hover, focus, or always visible?
+1. **Logo Assets:** ✅ Available in `/assets/`
+   - `mail-logo.svg` and `mail-full.svg` (Zoho Mail)
+   - `desk-logo.svg` and `desk-full.svg` (Zoho Desk)
+   - Need: Zoho corporate logo, Gmail, Apple Mail, Outlook (use emoji/text fallback for now)
+
+2. **Email Override:** ✅ Editable prefix (before @zohocorp.com)
+   - User can edit: `[firstname.lastname]` @zohocorp.com
+   - Auto-generated from Full Name as default
+   - Domain locked and displayed as suffix
+
+3. **Social Media Drag-and-Drop:** ✅ Horizontal, not vertical
+   - Compact horizontal row (matches preview display)
+   - Drag left/right (not up/down)
+   - More intuitive since preview shows horizontal
+
+4. **Validation Tooltips:** ✅ Info icon (ⓘ) with hover/focus
+   - Not always visible (not intrusive)
+   - Appears on hover or field focus
+   - Especially important for email field (explain auto-population)
 
 ---
 
