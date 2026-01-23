@@ -21,7 +21,7 @@ const SignatureGenerator = {
     /* Text colors - High contrast for WCAG AA compliance */
     .sig-name { color: #FFFFFF !important; }
     .sig-title { color: #E0E0E0 !important; }
-    .sig-link { color: #4A9EFF !important; }
+    /* Note: .sig-link uses inline accent color - no override needed */
     .sig-separator { color: #666666 !important; }
 
     /* Logo switching - hide light, show dark */
@@ -32,7 +32,7 @@ const SignatureGenerator = {
   /* Also apply dark mode when parent has .dark-mode class (for preview toggle) */
   .dark-mode .sig-name { color: #FFFFFF !important; }
   .dark-mode .sig-title { color: #E0E0E0 !important; }
-  .dark-mode .sig-link { color: #4A9EFF !important; }
+  /* Note: .sig-link uses inline accent color - no override needed */
   .dark-mode .sig-separator { color: #666666 !important; }
   .dark-mode .sig-logo-light { display: none !important; }
   .dark-mode .sig-logo-dark { display: inline-block !important; }
