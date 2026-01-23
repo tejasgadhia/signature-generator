@@ -649,6 +649,75 @@ body {
     margin-top: 4px;
 }
 
+/* Color Switcher */
+.color-switcher-container {
+    margin-bottom: 24px;
+}
+
+.color-switcher-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.color-switcher {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Color Buttons */
+.color-btn {
+    width: 80px;
+    height: 40px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: border 0.2s ease, opacity 0.2s ease;
+}
+
+.color-btn[data-color="#E42527"] {
+    background: #E42527;
+}
+
+.color-btn[data-color="#089949"] {
+    background: #089949;
+}
+
+.color-btn[data-color="#226DB4"] {
+    background: #226DB4;
+}
+
+.color-btn[data-color="#F9B21D"] {
+    background: #F9B21D;
+    color: #333333; /* Dark text for yellow background contrast */
+}
+
+.color-btn.selected {
+    border-color: #333333;
+    border-width: 3px;
+}
+
+.color-btn:hover {
+    opacity: 0.9;
+}
+
+.color-btn:focus {
+    outline: 2px solid #4A9EFF;
+    outline-offset: 2px;
+}
+
+.color-btn:active {
+    transform: translateY(1px);
+}
+
 /* Zoho Social Options */
 .zoho-social-options {
     display: flex;
