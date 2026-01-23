@@ -617,7 +617,8 @@ body {
     opacity: 0;
 }
 
-.style-option input[type="radio"]:checked + .style-content::before {
+/* Checkmark removed - border highlight is sufficient visual feedback */
+/* .style-option input[type="radio"]:checked + .style-content::before {
     content: '✓';
     position: absolute;
     top: 8px;
@@ -625,7 +626,7 @@ body {
     color: #E42527;
     font-weight: bold;
     font-size: 18px;
-}
+} */
 
 .style-option:has(input[type="radio"]:checked) {
     border-color: #E42527;
@@ -643,7 +644,7 @@ body {
 
 .style-label {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: #333333;
     text-align: center;
 }
