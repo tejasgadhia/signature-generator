@@ -8,6 +8,83 @@ const SignatureGenerator = {
     ZOHO_RED: '#E42527',
 
     /**
+     * Generate dark mode CSS style block
+     * Includes media queries for prefers-color-scheme: dark
+     * AND support for .dark-mode class (preview toggle)
+     * @returns {string} <style> block with dark mode overrides
+     */
+    getDarkModeStyles() {
+        return `
+<style>
+  /* Dark mode styles - applies to both system preference AND preview toggle */
+  @media (prefers-color-scheme: dark) {
+    /* Text colors - High contrast for WCAG AA compliance */
+    .sig-name { color: #FFFFFF !important; }
+    .sig-title { color: #E0E0E0 !important; }
+    .sig-link { color: #4A9EFF !important; }
+    .sig-separator { color: #666666 !important; }
+
+    /* Logo switching - hide light, show dark */
+    .sig-logo-light { display: none !important; }
+    .sig-logo-dark { display: inline-block !important; }
+  }
+
+  /* Also apply dark mode when parent has .dark-mode class (for preview toggle) */
+  .dark-mode .sig-name { color: #FFFFFF !important; }
+  .dark-mode .sig-title { color: #E0E0E0 !important; }
+  .dark-mode .sig-link { color: #4A9EFF !important; }
+  .dark-mode .sig-separator { color: #666666 !important; }
+  .dark-mode .sig-logo-light { display: none !important; }
+  .dark-mode .sig-logo-dark { display: inline-block !important; }
+
+  /* Default: hide dark logo */
+  .sig-logo-dark { display: none; }
+</style>`.trim();
+    },
+
+    /**
+     * Get logo URLs for both light and dark modes
+     * Uses relative paths for local development and absolute URLs for production
+     * @returns {Object} {light: string, dark: string}
+     */
+    getLogoUrls() {
+        // Check if we're on GitHub Pages or local
+        const isProduction = window.location.hostname.includes('github.io');
+        const baseUrl = isProduction
+            ? 'https://tejasgadhia.github.io/signature-generator/assets'
+            : './assets';
+
+        return {
+            light: `${baseUrl}/zoho-logo-light.png`,
+            dark: `${baseUrl}/zoho-logo-dark.png`
+        };
+    },
+
+    /**
+     * Generate dual logo HTML (light + dark versions)
+     * Both logos included, CSS media query controls visibility
+     * @param {string} websiteUrl - URL to wrap logos in
+     * @param {number} height - Logo height in pixels
+     * @returns {string} HTML with both logo variants
+     */
+    generateDualLogos(websiteUrl, height = 32) {
+        const logos = this.getLogoUrls();
+        return `
+<a href="${websiteUrl}" style="text-decoration: none; display: inline-block;">
+    <img src="${logos.light}"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: ${height}px; display: block; border: 0;"
+         height="${height}">
+    <img src="${logos.dark}"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: ${height}px; display: none; border: 0;"
+         height="${height}">
+</a>`.trim();
+    },
+
+    /**
      * Generate HTML signature from form data
      * @param {Object} data - Form data object
      * @param {string} style - Signature style (classic, compact, modern, minimal)
@@ -22,22 +99,22 @@ const SignatureGenerator = {
         const contacts = [];
 
         if (data.phone) {
-            contacts.push(`<a href="tel:${this.sanitizePhone(data.phone)}" style="color: #666666; text-decoration: none;">${this.escapeHtml(data.phone)}</a>`);
+            contacts.push(`<a href="tel:${this.sanitizePhone(data.phone)}" class="sig-link" style="color: #666666; text-decoration: none;">${this.escapeHtml(data.phone)}</a>`);
         }
 
         if (data.email) {
-            contacts.push(`<a href="mailto:${this.escapeHtml(data.email)}" style="color: #666666; text-decoration: none;">${this.escapeHtml(data.email)}</a>`);
+            contacts.push(`<a href="mailto:${this.escapeHtml(data.email)}" class="sig-link" style="color: #666666; text-decoration: none;">${this.escapeHtml(data.email)}</a>`);
         }
 
         if (data.linkedin) {
             const linkedinUrl = this.normalizeUrl(data.linkedin);
-            contacts.push(`<a href="${linkedinUrl}" style="color: #666666; text-decoration: none;">LinkedIn</a>`);
+            contacts.push(`<a href="${linkedinUrl}" class="sig-link" style="color: #666666; text-decoration: none;">LinkedIn</a>`);
         }
 
         if (data.twitter) {
             const twitterHandle = data.twitter.replace('@', '');
             const twitterUrl = `https://twitter.com/${twitterHandle}`;
-            contacts.push(`<a href="${twitterUrl}" style="color: #666666; text-decoration: none;">@${this.escapeHtml(twitterHandle)}</a>`);
+            contacts.push(`<a href="${twitterUrl}" class="sig-link" style="color: #666666; text-decoration: none;">@${this.escapeHtml(twitterHandle)}</a>`);
         }
 
         // Build Zoho social handles if requested
@@ -76,21 +153,21 @@ const SignatureGenerator = {
             if (socialData[channel]) {
                 const social = socialData[channel];
                 if (displayType === 'icons') {
-                    links.push(`<a href="${social.url}" style="color: #666666; text-decoration: none; font-size: 16px; margin-right: 8px;" title="${social.text}">${social.icon}</a>`);
+                    links.push(`<a href="${social.url}" class="sig-link" style="color: #666666; text-decoration: none; font-size: 16px; margin-right: 8px;" title="${social.text}">${social.icon}</a>`);
                 } else {
-                    links.push(`<a href="${social.url}" style="color: #666666; text-decoration: none;">${social.text}</a>`);
+                    links.push(`<a href="${social.url}" class="sig-link" style="color: #666666; text-decoration: none;">${social.text}</a>`);
                 }
             }
         });
 
-        const separator = displayType === 'icons' ? '' : ' <span style="color: #cccccc;">•</span> ';
+        const separator = displayType === 'icons' ? '' : ' <span class="sig-separator" style="color: #cccccc;">•</span> ';
         const linksHtml = displayType === 'icons'
             ? links.join('')
             : links.join(separator);
 
         return `
             <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e0e0;">
-                <div style="font-size: 12px; color: #999999; margin-bottom: 6px;">Follow Zoho:</div>
+                <div class="sig-title" style="font-size: 12px; color: #999999; margin-bottom: 6px;">Follow Zoho:</div>
                 <div style="font-size: 12px;">
                     ${linksHtml}
                 </div>
@@ -103,7 +180,7 @@ const SignatureGenerator = {
      */
     generateClassicStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml) {
         const contactsHtml = contacts.length > 0
-            ? contacts.join(' <span style="color: #cccccc;">•</span> ')
+            ? contacts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ')
             : '';
 
         const titleParts = [];
@@ -111,26 +188,24 @@ const SignatureGenerator = {
         if (data.department) titleParts.push(this.escapeHtml(data.department));
         const titleLine = titleParts.join(' | ');
 
-        return `
+        return this.getDarkModeStyles() + `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">
     <tr>
         <td style="padding-bottom: 12px;">
-            <a href="${websiteUrl}" style="text-decoration: none; display: inline-block;">
-                <img src="${logoUrl}" alt="Zoho" style="height: 32px; display: block; border: 0;" height="32">
-            </a>
+            ${this.generateDualLogos(websiteUrl, 32)}
         </td>
     </tr>
     <tr>
         <td>
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td style="font-size: 18px; font-weight: bold; color: #333333; padding-bottom: 4px;">
+                    <td class="sig-name" style="font-size: 18px; font-weight: bold; color: #333333; padding-bottom: 4px;">
                         ${this.escapeHtml(data.name)}
                     </td>
                 </tr>
                 ${titleLine ? `
                 <tr>
-                    <td style="font-size: 14px; color: #666666; padding-bottom: 8px;">
+                    <td class="sig-title" style="font-size: 14px; color: #666666; padding-bottom: 8px;">
                         ${titleLine}
                     </td>
                 </tr>
@@ -163,22 +238,20 @@ const SignatureGenerator = {
         if (data.title) titleParts.push(this.escapeHtml(data.title));
         if (data.department) titleParts.push(this.escapeHtml(data.department));
 
-        const parts = [this.escapeHtml(data.name)];
-        if (titleParts.length) parts.push(titleParts.join(' | '));
+        const parts = [`<span class="sig-name" style="font-weight: bold; color: #333333;">${this.escapeHtml(data.name)}</span>`];
+        if (titleParts.length) parts.push(`<span class="sig-title" style="color: #666666;">${titleParts.join(' | ')}</span>`);
         parts.push(...contacts);
 
-        const allContent = parts.join(' <span style="color: #cccccc;">•</span> ');
+        const allContent = parts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ');
 
-        return `
+        return this.getDarkModeStyles() + `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
     <tr>
         <td style="padding-right: 12px; vertical-align: middle;">
-            <a href="${websiteUrl}" style="text-decoration: none; display: inline-block;">
-                <img src="${logoUrl}" alt="Zoho" style="height: 24px; display: block; border: 0;" height="24">
-            </a>
+            ${this.generateDualLogos(websiteUrl, 24)}
         </td>
         <td style="vertical-align: middle;">
-            <span style="font-weight: bold;">${allContent}</span>
+            ${allContent}
             ${zohoSocialHtml}
         </td>
     </tr>
@@ -190,7 +263,7 @@ const SignatureGenerator = {
      */
     generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml) {
         const contactsHtml = contacts.length > 0
-            ? contacts.join(' <span style="color: #cccccc;">•</span> ')
+            ? contacts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ')
             : '';
 
         const titleParts = [];
@@ -198,20 +271,18 @@ const SignatureGenerator = {
         if (data.department) titleParts.push(this.escapeHtml(data.department));
         const titleLine = titleParts.join(' | ');
 
-        return `
+        return this.getDarkModeStyles() + `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">
     <tr>
         <td style="padding-right: 16px; vertical-align: top; border-right: 3px solid ${this.ZOHO_RED};">
-            <a href="${websiteUrl}" style="text-decoration: none; display: inline-block;">
-                <img src="${logoUrl}" alt="Zoho" style="height: 48px; display: block; border: 0;" height="48">
-            </a>
+            ${this.generateDualLogos(websiteUrl, 48)}
         </td>
         <td style="padding-left: 16px; vertical-align: top;">
-            <div style="font-size: 16px; font-weight: bold; color: #333333; margin-bottom: 4px;">
+            <div class="sig-name" style="font-size: 16px; font-weight: bold; color: #333333; margin-bottom: 4px;">
                 ${this.escapeHtml(data.name)}
             </div>
             ${titleLine ? `
-            <div style="font-size: 13px; color: #666666; margin-bottom: 6px;">
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 6px;">
                 ${titleLine}
             </div>
             ` : ''}
@@ -231,7 +302,7 @@ const SignatureGenerator = {
      */
     generateMinimalStyle(data, websiteUrl, contacts, zohoSocialHtml) {
         const contactsHtml = contacts.length > 0
-            ? contacts.join(' <span style="color: #cccccc;">•</span> ')
+            ? contacts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ')
             : '';
 
         const titleParts = [];
@@ -239,15 +310,15 @@ const SignatureGenerator = {
         if (data.department) titleParts.push(this.escapeHtml(data.department));
         const titleLine = titleParts.join(' | ');
 
-        return `
+        return this.getDarkModeStyles() + `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">
     <tr>
         <td>
-            <div style="font-size: 16px; font-weight: bold; color: ${this.ZOHO_RED}; margin-bottom: 4px;">
+            <div class="sig-name" style="font-size: 16px; font-weight: bold; color: ${this.ZOHO_RED}; margin-bottom: 4px;">
                 ${this.escapeHtml(data.name)}
             </div>
             ${titleLine ? `
-            <div style="font-size: 13px; color: #666666; margin-bottom: 6px;">
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 6px;">
                 ${titleLine}
             </div>
             ` : ''}
@@ -257,7 +328,7 @@ const SignatureGenerator = {
             </div>
             ` : ''}
             <div style="font-size: 12px; color: #999999;">
-                <a href="${websiteUrl}" style="color: ${this.ZOHO_RED}; text-decoration: none; font-weight: 500;">Zoho Corporation</a>
+                <a href="${websiteUrl}" class="sig-link" style="color: ${this.ZOHO_RED}; text-decoration: none; font-weight: 500;">Zoho Corporation</a>
             </div>
             ${zohoSocialHtml}
         </td>

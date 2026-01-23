@@ -4,9 +4,56 @@
 
 ---
 
-## Current Version: v0.4.0 ✅ COMPLETE
+## Current Version: v0.6.0 ✅ COMPLETE
 
 ### What's Been Implemented
+
+#### Dark Mode Email Signature Support (Priority 3: Professional Polish)
+- ✅ CSS media queries for `prefers-color-scheme: dark`
+- ✅ Dual logo implementation (light + dark variants)
+- ✅ High contrast color scheme (WCAG AA compliant)
+- ✅ All 4 signature styles updated (Classic, Compact, Modern, Minimal)
+- ✅ Graceful degradation for legacy email clients
+- ✅ Social media links dark mode support
+- ✅ Tested in browser with dark mode toggle
+
+**Email Client Support:**
+- ✅ Gmail (web + mobile): Full dark mode support
+- ✅ Apple Mail (macOS + iOS): Full dark mode support
+- ⚠️ Outlook Web: Partial support (may strip some styles)
+- ❌ Outlook Desktop: Fallback to light mode (inline styles only)
+
+---
+
+## Previous Version: v0.5.0 ✅ COMPLETE
+
+### What Was Implemented (v0.5.0)
+
+#### UX Enhancements & Polish
+
+**Session 3:**
+- ✅ Twitter → X rebrand
+- ✅ Bookings URL pattern (username-style input)
+- ✅ Quick Start numbered list
+- ✅ Social media hint text update
+- ✅ UTM tracking for zoho.com links
+
+**Session 2:**
+- ✅ Split button design for Zoho products
+- ✅ Sidebar footer section
+- ✅ Tooltip positioning fix
+- ✅ Text readability improvements
+- ✅ Compact social media cards
+
+**Session 1:**
+- ✅ Smart title case with acronym preservation
+- ✅ Lock icon toggles for formatting
+
+---
+
+## Previous Version: v0.4.0 ✅ COMPLETE
+
+### What Was Implemented (v0.4.0)
 
 #### Layout & Structure
 - ✅ Three-column desktop layout (Sidebar + Form + Preview)
@@ -49,27 +96,17 @@
 
 ---
 
-## Next Version: v0.5.0 📋 PLANNED
+## Future Enhancements: v0.7.0+ 💡 IDEAS
 
-See `PHASE-2-PLAN.md` for full details.
+### Potential Features
+- User-controlled dark mode preview in actual email clients
+- Additional color schemes (soft contrast option)
+- Social media icon color adaptation for dark mode
+- A/B testing different contrast levels
+- Export signature as image (PNG/SVG)
+- Signature templates with pre-filled fields
 
-### Priority 1: Critical Fixes
-1. Fix logo display issues (Mail logo half cut-off)
-2. Improve text readability (darker label colors)
-3. Pin disclaimer to bottom of sidebar
-
-### Priority 2: UX Enhancements
-4. Compact social media cards (reduce height)
-5. Reposition tooltips to right side
-6. Enforce title case for name fields
-7. Bookings URL with fixed base pattern
-
-### Priority 3: Professional Polish
-8. Source official Gmail/Apple Mail/Outlook logos
-9. Dark mode text contrast (WCAG compliance)
-10. Logo inversion for dark mode
-
-**Estimated Effort:** 3-4 hours
+**Status:** Ideas stage - no active development
 
 ---
 
@@ -95,8 +132,10 @@ Completed design documents moved to `docs/archive/`:
 | v0.2.0 | ✅ Released | Design system (370+ tokens), accessibility improvements |
 | v0.3.0 | ✅ Released | Premium drag-and-drop social media reordering |
 | v0.4.0 | ✅ Released | Three-column layout, official branding, UX refinements |
-| v0.5.0 | 📋 Planned | Polish, readability, logo fixes, professional assets |
+| v0.5.0 | ✅ Released | UX polish, title case, bookings URL, X rebrand |
+| v0.6.0 | ✅ Released | Dark mode email signatures (Gmail/Apple Mail support) |
+| v0.7.0+ | 💡 Ideas | Future enhancements (color schemes, templates) |
 
 ---
 
-**Need to resume work?** Check `PHASE-2-PLAN.md` for the next implementation session.
+**Project Status:** v0.6.0 is complete and ready for deployment. See `docs/dark-mode-test-results.md` for full test results.
