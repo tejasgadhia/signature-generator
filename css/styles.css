@@ -678,14 +678,14 @@ body {
 .color-switcher {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 12px;
 }
 
 /* Color Buttons */
 .color-btn {
     height: 36px;
     border: 2px solid transparent;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
     color: #FFFFFF;
