@@ -1638,6 +1638,30 @@ kbd {
     font-weight: 500;
 }
 
+/* Modal Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .instruction-step {
+        animation: none;
+        opacity: 1;
+    }
+
+    .modal.active .modal-content {
+        animation: none;
+    }
+}
+
 /* Toast Notification */
 .toast {
     position: fixed;
