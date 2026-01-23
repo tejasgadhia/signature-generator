@@ -91,7 +91,7 @@ const SignatureGenerator = {
      * @param {Object} socialOptions - Social media options {enabled, channels, displayType}
      * @returns {string} HTML signature with inline styles
      */
-    generate(data, style = 'classic', socialOptions = {enabled: false, channels: [], displayType: 'text'}) {
+    generate(data, style = 'classic', socialOptions = {enabled: false, channels: [], displayType: 'text'}, accentColor = '#E42527') {
         const logoUrl = 'https://www.zoho.com/sites/zweb/images/zoho_general_pages/zoho-logo-512.png';
         const websiteUrl = data.website || 'https://www.zoho.com';
 
@@ -126,14 +126,14 @@ const SignatureGenerator = {
         // Generate signature based on style
         switch (style) {
             case 'compact':
-                return this.generateCompactStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml);
+                return this.generateCompactStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor);
             case 'modern':
-                return this.generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml);
+                return this.generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor);
             case 'minimal':
-                return this.generateMinimalStyle(data, websiteUrl, contacts, zohoSocialHtml);
+                return this.generateMinimalStyle(data, websiteUrl, contacts, zohoSocialHtml, accentColor);
             case 'classic':
             default:
-                return this.generateClassicStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml);
+                return this.generateClassicStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor);
         }
     },
 
@@ -178,7 +178,7 @@ const SignatureGenerator = {
     /**
      * Generate Classic style signature
      */
-    generateClassicStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml) {
+    generateClassicStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor = '#E42527') {
         const contactsHtml = contacts.length > 0
             ? contacts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ')
             : '';
@@ -233,7 +233,7 @@ const SignatureGenerator = {
     /**
      * Generate Compact style signature (single line)
      */
-    generateCompactStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml) {
+    generateCompactStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor = '#E42527') {
         const titleParts = [];
         if (data.title) titleParts.push(this.escapeHtml(data.title));
         if (data.department) titleParts.push(this.escapeHtml(data.department));
@@ -261,7 +261,7 @@ const SignatureGenerator = {
     /**
      * Generate Modern style signature (logo left, info right)
      */
-    generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml) {
+    generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor = '#E42527') {
         const contactsHtml = contacts.length > 0
             ? contacts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ')
             : '';
@@ -300,7 +300,7 @@ const SignatureGenerator = {
     /**
      * Generate Minimal style signature (text only, no logo)
      */
-    generateMinimalStyle(data, websiteUrl, contacts, zohoSocialHtml) {
+    generateMinimalStyle(data, websiteUrl, contacts, zohoSocialHtml, accentColor = '#E42527') {
         const contactsHtml = contacts.length > 0
             ? contacts.join(' <span class="sig-separator" style="color: #cccccc;">•</span> ')
             : '';
