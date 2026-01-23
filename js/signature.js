@@ -92,6 +92,11 @@ const SignatureGenerator = {
      * @returns {string} HTML signature with inline styles
      */
     generate(data, style = 'classic', socialOptions = {enabled: false, channels: [], displayType: 'text'}, accentColor = '#E42527') {
+        console.log('=== SignatureGenerator.generate() called ===');
+        console.log('VERSION: 0.8.0 with accentColor support');
+        console.log('accentColor parameter received:', accentColor);
+        console.log('style:', style);
+
         const logoUrl = 'https://www.zoho.com/sites/zweb/images/zoho_general_pages/zoho-logo-512.png';
         const websiteUrl = data.website || 'https://www.zoho.com';
 
@@ -122,6 +127,8 @@ const SignatureGenerator = {
         if (socialOptions.enabled && socialOptions.channels && socialOptions.channels.length > 0) {
             zohoSocialHtml = this.generateSocialLinks(socialOptions.channels, socialOptions.displayType, accentColor);
         }
+
+        console.log('Contact links generated with accentColor. Sample:', contacts[0] ? contacts[0].substring(0, 100) : 'no contacts');
 
         // Generate signature based on style
         switch (style) {
