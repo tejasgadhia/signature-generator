@@ -565,7 +565,7 @@ body {
 
 /* Design Section: Groups Style + Color Selection */
 .design-section {
-    background: #FAFAFA;
+    background: #F5F5F5;
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 24px;
@@ -573,7 +573,7 @@ body {
 
 /* Style Selector - 3x2 Grid */
 .style-selector-container {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .style-selector-label {
@@ -668,8 +668,8 @@ body {
 
 .color-switcher-label {
     display: block;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     color: #333333;
     margin-bottom: 8px;
     text-align: left;
@@ -692,7 +692,7 @@ body {
     font-weight: 600;
     color: #FFFFFF;
     cursor: pointer;
-    transition: border 0.2s ease, opacity 0.2s ease;
+    transition: border 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
 .color-btn[data-color="#E42527"] {
@@ -714,7 +714,7 @@ body {
 
 .color-btn.selected {
     border-color: #333333;
-    border-width: 3px;
+    box-shadow: 0 0 0 1px #333333;
 }
 
 .color-btn:hover {
