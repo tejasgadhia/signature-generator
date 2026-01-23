@@ -753,6 +753,7 @@ assets/desk-full.svg        - Zoho Desk (scale to 40x40px)
 - [ ] Interactive checklist (check off completed steps)
 - [ ] "Send test email" button in modal
 - [ ] Video tutorials embedded in modal
+- [ ] **Dark mode signature text brightness** - Increase `.sig-title` color from #E0E0E0 to #FFFFFF for better contrast (currently too dim/gray, should be strong white like `.sig-name`)
 
 **Phase 3 (Advanced):**
 - [ ] Platform-specific instructions (Gmail Web vs Gmail Mobile)
