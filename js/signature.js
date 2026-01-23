@@ -150,6 +150,8 @@ const SignatureGenerator = {
                 return this.generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor, isPreview);
             case 'minimal':
                 return this.generateMinimalStyle(data, websiteUrl, contacts, zohoSocialHtml, accentColor, isPreview);
+            case 'executive':
+                return this.generateExecutiveStyle(data, websiteUrl, accentColor, isPreview);
             case 'classic':
             default:
                 return this.generateClassicStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor, isPreview);
@@ -350,6 +352,78 @@ const SignatureGenerator = {
                 <a href="${websiteUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none; font-weight: 500;">Zoho Corporation</a>
             </div>
             ${zohoSocialHtml}
+        </td>
+    </tr>
+</table>`.trim();
+    },
+
+    /**
+     * Generate Executive style signature
+     * Target: VPs, C-Suite, Senior Leadership
+     * Design: Large name, center-aligned, minimal info, accent line, no social media
+     */
+    generateExecutiveStyle(data, websiteUrl, accentColor = '#E42527', isPreview = false) {
+        const logos = this.getLogoUrls();
+
+        return this.getDarkModeStyles(isPreview) + `
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; max-width: 500px; margin: 0 auto;">
+    <tr>
+        <td style="padding: 20px 0; text-align: center;">
+            <!-- Name (large, bold) -->
+            <div class="sig-name" style="font-size: 20px; font-weight: 700; color: #000000; margin-bottom: 4px;">
+                ${this.escapeHtml(data.name)}
+            </div>
+
+            <!-- Accent line below name -->
+            <div style="width: 60px; height: 2px; background: ${accentColor}; margin: 8px auto 12px auto;"></div>
+
+            <!-- Title (if provided) -->
+            ${data.title ? `
+            <div class="sig-title" style="font-size: 14px; color: #666666; margin-bottom: 12px;">
+                ${this.escapeHtml(data.title)}
+            </div>
+            ` : ''}
+
+            <!-- Logo -->
+            <div style="margin: 16px 0;">
+                <a href="${websiteUrl}" style="text-decoration: none; display: inline-block;">
+                    <img src="${logos.light}"
+                         alt="Zoho"
+                         class="sig-logo-light"
+                         style="height: 40px; display: block; border: 0;"
+                         height="40">
+                    <img src="${logos.dark}"
+                         alt="Zoho"
+                         class="sig-logo-dark"
+                         style="height: 40px; display: none; border: 0;"
+                         height="40">
+                </a>
+            </div>
+
+            <!-- Contact info (vertical stack, centered) -->
+            ${data.email ? `
+            <div style="margin-bottom: 4px;">
+                <a href="mailto:${this.escapeHtml(data.email)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">
+                    ${this.escapeHtml(data.email)}
+                </a>
+            </div>
+            ` : ''}
+
+            ${data.phone ? `
+            <div style="margin-bottom: 4px;">
+                <a href="tel:${this.sanitizePhone(data.phone)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">
+                    ${this.escapeHtml(data.phone)}
+                </a>
+            </div>
+            ` : ''}
+
+            ${websiteUrl ? `
+            <div style="margin-bottom: 4px;">
+                <a href="${websiteUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">
+                    zoho.com
+                </a>
+            </div>
+            ` : ''}
         </td>
     </tr>
 </table>`.trim();
