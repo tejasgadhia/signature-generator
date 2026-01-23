@@ -1136,6 +1136,10 @@ git commit -m "style: improve mobile responsive layout"
 
 ### Documentation Files
 - **README.md** - User-facing instructions (how to use)
+  - **Style:** Direct, professional tone (no emojis, no exclamation marks, no marketing language)
+  - **Structure:** Clear sections with horizontal rules, factual descriptions
+  - **Content:** Essential information only - features, how to use, troubleshooting, changelog
+  - **Exclude:** Future plans section (keep in CLAUDE.md or separate docs instead)
 - **CLAUDE.md** - This file (how to develop)
 - **.ui-design/docs/design-system.md** - Design token documentation
 

@@ -216,19 +216,6 @@ See `CLAUDE.md` for detailed development guidelines.
 
 ---
 
-## Future Plans
-
-- Brighter dark mode text
-- HubSpot generator competitive analysis
-- Multiple signature profiles
-- Image export (PNG/JPG)
-- QR code generation
-- Team bulk generation (CSV import)
-- Custom color schemes
-- Additional signature styles
-
----
-
 ## License
 
 Internal tool for Zoho employees. Not for public distribution.
