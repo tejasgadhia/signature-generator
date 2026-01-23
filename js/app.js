@@ -1057,12 +1057,10 @@ function setupColorSwitcher() {
             const color = e.target.dataset.color;
             const colorName = e.target.dataset.name;
 
-            console.log(`Button clicked! Color: ${colorName} (${color})`);
-            alert(`Color button clicked: ${colorName}`);
+            console.log(`Color changed to ${colorName}: ${color}`);
 
             // Update state
             AppState.accentColor = color;
-            console.log('AppState.accentColor set to:', AppState.accentColor);
 
             // Update UI - remove selected from all, add to clicked
             document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
@@ -1073,8 +1071,6 @@ function setupColorSwitcher() {
 
             // Update preview
             updatePreview();
-
-            console.log(`Accent color changed to ${colorName}: ${color}`);
         });
     });
 }
