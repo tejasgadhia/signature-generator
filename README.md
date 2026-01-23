@@ -215,6 +215,7 @@ See `PHASE-2-PLAN.md` for detailed v0.5.0 roadmap.
 
 ### Future Releases
 - [ ] **Brighter dark mode text** - Increase signature title/department text from #E0E0E0 to #FFFFFF for better contrast
+- [ ] **Research HubSpot generator** - Competitive analysis to identify feature gaps (profile pictures, handwritten signatures, more templates, plain text output, wizard UX)
 - [ ] Save/load multiple signature profiles
 - [ ] Export as image (PNG/JPG)
 - [ ] QR code generation

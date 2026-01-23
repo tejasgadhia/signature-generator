@@ -754,6 +754,13 @@ assets/desk-full.svg        - Zoho Desk (scale to 40x40px)
 - [ ] "Send test email" button in modal
 - [ ] Video tutorials embedded in modal
 - [ ] **Dark mode signature text brightness** - Increase `.sig-title` color from #E0E0E0 to #FFFFFF for better contrast (currently too dim/gray, should be strong white like `.sig-name`)
+- [ ] **🔍 Competitive Analysis: HubSpot Generator** - Deep research on [HubSpot's email signature generator](https://www.hubspot.com/email-signature-generator) to identify feature gaps:
+  - Profile picture uploads (we don't have)
+  - Handwritten signature options (we don't have)
+  - 12+ templates (we have 4)
+  - Plain text output option (we only have HTML)
+  - Multi-step wizard UX (we use single form)
+  - See what features align with Zoho employee needs
 
 **Phase 3 (Advanced):**
 - [ ] Platform-specific instructions (Gmail Web vs Gmail Mobile)

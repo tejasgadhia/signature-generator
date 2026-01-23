@@ -1121,12 +1121,14 @@ git commit -m "style: improve mobile responsive layout"
 2. **Test in browser first** - Open `index.html` after each commit to catch issues early
 3. **Use `node --check`** - Validate JavaScript syntax before committing
 4. **Check CSS balance** - Use python one-liner to verify braces match
+5. **🆕 Research existing tools FIRST** - Before building a feature, show user 3-5 popular existing tools (HubSpot, Canva, etc.) for competitive analysis and feature inspiration
 
 **Questions to Ask Upfront:**
 1. Will this work in both local development and production?
 2. Do we need both system preference and manual toggle support?
 3. What's the fallback for legacy clients?
 4. How will we test this in actual email clients?
+5. **🆕 What existing tools solve this problem?** - Research and present popular alternatives before starting implementation
 
 **Tools That Helped:**
 - `md5` - Verify file differentiation
