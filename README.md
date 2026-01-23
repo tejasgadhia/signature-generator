@@ -1,291 +1,239 @@
 # Zoho Email Signature Generator
 
-A professional email signature generator for Zoho employees. Create beautiful, email-compatible HTML signatures with live preview and multiple styles.
+A tool for Zoho employees to create HTML email signatures with live preview and multiple layout styles.
 
 ![Version](https://img.shields.io/badge/version-0.7.0-blue.svg)
 ![License](https://img.shields.io/badge/license-Internal-green.svg)
 
 **Live Demo**: [https://tejasgadhia.github.io/signature-generator](https://tejasgadhia.github.io/signature-generator)
 
-## What's New (v0.7.0)
+---
 
-### 🎨 Import Modal Redesign
+## What's New in v0.7.0
 
-We've completely redesigned the import instructions modals to make signature installation **effortless and foolproof**!
+### Import Instructions Redesign
 
-#### Professional Design
-- **Email client branding**: Each modal features the official logo and brand colors
-- **Numbered step circles**: Clear visual hierarchy with brand-colored badges
-- **WCAG AAA compliance**: Tested contrast ratios ensure readability for everyone
-- **Responsive design**: Works perfectly from tiny phones (320px) to large desktops (1440px+)
+The import instructions modals have been redesigned with improved accessibility and clarity:
 
-#### Idiot-Proof Instructions
-- **Explicit UI descriptions**: "Insert HTML button (looks like </> brackets)"
-- **Visual clarity**: "blue Insert button", "In the 'Insert HTML' popup"
-- **2026-accurate workflows**: Researched and verified for current email client UIs
-- **Inline copy button**: One-click copy directly in step 1 of every modal
-- **Client-specific tips**: Yellow/blue/green tip boxes with important warnings
+- Email client logos and brand colors
+- Numbered steps with visual hierarchy
+- WCAG AAA contrast compliance
+- Keyboard shortcut styling
+- Responsive design (320px to 1440px)
+- Updated instructions for current email client interfaces
 
-#### 5 Email Clients Supported
-- **Zoho Mail** - Red branding, 5 steps with "Insert HTML" workflow
-- **Zoho Desk** - Orange branding, 4 steps with signature management
-- **Gmail** - Red branding, 4 steps with direct paste (no Insert HTML button)
-- **Apple Mail** - Blue branding, 5 steps with critical font-matching checkbox
-- **Outlook Desktop** - Blue branding, 3 steps with rendered HTML paste
-
-#### Accessibility Features
-- **Keyboard navigation**: Tab/Shift+Tab through steps, Escape to close
-- **Touch-friendly**: 32×32px minimum touch targets (exceeds WCAG 2.2 requirements)
-- **Screen readers**: Semantic HTML with ARIA labels on all interactive elements
-- **Reduced motion**: Respects user preferences for animations
-
-#### Modern UI Components
-- **Keyboard shortcuts**: Modern <kbd> styling with ⌘V and Ctrl+V symbols
-- **Hyperlinked clients**: Click "Zoho Mail" to open in new tab
-- **Time estimates**: "~1 minute • 5 steps" shown in header
-- **Smooth animations**: Staggered fade-in effects with 50ms delays
+---
 
 ## Features
 
-- **🌓 Dark Mode Support**: Signatures automatically adapt to dark mode in Gmail and Apple Mail with WCAG AA compliant text colors
-- **4 Signature Styles**: Classic, Compact, Modern, and Minimal layouts
-- **iOS-Style Toggle Switches**: Professional UI with full keyboard accessibility
-- **Live Preview**: Real-time updates with light/dark mode toggle
-- **Visual Form Validation**: Immediate feedback with red/green border states
-- **Smart Validation**: Email domain enforcement and flexible phone formatting
-- **URL Cleanup**: Automatic removal of tracking parameters from LinkedIn URLs
-- **Zoho Social Integration**: Include official Zoho social handles with drag-and-drop reordering
-- **One-Click Copy**: Copy HTML signature to clipboard
-- **Import Instructions**: Step-by-step guides for Zoho Mail, Gmail, macOS Mail, iOS Mail, and Outlook
-- **Zero Dependencies**: Pure vanilla HTML, CSS, and JavaScript
-- **Email Compatible**: Table-based layouts with inline styles
-- **Privacy-First**: All processing happens locally in your browser
+**Signature Options**
+- 4 layout styles: Classic, Compact, Modern, Minimal
+- Dark mode support for Gmail and Apple Mail
+- Zoho social media links with drag-and-drop ordering
+- Live preview with theme toggle
 
-## Email Client Compatibility
+**Form Controls**
+- Toggle switches for optional fields
+- Email validation (@zohocorp.com required)
+- Flexible phone number formatting
+- LinkedIn URL cleanup (removes tracking parameters)
+- Auto-generated email from name
 
-### Dark Mode Support
+**Accessibility**
+- Keyboard navigation
+- Screen reader support
+- WCAG AA compliant contrast
+- Visual form validation
 
-| Email Client | Platform | Dark Mode | Status |
-|--------------|----------|-----------|--------|
-| Gmail | Web + Mobile | ✅ Full Support | Signatures adapt with media queries |
-| Apple Mail | macOS + iOS | ✅ Full Support | Signatures adapt with media queries |
-| Outlook | Web | ⚠️ Partial | May strip some styles, test required |
-| Outlook | Desktop | ❌ Fallback | Shows light mode (inline styles only) |
+**Technical**
+- Client-side processing (no server communication)
+- Zero dependencies (vanilla JavaScript)
+- Email-compatible HTML (table-based layouts with inline styles)
 
-**What this means:**
-- ✅ **Gmail & Apple Mail users** see beautiful dark mode signatures with white text and light logo
-- ⚠️ **Outlook Web users** may see partial dark mode (depends on version)
-- ❌ **Outlook Desktop users** see standard light mode signatures (still readable)
+---
 
-## Quick Start
+## How to Use
 
-1. Open `index.html` in your web browser
-2. Fill in your information (only Name is required)
-3. Toggle optional fields on/off using the switches
-4. Choose your preferred signature style
-5. Click "Copy Signature" to copy the HTML
-6. Click "How to Import?" for email client instructions
+1. Fill in your information (name is required)
+2. Toggle optional fields on or off
+3. Choose a signature style
+4. Click "Copy Signature"
+5. Click "How to Import?" for your email client
+
+---
 
 ## Form Fields
 
-- **Name** (required) - Your full name
-- **Job Title** (optional) - Your position at Zoho
-- **Department** (optional) - Your team or department
-- **Email Address** (optional) - Your work email (must be @zohocorp.com)
-- **Phone Number** (optional) - Your contact number (international formats accepted)
-- **LinkedIn Profile** (optional) - Your LinkedIn URL (tracking parameters auto-removed)
-- **Twitter/X Handle** (optional) - Your Twitter/X handle
-- **Company Website** (optional) - Defaults to zoho.com
+- **Name** (required) - Full name
+- **Job Title** (optional) - Position at Zoho
+- **Department** (optional) - Team or department
+- **Email** (optional) - Work email (must be @zohocorp.com)
+- **Phone** (optional) - Contact number (accepts international formats)
+- **LinkedIn** (optional) - Profile URL (tracking parameters removed automatically)
+- **Twitter/X** (optional) - Handle
+- **Website** (optional) - Defaults to zoho.com
 
-### Smart Validation
-
-- **Email**: Must end with `@zohocorp.com` (Zoho employees only)
-- **Phone**: Accepts various formats (+1, +91, etc.), requires 10+ digits
-- **LinkedIn**: Automatically removes `?utm_*` and `?trk=*` tracking parameters
-- **URLs**: Auto-adds `https://` if missing
+---
 
 ## Signature Styles
 
-### Classic
-Traditional layout with logo on top. Clean and professional with vertical stacking.
+**Classic** - Logo on top, vertical layout, traditional appearance
 
-### Compact
-Minimal design with everything in one line. Perfect for email clients with limited space.
+**Compact** - Single-line layout, space-efficient
 
-### Modern
-Logo on the left with a vertical red line separator. Contemporary and eye-catching.
+**Modern** - Logo on left, red separator line, two-column text
 
-### Minimal
-Clean text-only design without logo. Name appears in Zoho red for brand recognition.
+**Minimal** - Text-only, no logo, name in red
 
-## Zoho Social Media
-
-- **Master Toggle**: Enable/disable all Zoho social handles
-- **Individual Channels**: Toggle Twitter/X, LinkedIn, Facebook, Instagram separately
-- **Display Options**: Choose between text links or icons
+---
 
 ## Email Client Compatibility
 
-Works with:
+### Tested Clients
 - Gmail (Web, iOS, Android)
-- Apple Mail (macOS, iOS, iPadOS)
+- Apple Mail (macOS, iOS)
 - Outlook (Windows, macOS, Web, iOS, Android)
 - Zoho Mail
 - Yahoo Mail
 - ProtonMail
 - Thunderbird
 
+### Dark Mode Support
+
+| Client | Platform | Support |
+|--------|----------|---------|
+| Gmail | Web + Mobile | Full support |
+| Apple Mail | macOS + iOS | Full support |
+| Outlook | Web | Partial (depends on version) |
+| Outlook | Desktop | Light mode only |
+
+---
+
 ## Troubleshooting
 
 **Signature not copying**
-- Ensure JavaScript is enabled
-- Try a modern browser (Chrome 90+, Firefox 88+, Safari 14+)
-- Check clipboard permissions in browser settings
+- Enable JavaScript
+- Use a modern browser (Chrome 90+, Firefox 88+, Safari 14+)
+- Check clipboard permissions
 
 **Toggle switches not working**
-- Verify JavaScript is enabled
-- Check browser console (F12) for errors
-
-**Preview not updating**
-- Verify all form fields have proper values
+- Enable JavaScript
 - Check browser console for errors
 
+**Preview not updating**
+- Check browser console for errors
+- Verify form field values
+
 **Signature looks different in email client**
-- This is normal - email clients have varying CSS support
-- Core layout and content will be preserved
-- Test in your specific email client before using
+- Normal behavior - email clients vary in CSS support
+- Core layout and content preserved
+- Test in your specific client before using
 
-**Social media links not appearing**
-- Ensure the master toggle is checked
-- Verify at least one social channel is selected
+---
 
-## Privacy & Security
+## Privacy
 
-- ✅ No server communication - all processing happens locally
-- ✅ No data collection - zero tracking or cookies
-- ✅ Theme preference stored in localStorage only
+- All processing happens locally in your browser
+- No server communication
+- No tracking or cookies
+- Theme preference stored in localStorage only
 
-## Changelog
-
-### v0.4.0 (January 22, 2026)
-- Three-column desktop layout (Sidebar + Form + Preview)
-- Official Zoho logo and branding throughout
-- Email auto-generation from name (firstname.lastname@zohocorp.com)
-- LinkedIn/Twitter username-only inputs with fixed URL prefixes
-- Horizontal social media card layout with click-to-toggle
-- Drag-and-drop reordering (left/right movement)
-- Info icon tooltips on all special fields
-- Zoho Mail & Zoho Desk import buttons with official SVG logos
-- Community tool disclaimer box in sidebar
-- Style usage recommendations on signature cards
-- Light mode only for site UI (dark mode toggle affects preview only)
-- All form fields always visible (no collapsing)
-
-### v0.3.0 (January 21, 2026)
-- Premium drag-and-drop social media reordering
-- iOS-style toggle list for social channels
-- Full keyboard support (Space + Arrow keys)
-- ARIA live regions for screen reader announcements
-- Haptic feedback on mobile devices
-- Consistent channel ordering when toggled on/off
-- Order persistence to localStorage
-
-### v0.2.0 (January 21, 2026)
-- Design system with 370+ CSS custom property tokens
-- Keyboard-accessible toggle switches (Enter/Space keys)
-- ARIA attributes for screen reader support (`role="switch"`, `aria-checked`)
-- Visual validation feedback (red/green borders on form inputs)
-- Fixed modal focus trap memory leak
-- Improved clear button tap targets (28x28px minimum)
-- Refactored demo page to use design system tokens
-- Replaced all hardcoded colors with semantic design tokens
-
-### v0.1.0 (January 17, 2026)
-- Initial release with 4 signature styles
-- iOS-style toggle switches for optional fields
-- Live preview with dark mode support
-- Zoho social media integration
-- Copy to clipboard functionality
-- Import instructions modal
-- Smart validation (email domain, phone format, URL cleanup)
-- Privacy-first design (100% client-side processing)
-
-## Future Enhancements
-
-See `PHASE-2-PLAN.md` for detailed v0.5.0 roadmap.
-
-### v0.5.0 (Planned)
-- [ ] Fix logo display issues (Mail logo rendering)
-- [ ] Improve text readability (darker label colors)
-- [ ] Pin disclaimer to bottom of sidebar
-- [ ] Compact social media cards
-- [ ] Reposition tooltips to right side
-- [ ] Title case enforcement for name fields
-- [ ] Bookings URL with fixed base pattern
-- [ ] Official Gmail/Apple Mail/Outlook logos
-- [ ] Dark mode text contrast (WCAG compliance)
-- [ ] Logo inversion for dark mode
-
-### Future Releases
-- [ ] **Brighter dark mode text** - Increase signature title/department text from #E0E0E0 to #FFFFFF for better contrast
-- [ ] **Research HubSpot generator** - Competitive analysis to identify feature gaps (profile pictures, handwritten signatures, more templates, plain text output, wizard UX)
-- [ ] Save/load multiple signature profiles
-- [ ] Export as image (PNG/JPG)
-- [ ] QR code generation
-- [ ] Bulk generation for teams (CSV import)
-- [ ] Custom color scheme picker
-- [ ] Additional signature styles (5 & 6)
+---
 
 ## Development
 
-### Before Pushing Changes
-
-Always run the pre-push check script to catch deployment issues:
+### Local Testing
 
 ```bash
-./pre-push-check.sh
-```
-
-This script verifies:
-- ✅ JavaScript syntax is valid
-- ✅ CSS braces are balanced
-- ✅ `.nojekyll` file exists (required for GitHub Pages)
-- ✅ All required files are present
-- ⚠️ Hidden directory imports are flagged
-
-### Testing Locally
-
-```bash
-# Option 1: Open directly in browser
+# Open directly in browser
 open index.html
 
-# Option 2: Serve with live reload
+# Or serve locally
 npx serve
 # Visit http://localhost:3000
 ```
 
 ### Deployment
 
-Changes pushed to `main` automatically deploy to GitHub Pages:
-- **Live URL**: https://tejasgadhia.github.io/signature-generator/
-- **Deployment time**: 1-2 minutes after push
-- **Cache**: Hard refresh (Cmd+Shift+R) if changes don't appear
+Changes to `main` branch automatically deploy to GitHub Pages in 1-2 minutes.
 
-See `CLAUDE.md` for detailed development guidelines and troubleshooting.
+### Pre-Push Checks
+
+```bash
+./pre-push-check.sh
+```
+
+Verifies JavaScript syntax, CSS validity, and required files.
+
+See `CLAUDE.md` for detailed development guidelines.
+
+---
+
+## Changelog
+
+### v0.7.0 (January 22, 2026)
+- Redesigned import instructions modals
+- Added email client branding
+- WCAG AAA contrast compliance
+- Responsive design improvements
+- Updated content for current email client UIs
+
+### v0.6.0 (January 22, 2026)
+- Dark mode support for email signatures
+- Dual logo system (light and dark variants)
+- CSS media queries for automatic theme switching
+
+### v0.5.0 (January 22, 2026)
+- Three-column desktop layout
+- Email auto-generation from name
+- Social media drag-and-drop reordering
+- Info icon tooltips
+- Zoho Mail and Zoho Desk import buttons
+
+### v0.4.0 (January 21, 2026)
+- Layout redesign with official branding
+- Smart title case with acronym preservation
+- UTM tracking for analytics
+- Bookings URL support
+
+### v0.3.0 (January 21, 2026)
+- Social media section redesign
+- iOS-style toggle switches
+- Full keyboard support
+- ARIA live regions for screen readers
+
+### v0.2.0 (January 21, 2026)
+- Design system with CSS custom properties
+- Keyboard-accessible toggles
+- Visual validation feedback
+
+### v0.1.0 (January 17, 2026)
+- Initial release
+- 4 signature styles
+- Live preview
+- Copy to clipboard
+- Import instructions
+
+---
+
+## Future Plans
+
+- Brighter dark mode text
+- HubSpot generator competitive analysis
+- Multiple signature profiles
+- Image export (PNG/JPG)
+- QR code generation
+- Team bulk generation (CSV import)
+- Custom color schemes
+- Additional signature styles
+
+---
 
 ## License
 
 Internal tool for Zoho employees. Not for public distribution.
 
-## Credits
-
-- Design pattern inspired by Lovable prompt
-- Zoho branding from official guidelines
-- Toggle UI from iOS design patterns
-
 ---
 
-**Version**: 0.4.0
-**Release Date**: January 22, 2026
+**Version**: 0.7.0
 **Repository**: https://github.com/tejasgadhia/signature-generator
-**Status**: See `docs/STATUS.md` for current project status
