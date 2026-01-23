@@ -8,6 +8,45 @@ Zoho Email Signature Generator is a professional, privacy-first web application 
 **Version**: 0.7.0
 **Last Updated**: January 22, 2026
 
+---
+
+## Tejas's Workflow Preferences
+
+**IMPORTANT:** Follow these preferences in all development sessions.
+
+### Git Completion Workflow
+- **Always choose option 1 (merge locally)** when finishing feature branches
+- Never ask for permission - just merge to main automatically
+- Clean up worktree and feature branch after merge
+- User will push to GitHub Pages when ready
+
+### Development Process
+- **Screenshot-driven iteration** - Request screenshots for visual review of UI changes
+- **Idiot-proof instructions** - Assume no UI literacy when writing user-facing steps
+- **Research current UIs** - Web search for 2026-dated guides before writing instructions
+- **Document learnings** - Create comprehensive learnings doc at end of major features (in `docs/learnings/`)
+
+### Communication Style
+- **Explanatory mode enabled** - Provide educational insights with code
+- **Visual feedback valued** - Screenshots more useful than text descriptions
+- **Research appreciated** - User trusts web search verification for accuracy
+
+### Technical Preferences
+- **WCAG AAA compliance** - Design for 7:1+ contrast ratios from start
+- **Responsive design** - Test from 320px to 1440px
+- **No dark mode for site UI** - Only email signature preview has dark mode
+- **Accessibility from day one** - Don't retrofit, design it in
+
+### Questions to Ask Upfront
+When starting new features, always ask:
+1. "Do you want to see a screenshot after initial implementation?"
+2. "Should this component use dark mode or always stay light?"
+3. "Do you have screenshots of the actual UI?" (if writing instructions)
+4. "How detailed should the instructions be?"
+5. "What level of accessibility compliance?" (though default to AAA)
+
+---
+
 ## Recent Changes (v0.7.0)
 
 ### Import Modal Redesign
