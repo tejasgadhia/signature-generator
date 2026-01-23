@@ -1162,6 +1162,82 @@ git commit -m "style: improve mobile responsive layout"
 
 ## Development Learnings
 
+### v0.7.0 Import Modal Redesign (January 22, 2026)
+
+**Session Duration:** ~4 hours (multiple conversations)
+**Commits:** 22 commits
+**Lines Changed:** +150 CSS, +content updates across 5 modals
+
+**Full Retrospective:** See `docs/sessions/2026-01-22-session-retrospective.md`
+
+#### Critical Lesson: Always Research Existing Tools FIRST 🔍
+
+**What Happened:**
+- Started building import instructions redesign
+- User pointed out HubSpot has a well-established signature generator
+- Should have shown competitive analysis BEFORE designing
+
+**Action Taken:**
+- Added to "Workflow Improvements" checklist
+- Added to "Questions to Ask Upfront"
+- Created HubSpot research work item
+
+**Pattern for Future:**
+Before designing ANY feature:
+1. Research 3-5 popular existing tools
+2. Create comparison table (features, UX, gaps)
+3. Show user for context
+4. Recommend which features to build
+5. THEN start designing
+
+#### README Style Preferences Established 📄
+
+**User Feedback:** "Too gimmicky, keep it direct and to the point"
+
+**Documented Style Guide:**
+- ✅ Direct, professional tone
+- ✅ Factual descriptions only
+- ✅ Clear sections with horizontal rules
+- ✅ Essential information only
+- ❌ No emojis (except version badges)
+- ❌ No exclamation marks or marketing language
+- ❌ No future plans section (belongs in CLAUDE.md)
+
+**Apply to all future projects**
+
+#### Workflow Success: Brainstorming → Design → Plan → Execute
+
+**What Worked:**
+1. Used `/brainstorming` skill to explore problem space
+2. Created comprehensive design doc with research
+3. Wrote detailed implementation plan (15 tasks)
+4. Used git worktree for isolation
+5. Parallel execution session with checkpoints
+6. Systematic release process
+
+**Benefit:** Clear visibility at every stage, easy to course-correct
+
+#### Key Metrics
+
+**Code Quality:**
+- ✅ WCAG AAA contrast compliance verified
+- ✅ All 5 email client modals tested
+- ✅ Responsive testing (320px - 1440px)
+- ✅ Zero console errors
+
+**Development Efficiency:**
+- Design: 1 hour
+- Planning: 45 min
+- Execution: 1.5 hours
+- Total: ~4 hours from idea to production
+
+**Impact:**
+- Import instructions now professional and accessible
+- Comprehensive documentation created
+- Workflow patterns established for future features
+
+---
+
 ### v0.6.0 Dark Mode Implementation (January 22, 2026)
 
 **Session Duration:** ~2 hours
