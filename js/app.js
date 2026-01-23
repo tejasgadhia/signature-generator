@@ -1048,16 +1048,11 @@ function restoreAccentColor() {
  * Setup color switcher event listeners
  */
 function setupColorSwitcher() {
-    console.log('Setting up color switcher...');
     const buttons = document.querySelectorAll('.color-btn');
-    console.log(`Found ${buttons.length} color buttons`);
 
     buttons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             const color = e.target.dataset.color;
-            const colorName = e.target.dataset.name;
-
-            console.log(`Color changed to ${colorName}: ${color}`);
 
             // Update state
             AppState.accentColor = color;
@@ -1092,12 +1087,14 @@ function setupImportButtons() {
  */
 function updatePreview() {
     const filteredData = getFilteredFormData();
+
     const previewHtml = SignatureGenerator.generatePreview(
         filteredData,
         AppState.signatureStyle,
         AppState.socialOptions,
         AppState.accentColor
     );
+
     elements.preview.innerHTML = previewHtml;
 }
 
