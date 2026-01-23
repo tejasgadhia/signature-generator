@@ -1508,21 +1508,36 @@ body {
 .modal-header-with-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
+    margin-bottom: 8px;
 }
 
 .modal-logo-badge {
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
     flex-shrink: 0;
     object-fit: contain;
+    background: #F9FAFB;
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+}
+
+.modal-header-title-group {
+    flex: 1;
+}
+
+.modal-header-title-group h2 {
+    font-size: 1.5rem;
+    margin: 0 0 4px 0;
+    color: #1F2937;
 }
 
 .modal-time-estimate {
-    font-size: 14px;
-    color: #6B7280; /* Light mode gray */
-    margin-bottom: 20px;
+    font-size: 13px;
+    color: #9CA3AF;
     font-weight: 400;
+    margin: 0;
 }
 
 .instruction-steps {
@@ -1534,7 +1549,7 @@ body {
 .instruction-step {
     display: flex;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     animation: fadeInUp 0.3s ease forwards;
     opacity: 0;
 }
@@ -1550,8 +1565,8 @@ body {
 .instruction-step:nth-child(8) { animation-delay: 0.4s; }
 
 .step-number {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
     background: var(--step-color, #E42527);
     color: white;
@@ -1559,22 +1574,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(228, 37, 39, 0.2), inset 0 -1px 2px rgba(0,0,0,0.1);
 }
 
 .step-content {
     flex: 1;
-    padding-top: 4px; /* Align with circle center */
+    padding-top: 2px; /* Align with circle center */
 }
 
 .step-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
-    color: #1F2937; /* Light mode dark text */
-    margin-bottom: 4px;
-    line-height: 1.5;
+    color: #1F2937;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .step-detail {
@@ -1596,7 +1611,70 @@ body {
 
 .tip-box-new.pro-tip {
     --tip-color: #3B82F6;
-    --tip-bg: #EFF6FF;
+    --tip-bg: #F0F9FF;
+}
+
+/* Inline Copy Button */
+.inline-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: #E42527;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(228, 37, 39, 0.3);
+}
+
+.inline-copy-btn:hover {
+    background: #C91F21;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(228, 37, 39, 0.4);
+}
+
+.inline-copy-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(228, 37, 39, 0.3);
+}
+
+.inline-copy-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.inline-copy-btn .copied-feedback {
+    display: none;
+    color: #10B981;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.inline-copy-btn.copied .copied-feedback {
+    display: inline;
+}
+
+/* External Link Styling */
+.external-link {
+    color: #E42527;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.external-link:hover {
+    border-bottom-color: #E42527;
+}
+
+/* Step Icons */
+.step-icon {
+    font-size: 16px;
+    margin-right: 4px;
+    opacity: 0.8;
 }
 
 .tip-box-new.warning {
@@ -1628,16 +1706,28 @@ body {
 
 /* Keyboard Shortcuts */
 kbd {
-    display: inline-block;
-    padding: 4px 8px;
-    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Courier New', monospace;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
     font-size: 13px;
-    background: #F3F4F6; /* Light mode surface */
-    border: 1px solid #D1D5DB; /* Light mode border */
-    border-radius: 4px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    color: #1F2937; /* Light mode dark text */
+    background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
+    border: 1px solid #D1D5DB;
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+    color: #374151;
     font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+kbd + kbd {
+    margin-left: 6px;
+}
+
+kbd::before {
+    content: attr(data-key);
 }
 
 /* Modal Animations */
@@ -1673,26 +1763,28 @@ kbd {
     }
 
     .modal-header-with-logo {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .modal-logo-badge {
+        width: 48px;
+        height: 48px;
     }
 
     .step-number {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
     }
 
     .step-title {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .step-detail {
         font-size: 13px;
-    }
-
-    .modal-logo-badge {
-        width: 32px;
-        height: 32px;
     }
 
     .tip-box-new {
@@ -1706,6 +1798,11 @@ kbd {
 
     .tip-content {
         font-size: 13px;
+    }
+
+    .inline-copy-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 

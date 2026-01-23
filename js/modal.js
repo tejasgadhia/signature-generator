@@ -113,75 +113,86 @@ const ModalController = {
                 body: `
                     <div class="modal-header-with-logo">
                         <img src="assets/mail-full.svg" alt="Zoho Mail logo" class="modal-logo-badge">
-                    </div>
-
-                    <div class="modal-time-estimate" aria-label="Estimated time 2 minutes, 8 steps total">
-                        ~2 minutes • 8 steps
+                        <div class="modal-header-title-group">
+                            <h2>Import to Zoho Mail</h2>
+                            <div class="modal-time-estimate" aria-label="Estimated time 2 minutes, 6 steps total">
+                                ~2 minutes • 6 steps
+                            </div>
+                        </div>
                     </div>
 
                     <ol class="instruction-steps" aria-label="Import instructions" style="--step-color: #E42527;">
                         <li class="instruction-step">
                             <div class="step-number" aria-hidden="true">1</div>
                             <div class="step-content">
-                                <div class="step-title">Click the <strong>Copy Signature</strong> button</div>
-                                <div class="step-detail">This copies both HTML and plain text to your clipboard</div>
+                                <div class="step-title">
+                                    <span class="step-icon">📋</span>
+                                    Copy your signature
+                                    <button class="inline-copy-btn" onclick="ModalController.copySignature(event)" aria-label="Copy signature to clipboard">
+                                        <svg viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M5.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-8z"/>
+                                        </svg>
+                                        Copy Signature
+                                    </button>
+                                </div>
                             </div>
                         </li>
 
                         <li class="instruction-step">
                             <div class="step-number" aria-hidden="true">2</div>
                             <div class="step-content">
-                                <div class="step-title">Open Zoho Mail and click ⚙️ <strong>Settings</strong> in the top-right corner</div>
+                                <div class="step-title">
+                                    <span class="step-icon">⚙️</span>
+                                    Open <a href="https://mail.zoho.com" target="_blank" rel="noopener noreferrer" class="external-link">Zoho Mail</a> and click <strong>Settings</strong> in the top-right corner
+                                </div>
                             </div>
                         </li>
 
                         <li class="instruction-step">
                             <div class="step-number" aria-hidden="true">3</div>
                             <div class="step-content">
-                                <div class="step-title">In the left sidebar, click <strong>Mail</strong> to expand options</div>
+                                <div class="step-title">
+                                    <span class="step-icon">📝</span>
+                                    Navigate to <strong>Mail → Signature</strong> in the left sidebar
+                                </div>
                             </div>
                         </li>
 
                         <li class="instruction-step">
                             <div class="step-number" aria-hidden="true">4</div>
                             <div class="step-content">
-                                <div class="step-title">Click <strong>Signature</strong> from the expanded menu</div>
+                                <div class="step-title">
+                                    <span class="step-icon">✏️</span>
+                                    Click inside the signature editor box
+                                </div>
                             </div>
                         </li>
 
                         <li class="instruction-step">
                             <div class="step-number" aria-hidden="true">5</div>
                             <div class="step-content">
-                                <div class="step-title">Click inside the signature editor box</div>
+                                <div class="step-title">
+                                    <span class="step-icon">📋</span>
+                                    Paste using <kbd data-key="⌘V"></kbd> or <kbd data-key="Ctrl+V"></kbd> and click <strong>Save</strong>
+                                </div>
                             </div>
                         </li>
 
                         <li class="instruction-step">
                             <div class="step-number" aria-hidden="true">6</div>
                             <div class="step-content">
-                                <div class="step-title">Paste your signature using <kbd>Cmd+V</kbd> (Mac) or <kbd>Ctrl+V</kbd> (Windows)</div>
-                            </div>
-                        </li>
-
-                        <li class="instruction-step">
-                            <div class="step-number" aria-hidden="true">7</div>
-                            <div class="step-content">
-                                <div class="step-title">Click <strong>Save</strong> at the bottom of the page</div>
-                            </div>
-                        </li>
-
-                        <li class="instruction-step">
-                            <div class="step-number" aria-hidden="true">8</div>
-                            <div class="step-content">
-                                <div class="step-title">Compose a test email to verify the signature looks correct</div>
+                                <div class="step-title">
+                                    <span class="step-icon">✉️</span>
+                                    Compose a test email to verify it looks correct
+                                </div>
                             </div>
                         </li>
                     </ol>
 
                     <div class="tip-box-new pro-tip" role="note">
-                        <span class="tip-icon" aria-label="Pro tip">💡</span>
+                        <span class="tip-icon" aria-label="Information">ℹ️</span>
                         <div class="tip-content">
-                            <strong>Pro Tip:</strong> Logo not showing? Check your internet connection — the logo loads from Zoho's servers.
+                            Logo not showing? Check your internet connection — the logo loads from Zoho's servers.
                         </div>
                     </div>
                 `
@@ -295,6 +306,39 @@ const ModalController = {
      */
     isOpen() {
         return this.modal.classList.contains('active');
+    },
+
+    /**
+     * Copy signature to clipboard (called from inline button)
+     */
+    copySignature(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const button = event.currentTarget;
+        const originalText = button.innerHTML;
+
+        // Call the global copySignature function from app.js
+        if (typeof window.copySignature === 'function') {
+            window.copySignature();
+
+            // Show success state
+            button.innerHTML = `
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Copied!
+            `;
+            button.classList.add('copied');
+
+            // Restore original state after 2 seconds
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        } else {
+            console.error('copySignature function not found');
+        }
     },
 
     /**
