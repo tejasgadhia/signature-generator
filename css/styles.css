@@ -82,6 +82,15 @@ body {
     line-height: 1.5;
 }
 
+.sidebar-education {
+    font-size: 14px;
+    color: #333333;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
 /* Sidebar footer (pinned to bottom) */
 .sidebar-footer {
     flex-shrink: 0;
