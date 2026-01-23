@@ -1318,7 +1318,8 @@ body {
 
 .toggle-label {
     font-size: 0.9rem;
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
+    font-weight: 500;
 }
 
 /* Preview Container */

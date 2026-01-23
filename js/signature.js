@@ -167,7 +167,7 @@ const SignatureGenerator = {
 
         return `
             <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e0e0;">
-                <div class="sig-title" style="font-size: 12px; color: #999999; margin-bottom: 6px;">Follow Zoho:</div>
+                <div class="sig-title" style="font-size: 12px; color: #666666; margin-bottom: 6px;">Follow Zoho:</div>
                 <div style="font-size: 12px;">
                     ${linksHtml}
                 </div>
