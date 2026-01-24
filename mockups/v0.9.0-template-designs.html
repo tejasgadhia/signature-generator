@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v0.9.0 Email Signature Templates - Design Mockups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --zoho-red: #E42527;
+            --zoho-green: #089949;
+            --zoho-blue: #226DB4;
+            --zoho-yellow: #F9B21D;
+            --accent-color: var(--zoho-red);
+            --bg-page: #FAFAFA;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --border-color: #E0E0E0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 48px 24px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 64px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--zoho-red), var(--zoho-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            min-width: 120px;
+        }
+
+        /* Color Swatches */
+        .color-swatches {
+            display: flex;
+            gap: 12px;
+        }
+
+        .color-swatch {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .color-swatch.active {
+            border-color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+        }
+
+        .color-swatch[data-color="red"] { background: var(--zoho-red); }
+        .color-swatch[data-color="green"] { background: var(--zoho-green); }
+        .color-swatch[data-color="blue"] { background: var(--zoho-blue); }
+        .color-swatch[data-color="yellow"] { background: var(--zoho-yellow); }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+            background: #E0E0E0;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--zoho-blue);
+        }
+
+        .toggle-knob {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch.active .toggle-knob {
+            transform: translateX(28px);
+        }
+
+        .toggle-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Template Grid */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .template-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .template-card:nth-child(1) { animation-delay: 0.15s; }
+        .template-card:nth-child(2) { animation-delay: 0.2s; }
+        .template-card:nth-child(3) { animation-delay: 0.25s; }
+        .template-card:nth-child(4) { animation-delay: 0.3s; }
+        .template-card:nth-child(5) { animation-delay: 0.35s; }
+        .template-card:nth-child(6) { animation-delay: 0.4s; }
+
+        .template-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+
+        .template-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .template-name {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .template-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-color);
+            background: color-mix(in srgb, var(--accent-color) 10%, transparent);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .template-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .signature-preview {
+            background: #FCFCFC;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        body.dark-mode .signature-preview {
+            background: #1A1A1A;
+            border-color: #333333;
+        }
+
+        /* Signature Styles */
+        .signature {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            width: 100%;
+        }
+
+        .sig-name {
+            color: #333333;
+            transition: color 0.3s;
+        }
+
+        body.dark-mode .sig-name {
+            color: #FFFFFF !important;
+        }
+
+        .sig-title {
+            color: #666666;
+            transition: color 0.3s;
+        }
+
+        body.dark-mode .sig-title {
+            color: #E0E0E0 !important;
+        }
+
+        .sig-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .sig-link:hover {
+            opacity: 0.7;
+        }
+
+        .sig-separator {
+            color: var(--accent-color);
+        }
+
+        .sig-logo-light {
+            display: block;
+        }
+
+        .sig-logo-dark {
+            display: none;
+        }
+
+        body.dark-mode .sig-logo-light {
+            display: none !important;
+        }
+
+        body.dark-mode .sig-logo-dark {
+            display: block !important;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .controls {
+                padding: 24px;
+            }
+
+            .control-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>v0.9.0 Template Designs</h1>
+            <p class="subtitle">Six refined signature styles for Zoho employees — Professional, Minimalist, Compact, Modern, Creative, Classic</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <span class="control-label">Accent Color</span>
+                <div class="color-swatches">
+                    <div class="color-swatch active" data-color="red" title="Zoho Red"></div>
+                    <div class="color-swatch" data-color="green" title="Zoho Green"></div>
+                    <div class="color-swatch" data-color="blue" title="Zoho Blue"></div>
+                    <div class="color-swatch" data-color="yellow" title="Zoho Yellow"></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <span class="control-label">Dark Mode</span>
+                <div class="toggle-switch" id="darkModeToggle">
+                    <div class="toggle-knob"></div>
+                </div>
+                <span class="toggle-label">Preview in dark mode</span>
+            </div>
+        </div>
+
+        <div class="template-grid">
+            <!-- Professional Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <h2 class="template-name">Professional</h2>
+                    <span class="template-tag">Default</span>
+                </div>
+                <p class="template-description">Two-column layout with logo left, contact info right. The safe, versatile choice for Sales, Account Management, and most employees.</p>
+                <div class="signature-preview">
+                    <table cellpadding="0" cellspacing="0" border="0" class="signature" style="font-size: 14px;">
+                        <tr>
+                            <td style="padding-right: 16px; vertical-align: top; width: 80px;">
+                                <a href="https://www.zoho.com" style="text-decoration: none;">
+                                    <img src="../assets/zoho-logo-light.png" alt="Zoho" class="sig-logo-light" style="height: 40px; display: block;" height="40">
+                                    <img src="../assets/zoho-logo-dark.png" alt="Zoho" class="sig-logo-dark" style="height: 40px; display: none;" height="40">
+                                </a>
+                            </td>
+                            <td style="vertical-align: top;">
+                                <div class="sig-name" style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">Sarah Mitchell</div>
+                                <div class="sig-title" style="font-size: 14px; margin-bottom: 8px;">Account Executive | Enterprise Sales</div>
+                                <div style="font-size: 13px;">
+                                    <a href="tel:+15125550123" class="sig-link">+1 (512) 555-0123</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="mailto:sarah.mitchell@zohocorp.com" class="sig-link">sarah.mitchell@zohocorp.com</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="https://linkedin.com/in/sarahmitchell" class="sig-link">LinkedIn</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Minimalist Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <h2 class="template-name">Minimalist</h2>
+                    <span class="template-tag">Text-Only</span>
+                </div>
+                <p class="template-description">Clean text-only design without logo. Perfect for Engineering, Technical Support, and anyone who wants ultra-clean signatures.</p>
+                <div class="signature-preview">
+                    <table cellpadding="0" cellspacing="0" border="0" class="signature" style="font-size: 14px;">
+                        <tr>
+                            <td>
+                                <div class="sig-name" style="font-size: 18px; font-weight: bold; margin-bottom: 2px;">Sarah Mitchell</div>
+                                <div style="width: 60px; height: 1px; margin: 8px 0; opacity: 0.3;" class="sig-separator" style="background: var(--accent-color);"></div>
+                                <div class="sig-title" style="font-size: 14px; margin-bottom: 12px;">Account Executive | Enterprise Sales</div>
+                                <div style="font-size: 13px;">
+                                    <a href="tel:+15125550123" class="sig-link">+1 (512) 555-0123</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="mailto:sarah.mitchell@zohocorp.com" class="sig-link">sarah.mitchell@zohocorp.com</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="https://linkedin.com/in/sarahmitchell" class="sig-link">LinkedIn</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Compact Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <h2 class="template-name">Compact</h2>
+                    <span class="template-tag">Space-Efficient</span>
+                </div>
+                <p class="template-description">Single-line layout for mobile-heavy users. Ideal for quick replies and efficient space usage.</p>
+                <div class="signature-preview">
+                    <table cellpadding="0" cellspacing="0" border="0" class="signature" style="font-size: 13px;">
+                        <tr>
+                            <td style="padding-right: 12px; vertical-align: middle;">
+                                <a href="https://www.zoho.com" style="text-decoration: none;">
+                                    <img src="../assets/zoho-logo-light.png" alt="Zoho" class="sig-logo-light" style="height: 28px; display: block;" height="28">
+                                    <img src="../assets/zoho-logo-dark.png" alt="Zoho" class="sig-logo-dark" style="height: 28px; display: none;" height="28">
+                                </a>
+                            </td>
+                            <td style="vertical-align: middle;">
+                                <span class="sig-name" style="font-weight: bold;">Sarah Mitchell</span>
+                                <span class="sig-separator"> • </span>
+                                <span class="sig-title">Account Executive | Enterprise Sales</span>
+                                <span class="sig-separator"> • </span>
+                                <a href="tel:+15125550123" class="sig-link">+1 (512) 555-0123</a>
+                                <span class="sig-separator"> • </span>
+                                <a href="mailto:sarah.mitchell@zohocorp.com" class="sig-link">sarah.mitchell@zohocorp.com</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modern Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <h2 class="template-name">Modern</h2>
+                    <span class="template-tag">2026 Trend</span>
+                </div>
+                <p class="template-description">Contemporary two-column layout with vertical accent bar separator. Great for forward-thinking teams and tech-savvy professionals.</p>
+                <div class="signature-preview">
+                    <table cellpadding="0" cellspacing="0" border="0" class="signature" style="font-size: 14px;">
+                        <tr>
+                            <td style="padding-right: 16px; vertical-align: top; width: 80px;">
+                                <a href="https://www.zoho.com" style="text-decoration: none;">
+                                    <img src="../assets/zoho-logo-light.png" alt="Zoho" class="sig-logo-light" style="height: 40px; display: block;" height="40">
+                                    <img src="../assets/zoho-logo-dark.png" alt="Zoho" class="sig-logo-dark" style="height: 40px; display: none;" height="40">
+                                </a>
+                            </td>
+                            <td style="width: 2px; background: var(--accent-color); opacity: 0.3;"></td>
+                            <td style="padding-left: 16px; vertical-align: top;">
+                                <div class="sig-name" style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">Sarah Mitchell</div>
+                                <div class="sig-title" style="font-size: 14px; margin-bottom: 8px;">Account Executive | Enterprise Sales</div>
+                                <div style="font-size: 13px;">
+                                    <a href="tel:+15125550123" class="sig-link">+1 (512) 555-0123</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="mailto:sarah.mitchell@zohocorp.com" class="sig-link">sarah.mitchell@zohocorp.com</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="https://linkedin.com/in/sarahmitchell" class="sig-link">LinkedIn</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Creative Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <h2 class="template-name">Creative</h2>
+                    <span class="template-tag">Distinctive</span>
+                </div>
+                <p class="template-description">Bold design with accent color used prominently. Perfect for Marketing, Design, Events, and UX teams who want to stand out.</p>
+                <div class="signature-preview">
+                    <table cellpadding="0" cellspacing="0" border="0" class="signature" style="font-size: 14px;">
+                        <tr>
+                            <td style="padding-right: 16px; vertical-align: top; width: 6px; background: var(--accent-color);"></td>
+                            <td style="padding-left: 16px; vertical-align: top;">
+                                <div style="margin-bottom: 12px;">
+                                    <a href="https://www.zoho.com" style="text-decoration: none;">
+                                        <img src="../assets/zoho-logo-light.png" alt="Zoho" class="sig-logo-light" style="height: 32px; display: block;" height="32">
+                                        <img src="../assets/zoho-logo-dark.png" alt="Zoho" class="sig-logo-dark" style="height: 32px; display: none;" height="32">
+                                    </a>
+                                </div>
+                                <div class="sig-name" style="font-size: 17px; font-weight: bold; margin-bottom: 4px;">Sarah Mitchell</div>
+                                <div class="sig-title" style="font-size: 14px; margin-bottom: 10px; font-weight: 500;">Account Executive | Enterprise Sales</div>
+                                <div style="font-size: 13px;">
+                                    <a href="tel:+15125550123" class="sig-link">+1 (512) 555-0123</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="mailto:sarah.mitchell@zohocorp.com" class="sig-link">sarah.mitchell@zohocorp.com</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="https://linkedin.com/in/sarahmitchell" class="sig-link">LinkedIn</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Classic Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <h2 class="template-name">Classic</h2>
+                    <span class="template-tag">Traditional</span>
+                </div>
+                <p class="template-description">Traditional logo-top stacked layout. Conservative and formal, ideal for Legal, Finance, and C-Suite in traditional industries.</p>
+                <div class="signature-preview">
+                    <table cellpadding="0" cellspacing="0" border="0" class="signature" style="font-size: 14px;">
+                        <tr>
+                            <td style="padding-bottom: 12px;">
+                                <a href="https://www.zoho.com" style="text-decoration: none;">
+                                    <img src="../assets/zoho-logo-light.png" alt="Zoho" class="sig-logo-light" style="height: 36px; display: block;" height="36">
+                                    <img src="../assets/zoho-logo-dark.png" alt="Zoho" class="sig-logo-dark" style="height: 36px; display: none;" height="36">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sig-name" style="font-size: 17px; font-weight: bold; margin-bottom: 4px;">Sarah Mitchell</div>
+                                <div class="sig-title" style="font-size: 14px; margin-bottom: 8px;">Account Executive | Enterprise Sales</div>
+                                <div style="font-size: 13px;">
+                                    <a href="tel:+15125550123" class="sig-link">+1 (512) 555-0123</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="mailto:sarah.mitchell@zohocorp.com" class="sig-link">sarah.mitchell@zohocorp.com</a>
+                                    <span class="sig-separator"> • </span>
+                                    <a href="https://linkedin.com/in/sarahmitchell" class="sig-link">LinkedIn</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Color switcher
+        const swatches = document.querySelectorAll('.color-swatch');
+        const colorMap = {
+            'red': '#E42527',
+            'green': '#089949',
+            'blue': '#226DB4',
+            'yellow': '#F9B21D'
+        };
+
+        swatches.forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                swatches.forEach(s => s.classList.remove('active'));
+                swatch.classList.add('active');
+
+                const color = swatch.dataset.color;
+                document.documentElement.style.setProperty('--accent-color', colorMap[color]);
+            });
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            darkModeToggle.classList.toggle('active');
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
