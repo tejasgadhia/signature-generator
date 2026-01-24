@@ -460,22 +460,13 @@ const SignatureGenerator = {
             ? tier2Links.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
             : '';
 
-        // Convert hex to rgba for 30% opacity accent bar
-        const hexToRgba = (hex, alpha) => {
-            const r = parseInt(hex.slice(1, 3), 16);
-            const g = parseInt(hex.slice(3, 5), 16);
-            const b = parseInt(hex.slice(5, 7), 16);
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        };
-        const barColor = hexToRgba(accentColor, 0.3);
-
         return this.getDarkModeStyles(isPreview) + `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
     <tr>
         <td style="padding-right: 14px; vertical-align: top; width: 75px;">
             ${this.generateDualLogos(websiteUrl, 38)}
         </td>
-        <td style="width: 2px; background: ${barColor};"></td>
+        <td style="width: 2px; background: ${accentColor}; opacity: 0.3;">&nbsp;</td>
         <td style="padding-left: 14px; vertical-align: top;">
             <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
                 ${this.escapeHtml(data.name)}
