@@ -106,7 +106,7 @@ function setupFormatLockIcons() {
             icon.classList.remove('locked');
             icon.title = 'Title Case OFF - click to enable auto-capitalization';
         } else {
-            icon.title = 'Title Case ON - auto-capitalizes on blur';
+            icon.title = 'Title Case ON - formats as you type';
         }
 
         // Toggle on click
@@ -115,7 +115,7 @@ function setupFormatLockIcons() {
             icon.classList.toggle('locked');
 
             if (formatLockState[fieldId]) {
-                icon.title = 'Title Case ON - auto-capitalizes on blur';
+                icon.title = 'Title Case ON - formats as you type';
             } else {
                 icon.title = 'Title Case OFF - click to enable auto-capitalization';
             }
@@ -126,26 +126,38 @@ function setupFormatLockIcons() {
     });
 }
 
-// Apply smart title case formatting on blur and paste
+// Apply smart title case formatting on input, blur, and paste
 function setupSmartTitleCase() {
     ['name', 'title', 'department'].forEach(fieldId => {
         const input = document.getElementById(fieldId);
         if (!input) return;
 
-        const applyFormatting = () => {
+        const applyFormatting = (preserveCursor = false) => {
             if (formatLockState[fieldId] && input.value.trim()) {
+                // Store cursor position before formatting
+                const cursorPos = preserveCursor ? input.selectionStart : null;
+
                 input.value = toSmartTitleCase(input.value);
                 AppState.formData[fieldId] = input.value;
+
+                // Restore cursor position (title case doesn't change string length)
+                if (preserveCursor && cursorPos !== null) {
+                    input.setSelectionRange(cursorPos, cursorPos);
+                }
+
                 updatePreview();
             }
         };
 
-        // Apply on blur
-        input.addEventListener('blur', applyFormatting);
+        // Apply on input for instant feedback (preserve cursor)
+        input.addEventListener('input', () => applyFormatting(true));
+
+        // Apply on blur (final cleanup)
+        input.addEventListener('blur', () => applyFormatting(false));
 
         // Apply on paste (wait for paste to complete)
         input.addEventListener('paste', () => {
-            setTimeout(applyFormatting, 10);
+            setTimeout(() => applyFormatting(false), 10);
         });
     });
 }
