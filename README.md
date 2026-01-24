@@ -102,4 +102,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 **Version**: 0.8.0
-**Repository**: https://github.com/tejasgadhia/signature-generator
+**Repository**: https://github.com/tejasgadhia/zoho-signature-generator
