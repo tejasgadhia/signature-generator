@@ -144,12 +144,18 @@ const SignatureGenerator = {
 
         // Generate signature based on style
         switch (style) {
-            case 'compact':
-                return this.generateCompactStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor, isPreview);
-            case 'modern':
-                return this.generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor, isPreview);
+            case 'professional':
+                return this.generateProfessionalStyle(data, websiteUrl, zohoSocialHtml, accentColor, isPreview);
+            case 'minimalist':
             case 'minimal':
-                return this.generateMinimalStyle(data, websiteUrl, contacts, zohoSocialHtml, accentColor, isPreview);
+                return this.generateMinimalStyle(data, websiteUrl, zohoSocialHtml, accentColor, isPreview);
+            case 'compact':
+                return this.generateCompactStyle(data, websiteUrl, zohoSocialHtml, accentColor, isPreview);
+            case 'modern':
+                return this.generateModernStyle(data, websiteUrl, zohoSocialHtml, accentColor, isPreview);
+            case 'creative':
+                return this.generateCreativeStyle(data, websiteUrl, zohoSocialHtml, accentColor, isPreview);
+            // Legacy templates (kept for backward compatibility)
             case 'executive':
                 return this.generateExecutiveStyle(data, websiteUrl, accentColor, isPreview);
             case 'bold':
@@ -274,27 +280,139 @@ const SignatureGenerator = {
     },
 
     /**
-     * Generate Compact style signature (single line)
+     * Generate Professional style signature (TWO-COLUMN)
+     * Logo left, info right, no accent bar
+     * Best for Sales, Account Management, client-facing roles
      */
-    generateCompactStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor = '#E42527', isPreview = false) {
+    generateProfessionalStyle(data, websiteUrl, zohoSocialHtml, accentColor = '#E42527', isPreview = false) {
+        // Build title line
         const titleParts = [];
         if (data.title) titleParts.push(this.escapeHtml(data.title));
         if (data.department) titleParts.push(this.escapeHtml(data.department));
+        const titleLine = titleParts.join(' | ');
 
-        const parts = [`<span class="sig-name" style="font-weight: bold; color: #333333;">${this.escapeHtml(data.name)}</span>`];
-        if (titleParts.length) parts.push(`<span class="sig-title" style="color: #666666;">${titleParts.join(' | ')}</span>`);
-        parts.push(...contacts);
+        // Tier 1: Primary Contact (Phone + Email)
+        const tier1Links = [];
+        if (data.phone) {
+            tier1Links.push(`<a href="tel:${this.sanitizePhone(data.phone)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${this.escapeHtml(data.phone)}</a>`);
+        }
+        if (data.email) {
+            tier1Links.push(`<a href="mailto:${this.escapeHtml(data.email)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${this.escapeHtml(data.email)}</a>`);
+        }
+        const tier1Html = tier1Links.length > 0
+            ? tier1Links.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
+            : '';
 
-        const allContent = parts.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `);
+        // Tier 2: Personal Connections (LinkedIn + X + Bookings)
+        const tier2Links = [];
+        if (data.linkedin) {
+            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
+        }
+        if (data.x) {
+            const xHandle = data.x.replace('@', '');
+            tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
+        }
+        if (data.bookings) {
+            tier2Links.push(`<a href="${this.escapeHtml(data.bookings)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">Book a Meeting</a>`);
+        }
+        const tier2Html = tier2Links.length > 0
+            ? tier2Links.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
+            : '';
 
         return this.getDarkModeStyles(isPreview) + `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
     <tr>
-        <td style="padding-right: 12px; vertical-align: middle;">
-            ${this.generateDualLogos(websiteUrl, 24)}
+        <td style="padding-right: 14px; vertical-align: top; width: 75px;">
+            ${this.generateDualLogos(websiteUrl, 38)}
+        </td>
+        <td style="vertical-align: top;">
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                ${this.escapeHtml(data.name)}
+            </div>
+            ${titleLine ? `
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                ${titleLine}
+            </div>
+            ` : ''}
+            ${tier1Html ? `
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                ${tier1Html}
+            </div>
+            ` : ''}
+            ${tier2Html ? `
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                ${tier2Html}
+            </div>
+            ` : ''}
+            ${zohoSocialHtml}
+        </td>
+    </tr>
+</table>`.trim();
+    },
+
+    /**
+     * Generate Compact style signature (SPACE-EFFICIENT)
+     * Small logo left, multi-line stacked info right
+     * Best for mobile-heavy users and quick responders
+     */
+    generateCompactStyle(data, websiteUrl, zohoSocialHtml, accentColor = '#E42527', isPreview = false) {
+        // Build title line (inline with name)
+        const titleParts = [];
+        if (data.title) titleParts.push(this.escapeHtml(data.title));
+        if (data.department) titleParts.push(this.escapeHtml(data.department));
+        const titleLine = titleParts.join(' | ');
+
+        // Tier 1: Primary Contact (Phone + Email)
+        const tier1Links = [];
+        if (data.phone) {
+            tier1Links.push(`<a href="tel:${this.sanitizePhone(data.phone)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${this.escapeHtml(data.phone)}</a>`);
+        }
+        if (data.email) {
+            tier1Links.push(`<a href="mailto:${this.escapeHtml(data.email)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${this.escapeHtml(data.email)}</a>`);
+        }
+        const tier1Html = tier1Links.length > 0
+            ? tier1Links.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
+            : '';
+
+        // Tier 2: Personal Connections (LinkedIn + X + Bookings)
+        const tier2Links = [];
+        if (data.linkedin) {
+            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
+        }
+        if (data.x) {
+            const xHandle = data.x.replace('@', '');
+            tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
+        }
+        if (data.bookings) {
+            tier2Links.push(`<a href="${this.escapeHtml(data.bookings)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">Book a Meeting</a>`);
+        }
+        const tier2Html = tier2Links.length > 0
+            ? tier2Links.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
+            : '';
+
+        return this.getDarkModeStyles(isPreview) + `
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 12px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-right: 10px; vertical-align: middle;">
+            ${this.generateDualLogos(websiteUrl, 26)}
         </td>
         <td style="vertical-align: middle;">
-            ${allContent}
+            <div style="margin-bottom: 3px;">
+                <span class="sig-name" style="font-weight: bold; color: #333333;">${this.escapeHtml(data.name)}</span>
+                ${titleLine ? `<span class="sig-separator" style="color: ${accentColor};"> • </span><span class="sig-title" style="color: #666666;">${titleLine}</span>` : ''}
+            </div>
+            ${tier1Html ? `
+            <div style="margin-bottom: 3px;">
+                ${tier1Html}
+            </div>
+            ` : ''}
+            ${tier2Html ? `
+            <div style="margin-bottom: 3px;">
+                ${tier2Html}
+            </div>
+            ` : ''}
             ${zohoSocialHtml}
         </td>
     </tr>
