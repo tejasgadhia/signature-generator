@@ -4,7 +4,7 @@ Professional email signature generator for Zoho employees. Six layout styles, fo
 
 ![Version](https://img.shields.io/badge/version-0.8.0-blue.svg)
 
-**Live Demo**: https://tejasgadhia.github.io/signature-generator
+**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator/
 
 ---
 
