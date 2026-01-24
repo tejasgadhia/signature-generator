@@ -420,36 +420,79 @@ const SignatureGenerator = {
     },
 
     /**
-     * Generate Modern style signature (logo left, info right)
+     * Generate Modern style signature (2026 TREND)
+     * Two-column with vertical accent bar separator
+     * Best for Product, Engineering Leadership, tech-savvy professionals
      */
-    generateModernStyle(data, logoUrl, websiteUrl, contacts, zohoSocialHtml, accentColor = '#E42527', isPreview = false) {
-        const contactsHtml = contacts.length > 0
-            ? contacts.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
-            : '';
-
+    generateModernStyle(data, websiteUrl, zohoSocialHtml, accentColor = '#E42527', isPreview = false) {
+        // Build title line
         const titleParts = [];
         if (data.title) titleParts.push(this.escapeHtml(data.title));
         if (data.department) titleParts.push(this.escapeHtml(data.department));
         const titleLine = titleParts.join(' | ');
 
+        // Tier 1: Primary Contact (Phone + Email)
+        const tier1Links = [];
+        if (data.phone) {
+            tier1Links.push(`<a href="tel:${this.sanitizePhone(data.phone)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${this.escapeHtml(data.phone)}</a>`);
+        }
+        if (data.email) {
+            tier1Links.push(`<a href="mailto:${this.escapeHtml(data.email)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${this.escapeHtml(data.email)}</a>`);
+        }
+        const tier1Html = tier1Links.length > 0
+            ? tier1Links.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
+            : '';
+
+        // Tier 2: Personal Connections (LinkedIn + X + Bookings)
+        const tier2Links = [];
+        if (data.linkedin) {
+            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
+        }
+        if (data.x) {
+            const xHandle = data.x.replace('@', '');
+            tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
+        }
+        if (data.bookings) {
+            tier2Links.push(`<a href="${this.escapeHtml(data.bookings)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">Book a Meeting</a>`);
+        }
+        const tier2Html = tier2Links.length > 0
+            ? tier2Links.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `)
+            : '';
+
+        // Convert hex to rgba for 30% opacity accent bar
+        const hexToRgba = (hex, alpha) => {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        };
+        const barColor = hexToRgba(accentColor, 0.3);
+
         return this.getDarkModeStyles(isPreview) + `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
     <tr>
-        <td style="padding-right: 16px; vertical-align: top; border-right: 3px solid ${accentColor};">
-            ${this.generateDualLogos(websiteUrl, 48)}
+        <td style="padding-right: 14px; vertical-align: top; width: 75px;">
+            ${this.generateDualLogos(websiteUrl, 38)}
         </td>
-        <td style="padding-left: 16px; vertical-align: top;">
-            <div class="sig-name" style="font-size: 16px; font-weight: bold; color: #333333; margin-bottom: 4px;">
+        <td style="width: 2px; background: ${barColor};"></td>
+        <td style="padding-left: 14px; vertical-align: top;">
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
                 ${this.escapeHtml(data.name)}
             </div>
             ${titleLine ? `
-            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 6px;">
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
                 ${titleLine}
             </div>
             ` : ''}
-            ${contactsHtml ? `
-            <div style="font-size: 12px; color: #666666;">
-                ${contactsHtml}
+            ${tier1Html ? `
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                ${tier1Html}
+            </div>
+            ` : ''}
+            ${tier2Html ? `
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                ${tier2Html}
             </div>
             ` : ''}
             ${zohoSocialHtml}
