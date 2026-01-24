@@ -927,9 +927,8 @@ function setupCopyButton() {
                 copyToClipboardFallback(signatureHtml);
             }
 
-            // Show success feedback
+            // Show success feedback (button handles it, no toast needed)
             showCopySuccess();
-            showToast('Signature copied to clipboard!', 'success');
         } catch (error) {
             console.error('Failed to copy:', error);
             try {
@@ -942,7 +941,6 @@ function setupCopyButton() {
                 );
                 copyToClipboardFallback(signatureHtml);
                 showCopySuccess();
-                showToast('Signature copied to clipboard!', 'success');
             } catch (fallbackError) {
                 showToast('Failed to copy. Please try again.', 'error');
                 // Restore button text on error
@@ -989,12 +987,11 @@ function copyToClipboardFallback(text) {
  */
 function showCopySuccess() {
     elements.copyButton.classList.add('success');
-    const originalText = elements.copyButton.querySelector('.btn-text').textContent;
-    elements.copyButton.querySelector('.btn-text').textContent = 'Copied!';
+    elements.copyButton.querySelector('.btn-text').textContent = 'Copied to clipboard!';
 
     setTimeout(() => {
         elements.copyButton.classList.remove('success');
-        elements.copyButton.querySelector('.btn-text').textContent = originalText;
+        elements.copyButton.querySelector('.btn-text').textContent = 'Copy Signature';
     }, 2000);
 }
 
