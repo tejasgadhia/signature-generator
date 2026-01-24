@@ -1,8 +1,8 @@
 # Zoho Email Signature Generator - Developer Guidelines
 
-**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 0.8.0 | **Updated**: 2026-01-23
+**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 0.9.0 | **Updated**: 2026-01-24
 
-Professional, privacy-first web app for Zoho employees. 6 signature styles, 4 color themes, live preview, iOS toggles, one-click copy.
+Professional, privacy-first web app for Zoho employees. 6 signature templates with Verdana font, 3-tier content hierarchy, 4 accent colors, live preview, one-click copy.
 
 ---
 
@@ -45,15 +45,15 @@ When starting new features, always ask:
 
 ## Recent Changes
 
-### Current Version: 0.8.0 (2026-01-23)
+### Current Version: 0.9.0 (2026-01-24)
 
-**Color Theming**: 4 brand colors (Red/Green/Blue/Yellow), CSS Grid switcher, localStorage persistence, inline styles for email compatibility, contrast-aware text (dark on yellow)
-**New Templates**: Executive (centered, large name, accent line), Bold (colored block, rounded corners)
-**UI**: Bolded template names, iOS-style dark mode toggle, 2-line descriptions
-**Bugs Fixed**: `!important` conflict with inline styles (removed from dynamic values), system dark mode affecting preview (dual context: `isPreview` flag)
-**Architecture**: All template functions accept `accentColor` & `isPreview` params, `AppState.accentColor` added, `signature-accent-color` in localStorage
+**Template Redesign**: 6 templates with 3-tier content hierarchy (Phone/Email → LinkedIn/X/Bookings → Follow Zoho)
+**Typography**: Verdana font across all templates (Zoho Mail default)
+**New Templates**: Professional (two-column), Creative (bold left accent bar) - replaced Executive/Bold
+**User-Focused Descriptions**: "Best for Sales", "Best for Engineering" instead of design descriptions
+**Bug Fixes**: Form data mapping on page load, X/Twitter field rendering, Modern accent bar collapse
 
-**Full version history**: See [CHANGELOG.md](CHANGELOG.md) for complete release notes (v0.1.0 through v0.8.0)
+**Full version history**: See [CHANGELOG.md](CHANGELOG.md) for complete release notes (v0.1.0 through v0.9.0)
 
 ---
 
@@ -64,7 +64,7 @@ When starting new features, always ask:
 - **No Dependencies**: Zero npm packages or build tools
 - **Browser APIs**: Clipboard API, localStorage, URL API, URLSearchParams API
 - **Deployment**: GitHub Pages (main branch)
-- **Version**: 0.8.0
+- **Version**: 0.9.0
 
 ## Architecture Principles
 

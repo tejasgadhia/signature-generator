@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.0] - 2026-01-24
+
+### ✨ Added
+
+#### Template Redesign with 3-Tier Content Hierarchy
+- **6 Redesigned Templates**: Classic, Professional, Minimalist, Compact, Modern, Creative
+- **3-Tier Contact Structure**:
+  - Tier 1: Primary Contact (Phone + Email)
+  - Tier 2: Personal Connections (LinkedIn + X + Bookings)
+  - Tier 3: Company Brand (Follow Zoho social links)
+- **New Creative Template**: Bold 4px left accent bar with logo stacked above name
+- **New Professional Template**: Two-column layout with logo left, info right
+
+#### Typography Refresh
+- **Verdana Font**: All templates now use `Verdana, Geneva, sans-serif` (Zoho Mail default)
+- **Consistent Sizing**: Name 15-16px, Title/Contact 12-13px across all templates
+
+### 🔧 Changed
+- **Template Descriptions**: User-focused ("Best for Sales, Account Management") instead of design-focused
+- **Default Template**: Classic set as default (universal, polished format)
+- **Style Selector**: Replaced Executive/Bold with Professional/Creative
+- **Logo Sizes**: Classic 34px, Professional/Modern 38px, Minimalist none, Compact 26px, Creative 32px
+- **Preview Alignment**: Changed from centered to left-aligned (flex-start) for accurate email preview
+
+### 🐛 Fixed
+- **Form Data Mapping**: Fixed `loadInitialFormData()` to correctly map special input IDs (email-prefix, twitter-username, linkedin-username, bookings-id) to formData keys on page load
+- **X/Twitter Field**: Changed `data.x` to `data.twitter` in all templates (form stores handle as 'twitter')
+- **Modern Accent Bar**: Added `&nbsp;` content and CSS opacity to prevent td collapse
+
+### 📋 Template Guide
+| Template | Logo Size | Layout | Best For |
+|----------|-----------|--------|----------|
+| Classic | 34px | Logo-top stacked | Everyone (default) |
+| Professional | 38px | Two-column | Sales, Account Management |
+| Minimalist | None | Text-only | Engineering, Technical Support |
+| Compact | 26px | Small logo, stacked | Mobile-heavy users |
+| Modern | 38px | Two-column + accent bar | Product, Engineering Leadership |
+| Creative | 32px | Bold left accent bar | Marketing, Design, Events |
+
+---
+
 ## [0.8.0] - 2026-01-23
 
 ### ✨ Added
