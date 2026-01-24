@@ -5,7 +5,7 @@ Last Updated: January 23, 2026
 
 ### 1. ✅ Deploy v0.8.0 to GitHub Pages (COMPLETE)
 **Status**: ✅ DEPLOYED
-**Live URL**: https://tejasgadhia.github.io/signature-generator
+**Live URL**: https://tejasgadhia.github.io/zoho-signature-generator
 
 **What was done:**
 - Pushed to GitHub Pages: `git push origin main`
@@ -21,7 +21,7 @@ Last Updated: January 23, 2026
 **Priority**: MEDIUM
 **File(s)**: All templates in signature preview
 **What to do**:
-1. Open https://tejasgadhia.github.io/signature-generator
+1. Open https://tejasgadhia.github.io/zoho-signature-generator
 2. Fill in Name field (required)
 3. Enable Phone and Email toggles
 4. Test each color button (Red, Green, Blue, Yellow)
@@ -147,7 +147,7 @@ Last Updated: January 23, 2026
 Copy this to start your next session:
 
 **For v0.8.0 deployment follow-up:**
-> "Continue working on zoho-signature-generator. Last session completed v0.8.0 (color theming system, 2 new templates, UI improvements). Next: Verify v0.8.0 deployment at https://tejasgadhia.github.io/signature-generator - test color switcher, check console for errors, test in multiple browsers. Reference PROJECT-STATUS.md for deployment verification steps."
+> "Continue working on zoho-signature-generator. Last session completed v0.8.0 (color theming system, 2 new templates, UI improvements). Next: Verify v0.8.0 deployment at https://tejasgadhia.github.io/zoho-signature-generator - test color switcher, check console for errors, test in multiple browsers. Reference PROJECT-STATUS.md for deployment verification steps."
 
 **For v0.9.0 template redesigns:**
 > "Continue working on zoho-signature-generator. Start v0.9.0 template redesigns. First task: Competitive research - analyze HubSpot, Canva, WiseStamp signature generators. Screenshot templates, create comparison table, present findings. Then redesign Executive template (left-aligned, two-column) and Bold template (cleaner, no colored box). Reference docs/plans/2026-01-23-v0.9.0-template-redesigns.md for full plan."
@@ -177,12 +177,12 @@ git push origin main
 open https://github.com/tejasgadhia/signature-generator/actions
 
 # View live site
-open https://tejasgadhia.github.io/signature-generator
+open https://tejasgadhia.github.io/zoho-signature-generator
 ```
 
 **Testing URLs:**
 - Local: `open index.html`
-- Production: https://tejasgadhia.github.io/signature-generator
+- Production: https://tejasgadhia.github.io/zoho-signature-generator
 
 ---
 

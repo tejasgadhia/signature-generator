@@ -68,7 +68,7 @@ const SignatureGenerator = {
         // Check if we're on GitHub Pages or local
         const isProduction = window.location.hostname.includes('github.io');
         const baseUrl = isProduction
-            ? 'https://tejasgadhia.github.io/signature-generator/assets'
+            ? 'https://tejasgadhia.github.io/zoho-signature-generator/assets'
             : './assets';
 
         return {

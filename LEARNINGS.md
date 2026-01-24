@@ -348,7 +348,7 @@ if (savedColor) {
 
 **Deployment Success:**
 - ✅ All pre-push checks passed (JS syntax, CSS balance, .nojekyll)
-- ✅ Deployed to GitHub Pages: https://tejasgadhia.github.io/signature-generator
+- ✅ Deployed to GitHub Pages: https://tejasgadhia.github.io/zoho-signature-generator
 - ✅ Worktree cleaned up
 - ✅ Version roadmap updated (v0.9.0, v0.10.0)
 

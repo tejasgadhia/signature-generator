@@ -156,7 +156,7 @@ This release embodies a research-driven approach to UI/UX:
 - **CSS Classes**: `.sig-name` (primary text), `.sig-title` (secondary text), `.sig-link` (all links), `.sig-separator` (bullets), `.sig-logo-light`, `.sig-logo-dark`
 
 ### 🔧 Changed
-- **Logo URLs**: Point to GitHub Pages (`tejasgadhia.github.io/signature-generator/assets/`)
+- **Logo URLs**: Point to GitHub Pages (`tejasgadhia.github.io/zoho-signature-generator/assets/`)
 - **Template Functions**: Now accept `isPreview` parameter for dual dark mode context
 
 ### 📋 Email Client Compatibility

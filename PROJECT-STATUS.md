@@ -6,7 +6,7 @@ Last Updated: January 23, 2026
 **Version**: v0.8.0 (✅ DEPLOYED to production)
 
 **What's Working:**
-- ✅ Live at: https://tejasgadhia.github.io/signature-generator
+- ✅ Live at: https://tejasgadhia.github.io/zoho-signature-generator
 - Color theming system with 4 Zoho brand colors (Red, Green, Blue, Yellow)
 - 6 signature templates: Classic, Compact, Modern, Minimal, Executive, Bold
 - Dynamic accent colors apply to all contact links (phone, email, social media)

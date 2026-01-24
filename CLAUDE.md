@@ -1,6 +1,6 @@
 # Zoho Email Signature Generator - Developer Guidelines
 
-**Live Demo**: https://tejasgadhia.github.io/signature-generator | **Version**: 0.8.0 | **Updated**: 2026-01-23
+**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 0.8.0 | **Updated**: 2026-01-23
 
 Professional, privacy-first web app for Zoho employees. 6 signature styles, 4 color themes, live preview, iOS toggles, one-click copy.
 
@@ -104,8 +104,8 @@ const AppState = {
 // Logo URLs from GitHub Pages
 const logos = SignatureGenerator.getLogoUrls();
 // {
-//   light: "https://tejasgadhia.github.io/signature-generator/assets/zoho-logo-light.png",
-//   dark: "https://tejasgadhia.github.io/signature-generator/assets/zoho-logo-dark.png"
+//   light: "https://tejasgadhia.github.io/zoho-signature-generator/assets/zoho-logo-light.png",
+//   dark: "https://tejasgadhia.github.io/zoho-signature-generator/assets/zoho-logo-dark.png"
 // }
 
 // Every signature includes:
