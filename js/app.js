@@ -1131,18 +1131,17 @@ function setupImportButtons() {
 
 /**
  * Update preview with current form data
- * Shows example signature when all fields empty, user data when typing
+ * Shows example signature when name is empty, user data when name is filled
  */
 function updatePreview() {
     const filteredData = getFilteredFormData();
 
-    // Check if user has entered any data (excluding website which is readonly)
-    const hasUserData = Object.keys(filteredData).some(key =>
-        key !== 'website' && filteredData[key] && filteredData[key].trim() !== ''
-    );
+    // Check if user has entered a name (required field)
+    // If no name, show example regardless of other fields
+    const hasName = AppState.formData.name && AppState.formData.name.trim() !== '';
 
-    // If no user data, show example preview
-    const previewData = hasUserData ? filteredData : EXAMPLE_DATA;
+    // If no name, show example preview; otherwise show user data
+    const previewData = hasName ? filteredData : EXAMPLE_DATA;
 
     const previewHtml = SignatureGenerator.generatePreview(
         previewData,
