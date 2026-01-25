@@ -21,8 +21,8 @@ const AppState = {
         department: true,
         email: true,
         phone: true,
-        linkedin: true,
-        twitter: true,
+        linkedin: false,
+        twitter: false,
         bookings: false,
         website: false  // Website is now locked, not toggleable
     },
