@@ -279,6 +279,58 @@ Zero dependencies (~50KB), single `innerHTML` per preview, GPU-accelerated CSS a
 
 Main = production (GitHub Pages), feature branches, descriptive commits, test before push
 
+## GitHub Issue Management
+
+### Issue Closure Template
+
+When closing issues, use this format for consistency:
+
+**Quick fixes** (single file, obvious change):
+```markdown
+### Fixed in [commit-hash]
+
+**Changes:**
+- Brief description of what was done
+- File references with line numbers
+
+**Impact:**
+- Performance/UX/functionality improvement
+
+**How to verify:**
+1. Steps to test the fix
+2. Include deployed URL if applicable
+```
+
+**Complex fixes** (multi-file, behavioral changes):
+```markdown
+### Fixed in [commit-hash]
+
+**Changes:**
+- Detailed list of changes
+- File references with line numbers
+- Code snippets if helpful
+
+**Impact:**
+- User-facing benefits
+- Performance improvements
+- Bug resolution details
+
+**How to verify:**
+1. Detailed testing steps
+2. Browser/client compatibility notes
+3. Edge cases to check
+
+**Files changed:**
+- `file1.js` (line numbers)
+- `file2.html` (line numbers)
+
+**Screenshots:** (if UI changed)
+[Attach before/after screenshots]
+```
+
+**Examples:**
+- Issue #14: Quick fix format (logo loading lag)
+
 ## GitHub Pages Deployment
 
 **CRITICAL**: `.nojekyll` file required (Jekyll blocks `.ui-design` directory otherwise)
