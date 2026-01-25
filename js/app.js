@@ -56,6 +56,18 @@ const LOWERCASE_WORDS = [
     'of', 'at', 'by', 'for', 'in', 'on', 'to', 'up', 'with', 'as'  // Prepositions
 ];
 
+// Example data for preview when fields are empty
+const EXAMPLE_DATA = {
+    name: 'Sarah Mitchell',
+    title: 'Account Executive',
+    department: 'Enterprise Sales',
+    email: 'sarah.mitchell@zohocorp.com',
+    phone: '+1 (512) 555-0123',
+    linkedin: 'https://linkedin.com/in/sarahmitchell',
+    twitter: 'https://x.com/sarahmitchell',
+    website: 'https://www.zoho.com'
+};
+
 // Smart title case function that preserves acronyms and handles lowercase words
 function toSmartTitleCase(str) {
     if (!str || typeof str !== 'string') return str;
