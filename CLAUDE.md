@@ -45,7 +45,16 @@ When starting new features, always ask:
 
 ## Recent Changes
 
-### Current Version: 0.9.0 (2026-01-24)
+### Current Version: 0.10.0 (2026-01-24)
+
+**Form UX Improvement**: Empty form fields with smart preview (#11)
+**Smart Preview**: Shows example signature when name field is empty, switches to user data when name is filled
+**Zero Friction**: Click and type immediately, no need to clear pre-filled data
+**Example Data**: "Sarah Mitchell" example appears in preview when form is empty
+**Logic**: Preview switches based on name field (required field) - if name is empty → example, if name has value → user data
+**Backwards Compatible**: All existing features work identically
+
+### Version: 0.9.0 (2026-01-24)
 
 **Template Redesign**: 6 templates with 3-tier content hierarchy (Phone/Email → LinkedIn/X/Bookings → Follow Zoho)
 **Typography**: Verdana font across all templates (Zoho Mail default)
