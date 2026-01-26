@@ -211,93 +211,98 @@ function setupWebsiteTracking() {
 }
 
 /**
- * Setup help button toggle functionality
- * Implements expandable help panels with keyboard support (WCAG 2.2 AA)
+ * Setup accordion-style help system
+ * Auto-shows help panel when field is focused, hides when blurred
+ * Help content is loaded from HELP_CONTENT config (modular, easy to update)
  */
 function setupHelpButtons() {
-    const helpButtons = document.querySelectorAll('.help-button');
+    const helpIcons = document.querySelectorAll('.help-icon');
+    let currentlyOpenPanel = null;
 
-    helpButtons.forEach(button => {
-        const panelId = button.getAttribute('aria-controls');
-        const panel = document.getElementById(panelId);
+    helpIcons.forEach(icon => {
+        const fieldId = icon.getAttribute('data-field');
+        const helpConfig = HELP_CONTENT[fieldId];
 
-        if (!panel) {
-            console.warn(`Help panel not found: ${panelId}`);
+        if (!helpConfig) {
+            console.warn(`No help content found for field: ${fieldId}`);
             return;
         }
 
-        const toggleHelp = () => {
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        // Get the input group
+        const inputGroup = icon.closest('.input-group');
+        if (!inputGroup) return;
 
-            if (isExpanded) {
-                button.setAttribute('aria-expanded', 'false');
-                panel.setAttribute('hidden', '');
-            } else {
-                button.setAttribute('aria-expanded', 'true');
-                panel.removeAttribute('hidden');
+        // Create help panel dynamically
+        const helpPanel = document.createElement('div');
+        helpPanel.id = `${fieldId}-help-panel`;
+        helpPanel.className = 'help-panel';
+        helpPanel.innerHTML = `
+            <h4>${helpConfig.title}</h4>
+            ${helpConfig.content}
+        `;
+
+        // Insert help panel after input-wrapper
+        const inputWrapper = inputGroup.querySelector('.input-wrapper');
+        if (inputWrapper) {
+            inputWrapper.after(helpPanel);
+        }
+
+        // Get the input field
+        const inputField = document.getElementById(fieldId);
+        if (!inputField) return;
+
+        // Show help panel on focus
+        inputField.addEventListener('focus', () => {
+            // Close any other open panel (accordion behavior)
+            if (currentlyOpenPanel && currentlyOpenPanel !== helpPanel) {
+                currentlyOpenPanel.classList.remove('visible');
             }
 
-            // Announce to screen readers
-            announceToScreenReader(
-                isExpanded ? 'Help collapsed' : 'Help expanded'
-            );
-        };
-
-        // Click handler
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleHelp();
+            // Open this panel
+            helpPanel.classList.add('visible');
+            currentlyOpenPanel = helpPanel;
         });
 
-        // Keyboard handler
-        button.addEventListener('keydown', (e) => {
-            if (e.key === ' ' || e.key === 'Enter') {
-                e.preventDefault();
-                toggleHelp();
-            } else if (e.key === 'Escape') {
-                if (button.getAttribute('aria-expanded') === 'true') {
-                    toggleHelp();
+        // Hide help panel on blur (with small delay to allow reading)
+        inputField.addEventListener('blur', () => {
+            setTimeout(() => {
+                helpPanel.classList.remove('visible');
+                if (currentlyOpenPanel === helpPanel) {
+                    currentlyOpenPanel = null;
                 }
+            }, 200);
+        });
+
+        // Optional: Click icon to toggle help panel manually
+        icon.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isVisible = helpPanel.classList.contains('visible');
+
+            if (isVisible) {
+                helpPanel.classList.remove('visible');
+                if (currentlyOpenPanel === helpPanel) {
+                    currentlyOpenPanel = null;
+                }
+            } else {
+                // Close other panels
+                if (currentlyOpenPanel && currentlyOpenPanel !== helpPanel) {
+                    currentlyOpenPanel.classList.remove('visible');
+                }
+                helpPanel.classList.add('visible');
+                currentlyOpenPanel = helpPanel;
             }
         });
     });
 
-    // Close all help panels on Escape (global handler)
+    // Close all help panels on Escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            helpButtons.forEach(button => {
-                if (button.getAttribute('aria-expanded') === 'true') {
-                    button.setAttribute('aria-expanded', 'false');
-                    const panelId = button.getAttribute('aria-controls');
-                    const panel = document.getElementById(panelId);
-                    if (panel) panel.setAttribute('hidden', '');
-                }
-            });
+        if (e.key === 'Escape' && currentlyOpenPanel) {
+            currentlyOpenPanel.classList.remove('visible');
+            currentlyOpenPanel = null;
         }
     });
 
-    console.info(`Initialized ${helpButtons.length} help buttons`);
-}
-
-/**
- * Announce messages to screen readers
- * Creates/updates aria-live region for dynamic announcements
- */
-function announceToScreenReader(message) {
-    let liveRegion = document.getElementById('sr-announcer');
-
-    if (!liveRegion) {
-        liveRegion = document.createElement('div');
-        liveRegion.id = 'sr-announcer';
-        liveRegion.setAttribute('role', 'status');
-        liveRegion.setAttribute('aria-live', 'polite');
-        liveRegion.className = 'sr-only';
-        liveRegion.style.cssText = 'position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;';
-        document.body.appendChild(liveRegion);
-    }
-
-    liveRegion.textContent = '';
-    setTimeout(() => liveRegion.textContent = message, 100);
+    console.info(`Initialized accordion-style help for ${helpIcons.length} fields`);
 }
 
 

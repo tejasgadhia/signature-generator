@@ -1187,75 +1187,61 @@ body {
 }
 
 /* =============================================================================
-   Help Text System (replaces tooltips - WCAG 2.2 AA compliant)
+   Help Text System (Accordion-Style on Focus)
    ============================================================================= */
 
-/* Inline Hint - Always Visible */
-.inline-hint {
-    color: var(--text-secondary);
-    font-size: 13px;
-    line-height: 1.4;
-    margin-top: 4px;
-    display: block;
-}
-
-/* Help Button - 44x44px WCAG Compliant */
-.help-button {
+/* Help Icon - Positioned right side of input (like old tooltips) */
+.help-icon {
     position: absolute;
-    right: 48px; /* Leave room for validation icon */
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: none;
-    background: #E8F4FD; /* Light blue background */
-    color: #226DB4; /* Zoho blue */
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    font-size: 20px;
+    background: #E0E0E0;
+    color: #666;
+    font-size: 11px;
     font-weight: 600;
-    cursor: pointer;
+    cursor: help;
     transition: all 0.2s ease;
-    z-index: 5;
+    z-index: 10;
 }
 
-.help-button:hover {
-    background: #D1E9FB;
-    transform: translateY(-50%) scale(1.05);
+.help-icon:hover {
+    background: #D1D1D1;
+    transform: translateY(-50%) scale(1.1);
 }
 
-.help-button[aria-expanded="true"] {
-    background: #226DB4;
-    color: #FFFFFF;
-}
-
-.help-button:focus-visible {
-    outline: 2px solid #226DB4;
-    outline-offset: 2px;
-}
-
-/* Help Panel - Expandable Detailed Help */
+/* Help Panel - Accordion-style expandable help (auto-shows on input focus) */
 .help-panel {
-    background: #F8FBFD;
-    border-left: 4px solid #226DB4;
-    padding: 12px 16px;
+    background: #333;
+    color: white;
+    padding: 10px 14px;
     margin-top: 8px;
-    line-height: 1.6;
-    animation: expandHelp 200ms ease-out;
-    border-radius: 4px;
+    line-height: 1.4;
+    border-radius: 6px;
+    font-size: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
 }
 
-.help-panel[hidden] {
-    display: none;
+.help-panel.visible {
+    max-height: 600px;
+    opacity: 1;
+    margin-bottom: 8px;
 }
 
-.help-panel-title {
+.help-panel h4 {
     font-size: 14px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin: 0 0 8px 0;
     color: var(--text-primary);
 }
 
@@ -1265,7 +1251,8 @@ body {
     color: var(--text-secondary);
 }
 
-.help-panel ul {
+.help-panel ul,
+.help-panel ol {
     margin: 8px 0;
     padding-left: 20px;
 }
@@ -1273,36 +1260,35 @@ body {
 .help-panel li {
     margin-bottom: 6px;
     font-size: 14px;
+    color: var(--text-secondary);
 }
 
 .help-panel strong {
-    color: var(--text-primary);
-    font-weight: 500;
+    color: white;
+    font-weight: 600;
 }
 
-@keyframes expandHelp {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+.help-panel code {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 11px;
 }
 
 /* Dark mode support */
-[data-theme="dark"] .help-button {
-    background: rgba(34, 109, 180, 0.2);
-    color: #60A5FA;
+[data-theme="dark"] .help-icon {
+    background: #444;
+    color: #999;
 }
 
-[data-theme="dark"] .help-button:hover {
-    background: rgba(34, 109, 180, 0.3);
-}
-
-[data-theme="dark"] .help-button[aria-expanded="true"] {
-    background: #226DB4;
-    color: #FFFFFF;
+[data-theme="dark"] .help-icon:hover {
+    background: #555;
 }
 
 [data-theme="dark"] .help-panel {
-    background: rgba(255, 255, 255, 0.05);
-    border-left-color: #60A5FA;
+    background: #2a2a2a;
+    color: #e0e0e0;
 }
 
 /* URL Prefix Input (LinkedIn, Twitter, etc.) */
