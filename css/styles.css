@@ -358,7 +358,7 @@ body {
 .input-wrapper input[type="tel"],
 .input-wrapper input[type="url"] {
     width: 100%;
-    padding: 0.625rem 2.5rem 0.625rem 0.875rem;
+    padding: 0.625rem 32px 0.625rem 0.875rem;  /* Fixed padding for validation icon */
     font-size: 0.95rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -1157,7 +1157,6 @@ body {
     overflow: hidden;
     transition: all var(--transition-base);
     flex: 1;  /* Take full available width */
-    padding-right: 28px;  /* Space for validation icon (fixes Pin 2 overlap) */
 }
 
 .email-split-input:focus-within {
@@ -1177,7 +1176,7 @@ body {
 }
 
 .email-domain-suffix {
-    padding: 0.625rem 0.5rem 0.625rem 0.5rem;  /* Reduced right padding since parent has padding-right */
+    padding: 0.625rem 32px 0.625rem 0.5rem;  /* Match input padding-right for alignment */
     font-size: 0.95rem;
     color: #999;
     background: #F5F5F5;
@@ -1311,7 +1310,6 @@ body {
     overflow: hidden;
     transition: all var(--transition-base);
     flex: 1;  /* Take full available width */
-    padding-right: 28px;  /* Space for validation icon (same as email-split-input) */
 }
 
 .url-prefix-input:focus-within {
@@ -1332,7 +1330,7 @@ body {
 .url-username-field {
     flex: 1;
     border: none;
-    padding: 0.625rem 0.875rem;
+    padding: 0.625rem 32px 0.625rem 0.875rem;  /* Match regular input padding for alignment */
     font-size: 0.95rem;
     outline: none;
     background: transparent;
