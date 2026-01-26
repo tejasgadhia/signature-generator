@@ -1212,17 +1212,26 @@ body {
     transform: scale(1.1);
 }
 
+/* Placeholder for fields without help icons - maintains grid alignment (fixes Pin 1) */
+.help-icon-placeholder {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+    flex-shrink: 0;
+    visibility: hidden;  /* Invisible but takes up space */
+}
+
 /* Help Panel - Accordion-style expandable help (auto-shows on input focus) */
 .help-panel {
     grid-column: 2 / 4;  /* Span from input wrapper to help icon column */
     background: #333;
     color: white;
-    padding: 10px 14px;
-    margin-top: 4px;  /* Reduced from 8px */
+    padding: 0;  /* No padding when collapsed */
+    margin: 0;  /* No margin when collapsed - fixes Pin 2 spacing issue */
     line-height: 1.4;
     border-radius: 6px;
     font-size: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    box-shadow: none;  /* No shadow when collapsed */
     overflow: hidden;
     max-height: 0;
     opacity: 0;
@@ -1232,7 +1241,10 @@ body {
 .help-panel.visible {
     max-height: 600px;
     opacity: 1;
-    margin-bottom: 4px;  /* Reduced from 8px */
+    padding: 10px 14px;  /* Add padding when visible */
+    margin-top: 4px;  /* Add margin only when visible */
+    margin-bottom: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);  /* Add shadow when visible */
 }
 
 .help-panel h4 {
