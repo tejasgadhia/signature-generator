@@ -1232,25 +1232,15 @@ function validateField(input) {
         }
     }
 
-    // Validate phone - accept common formats (icon-only feedback)
+    // Validate phone - accept common formats (text error messages)
     if (input.type === 'tel' && value) {
-        const validationIcon = input.parentElement.querySelector('.validation-icon');
-
         if (!SignatureGenerator.isValidPhone(value)) {
-            input.setCustomValidity('Phone number must be 10 digits');
-            input.setAttribute('aria-invalid', 'true');
-            if (validationIcon) {
-                validationIcon.textContent = '⚠';
-                validationIcon.style.display = 'block';
-                validationIcon.title = 'Enter 10 digits (e.g., 512-555-1234)';
-            }
+            const message = 'Phone number must be at least 10 digits (e.g., 512-555-1234 or +1-512-555-1234)';
+            input.setCustomValidity(message);
+            displayValidationError(input, message);
         } else {
             input.setCustomValidity('');
-            input.removeAttribute('aria-invalid');
-            if (validationIcon) {
-                validationIcon.style.display = 'none';
-                validationIcon.textContent = '';
-            }
+            displayValidationError(input, '');
         }
     }
 
