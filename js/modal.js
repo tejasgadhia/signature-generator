@@ -229,7 +229,7 @@ const ModalController = {
                             <div class="step-number" aria-hidden="true">2</div>
                             <div class="step-content">
                                 <div class="step-title">
-                                    Open <a href="https://desk.zoho.com" target="_blank" rel="noopener noreferrer" class="external-link">Zoho Desk</a> → <strong>Settings</strong> (gear icon) → <strong>Preferences</strong> → <strong>Signature</strong>
+                                    Open <a href="https://desk.zoho.com" target="_blank" rel="noopener noreferrer" class="external-link">Zoho Desk</a> → <strong>Settings</strong> (gear icon) → <strong>Preferences</strong> → <strong>Signature</strong> and select your department from the dropdown at the top
                                 </div>
                             </div>
                         </li>
@@ -238,7 +238,7 @@ const ModalController = {
                             <div class="step-number" aria-hidden="true">3</div>
                             <div class="step-content">
                                 <div class="step-title">
-                                    Click <strong>Add Signature</strong> and select the department
+                                    Click the <strong>Insert</strong> button on the right side of the interface
                                 </div>
                             </div>
                         </li>
@@ -247,7 +247,7 @@ const ModalController = {
                             <div class="step-number" aria-hidden="true">4</div>
                             <div class="step-content">
                                 <div class="step-title">
-                                    In the HTML editor, click <strong>Insert HTML</strong> button (looks like <strong>&lt;/&gt;</strong> brackets)
+                                    In the dialog box that appears, paste the HTML using <kbd data-key="⌘V"></kbd> or <kbd data-key="Ctrl+V"></kbd>
                                 </div>
                             </div>
                         </li>
@@ -256,7 +256,7 @@ const ModalController = {
                             <div class="step-number" aria-hidden="true">5</div>
                             <div class="step-content">
                                 <div class="step-title">
-                                    Paste using <kbd data-key="⌘V"></kbd> or <kbd data-key="Ctrl+V"></kbd>, click <strong>Insert</strong>, then enable <strong>"Use this signature for ticket responses"</strong>
+                                    Click <strong>Insert</strong> in the dialog — you'll see a preview of your signature in the editor
                                 </div>
                             </div>
                         </li>
@@ -265,7 +265,7 @@ const ModalController = {
                             <div class="step-number" aria-hidden="true">6</div>
                             <div class="step-content">
                                 <div class="step-title">
-                                    Click <strong>Save</strong> to finish
+                                    Click the blue <strong>Save</strong> button at the bottom of the screen
                                 </div>
                             </div>
                         </li>
