@@ -1959,9 +1959,18 @@ kbd::before {
     background: var(--zoho-red);
 }
 
-/* Form Validation Error Messages - Hidden for phone field */
+/* Form Validation Error Messages - Hidden by default, shown when .visible */
 .error-message {
-    display: none; /* Disabled - using icon-only validation */
+    display: none; /* Hidden by default */
+    color: #DC2626;
+    font-size: 0.875rem;
+    margin-top: 0.375rem;
+    line-height: 1.4;
+}
+
+/* Show error messages when .visible class is added */
+.error-message.visible {
+    display: block;
 }
 
 /* Invalid input state - red border (Stripe pattern) */
@@ -1979,6 +1988,11 @@ kbd::before {
 /* Dark mode invalid input state */
 [data-theme="dark"] .input-wrapper input[aria-invalid="true"] {
     border-color: #FCA5A5; /* Lighter red for dark mode */
+}
+
+/* Dark mode error messages */
+[data-theme="dark"] .error-message {
+    color: #FCA5A5; /* Lighter red for dark mode */
 }
 
 [data-theme="dark"] .input-wrapper input[aria-invalid="true"]:focus {

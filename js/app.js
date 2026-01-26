@@ -354,7 +354,24 @@ function setupFormListeners() {
             updatePreview();
         });
 
+        // Auto-lowercase on blur (like phone auto-formats)
         emailPrefixInput.addEventListener('blur', (e) => {
+            const value = e.target.value.trim();
+            if (value && value.length > 0) {
+                // Convert to lowercase
+                const lowercased = value.toLowerCase();
+
+                // Only update if changed (avoid unnecessary events)
+                if (lowercased !== value) {
+                    e.target.value = lowercased;
+
+                    // Update AppState by triggering input event
+                    const event = new Event('input', { bubbles: true });
+                    e.target.dispatchEvent(event);
+                }
+            }
+
+            // Validate after auto-formatting
             validateField(e.target);
         });
     }
@@ -1170,17 +1187,30 @@ function validateField(input) {
 
     // Validate email prefix - must be alphanumeric + dots
     if (input.id === 'email-prefix' && value) {
-        // Email prefix validation: lowercase letters, numbers, dots
+        // Strict email prefix validation: ONLY lowercase letters, numbers, and dots
+        // Explicitly disallow: hyphens, underscores, plus signs, all other special chars
         const prefixRegex = /^[a-z0-9.]+$/;
+
+        // Check for invalid characters (catches hyphens, +, _, uppercase, etc.)
         if (!prefixRegex.test(value)) {
-            const message = 'Email prefix can only contain lowercase letters, numbers, and dots';
+            const message = 'Email prefix can only contain lowercase letters, numbers, and dots (no hyphens, underscores, or special characters)';
             input.setCustomValidity(message);
             displayValidationError(input, message);
-        } else if (value.startsWith('.') || value.endsWith('.') || value.includes('..')) {
+        }
+        // Check for trailing dots, leading dots, or consecutive dots
+        else if (value.startsWith('.') || value.endsWith('.') || value.includes('..')) {
             const message = 'Dots cannot be at the start, end, or consecutive';
             input.setCustomValidity(message);
             displayValidationError(input, message);
-        } else {
+        }
+        // Check for minimum length (at least 2 characters for valid email)
+        else if (value.length < 2) {
+            const message = 'Email prefix must be at least 2 characters';
+            input.setCustomValidity(message);
+            displayValidationError(input, message);
+        }
+        // Valid
+        else {
             input.setCustomValidity('');
             displayValidationError(input, '');
         }
