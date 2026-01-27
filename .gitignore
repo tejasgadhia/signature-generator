@@ -46,6 +46,16 @@ docs/dark-mode-test-results.md
 # Testing directory (local only)
 testing/
 
+# Testing artifacts (keep local, don't publish)
+baseline-screenshots/
+capture-baseline-simple.sh
+
+# Design mockups (keep local, don't publish)
+mockups/
+
+# Old release notes (info in CHANGELOG.md)
+docs/releases/
+
 # Git worktrees
 .worktrees/
 
