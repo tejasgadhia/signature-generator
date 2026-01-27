@@ -351,6 +351,10 @@ body {
     display: flex;
     align-items: center;
     flex: 1;  /* Take full available width */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: white;
+    transition: all var(--transition-base);
 }
 
 .input-wrapper input[type="text"],
@@ -360,9 +364,8 @@ body {
     width: 100%;
     padding: 0.625rem 32px 0.625rem 0.875rem;  /* Fixed padding for validation icon */
     font-size: 0.95rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: #FFFFFF;
+    border: none;
+    background: transparent;
     color: #333333;  /* Dark text for readability */
     transition: all var(--transition-base);
     min-height: 42px;
@@ -481,24 +484,27 @@ body {
     content: 'Title Case ON - auto-capitalizes';
 }
 
-.input-wrapper input:focus {
-    outline: none;
+.input-wrapper:focus-within {
     border-color: var(--zoho-red);
     box-shadow: 0 0 0 3px var(--zoho-red-light);
 }
 
+.input-wrapper input:focus {
+    outline: none;
+}
+
 /* Validation error states */
-.input-wrapper input:invalid:not(:placeholder-shown):not(:focus) {
+.input-wrapper:has(input:invalid:not(:placeholder-shown)):not(:focus-within) {
     border-color: var(--color-error);
 }
 
-.input-wrapper input:invalid:not(:placeholder-shown):focus {
+.input-wrapper:has(input:invalid:not(:placeholder-shown)):focus-within {
     border-color: var(--color-error);
     box-shadow: 0 0 0 3px var(--color-error-light);
 }
 
 /* Valid state (subtle positive feedback) */
-.input-wrapper input:valid:not(:placeholder-shown):not(:focus) {
+.input-wrapper:has(input:valid:not(:placeholder-shown)):not(:focus-within) {
     border-color: var(--color-success);
 }
 
@@ -2081,19 +2087,21 @@ kbd::before {
 }
 
 /* Invalid input state */
-.input-wrapper input[aria-invalid="true"] {
+.input-wrapper:has(input[aria-invalid="true"]) {
     border-color: #DC2626;
-    background-color: var(--bg-primary);
+}
+
+.input-wrapper:has(input[aria-invalid="true"]):focus-within {
+    border-color: #DC2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
 .input-wrapper input[aria-invalid="true"]:focus {
-    border-color: #DC2626;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
     outline: none;
 }
 
 /* Valid input state (subtle) */
-.input-wrapper input:not([aria-invalid]):focus:valid {
+.input-wrapper:has(input:not([aria-invalid]):valid):focus-within {
     border-color: #089949;
     box-shadow: 0 0 0 3px rgba(8, 153, 73, 0.1);
 }
@@ -2111,16 +2119,16 @@ kbd::before {
     color: #6EE7B7; /* Lighter green for dark mode */
 }
 
-[data-theme="dark"] .input-wrapper input[aria-invalid="true"] {
+[data-theme="dark"] .input-wrapper:has(input[aria-invalid="true"]) {
     border-color: #FCA5A5;
 }
 
-[data-theme="dark"] .input-wrapper input[aria-invalid="true"]:focus {
+[data-theme="dark"] .input-wrapper:has(input[aria-invalid="true"]):focus-within {
     border-color: #FCA5A5;
     box-shadow: 0 0 0 3px rgba(252, 165, 165, 0.15);
 }
 
-[data-theme="dark"] .input-wrapper input:not([aria-invalid]):focus:valid {
+[data-theme="dark"] .input-wrapper:has(input:not([aria-invalid]):valid):focus-within {
     border-color: #6EE7B7;
     box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.15);
 }
