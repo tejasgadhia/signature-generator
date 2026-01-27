@@ -480,17 +480,21 @@ function setupFormListeners() {
             } else {
                 // Sanitize input to extract username/path (prevents double URL bug)
                 const sanitized = SignatureGenerator.sanitizeSocialUrl(input, 'linkedin.com');
-                AppState.formData.linkedin = `https://linkedin.com/${sanitized}`;
+                // Remove 'in/' prefix if present (it's shown in the visible prefix)
+                const username = sanitized.replace(/^in\//, '');
+                AppState.formData.linkedin = `https://linkedin.com/in/${username}`;
             }
             updatePreview();
         });
 
         linkedinUsernameInput.addEventListener('blur', (e) => {
-            // Clean up the input field to show just the username/path
+            // Clean up the input field to show just the username (strip domain and 'in/' prefix)
             const input = e.target.value.trim();
             if (input) {
                 const sanitized = SignatureGenerator.sanitizeSocialUrl(input, 'linkedin.com');
-                e.target.value = sanitized;
+                // Remove 'in/' prefix since it's already shown in the visible prefix
+                const username = sanitized.replace(/^in\//, '');
+                e.target.value = username;
             }
             validateField(e.target);
         });
