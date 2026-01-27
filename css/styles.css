@@ -2250,24 +2250,9 @@ kbd::before {
    Same reason as above: focus should always be red, not green.
 */
 
-/* Desktop-Only Design (No responsive needed) */
-/* Minimum viewport: 1440x900 (13" MacBook) */
-@media (max-width: 1439px) {
-    body::before {
-        content: 'Please use a larger screen (1440px+ width) for best experience';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #F9B21D;
-        color: #333333;
-        padding: 12px;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 600;
-        z-index: 10000;
-    }
-}
+/* Responsive Design: Removed 1440px restriction (Issue #30) */
+/* Layout now works on standard laptops (1366px, 1280px) and tablets */
+/* Modals already responsive with width: 90vw, overflow-y: auto */
 
 /* Feedback Modal (Issue #23) */
 .feedback-option {
