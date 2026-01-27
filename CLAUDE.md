@@ -1,6 +1,6 @@
 # Zoho Email Signature Generator - Developer Guidelines
 
-**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 1.0.0 | **Updated**: 2026-01-27
+**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 2.0.0 | **Updated**: 2026-01-27
 
 Professional, privacy-first web app for Zoho employees. 6 signature templates with Verdana font, 3-tier content hierarchy, 4 accent colors, live preview, one-click copy.
 
@@ -8,28 +8,52 @@ Professional, privacy-first web app for Zoho employees. 6 signature templates wi
 
 ## Recent Changes
 
-**Version**: 1.0.0 (2026-01-27) - **Stable Release Before Refactor**
-**Latest**: Phase 2 improvements - Form accessibility (autocomplete attributes) + UX polish (click-away help, visual grouping)
+**Version**: 2.0.0 (2026-01-27) - **TypeScript + Vite Refactor**
+**Latest**: Complete rewrite to TypeScript with Vite build system - modular architecture, type safety, modern development workflow
+**Previous**: 1.0.0 - Stable vanilla JS release
 **Full history**: See [CHANGELOG.md](CHANGELOG.md)
 
 ---
 
 ## Tech Stack
 
-- **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3
-- **Design System**: CSS Custom Properties (370+ tokens in `.ui-design/`)
-- **No Dependencies**: Zero npm packages or build tools
-- **Browser APIs**: Clipboard API, localStorage, URL API, URLSearchParams API
-- **Deployment**: GitHub Pages (main branch)
+- **Frontend**: TypeScript + Vite
+- **Build Tool**: Vite 5.x (module bundler with HMR)
+- **Type System**: TypeScript 5.x (full type safety)
+- **Styling**: CSS3 with custom properties (370+ design tokens)
+- **Browser APIs**: Clipboard API, localStorage, URL API
+- **Deployment**: GitHub Pages (via GitHub Actions, deploying `dist/` folder)
 
 ---
 
 ## Architecture Principles
 
-### Module Organization (3 Modules)
-1. **signature.js** - Pure utility (signature generation, validation)
-2. **app.js** - Application state and orchestration
-3. **modal.js** - Modal UI controller
+### Module Organization (TypeScript Modules)
+
+**Entry Point**:
+- `src/main.ts` - Application initialization and module wiring
+
+**Core Application**:
+- `src/app/state.ts` - Centralized state management with localStorage persistence
+- `src/app/form-handler.ts` - Form input handling, validation, and event listeners
+- `src/app/preview-renderer.ts` - Live signature preview rendering
+- `src/app/clipboard.ts` - Clipboard operations (modern + fallback APIs)
+
+**Signature Generation**:
+- `src/signature-generator/index.ts` - Main signature generator interface
+- `src/signature-generator/styles/` - Individual signature style implementations
+- `src/signature-generator/html-builder.ts` - HTML template utilities
+
+**UI Controllers**:
+- `src/ui/modal.ts` - Modal dialog management (import instructions)
+- `src/ui/theme.ts` - App-wide theme management (light/dark mode)
+- `src/ui/drag-drop.ts` - Drag-and-drop functionality for social channels
+
+**Utilities & Shared**:
+- `src/utils/` - Reusable utility functions (title case, URL cleaning, validation)
+- `src/types.ts` - TypeScript type definitions and interfaces
+- `src/constants.ts` - Application constants (storage keys, URLs, example data)
+- `src/styles/main.css` - Main stylesheet entry point
 
 ### State Management
 ```javascript
@@ -100,17 +124,31 @@ function isValidEmail(email) {
 
 **Classic**: Logo top, vertical stack, formal | **Compact**: Single-line, space-efficient | **Modern**: Logo left, red separator, 2-column | **Minimal**: Text-only, red accent line, no logo | **Professional**: Two-column layout | **Creative**: Bold left accent bar
 
-**Implementation**: `switch(style)` in signature.js returns table-based HTML with inline styles
+**Implementation**: `SignatureGenerator.generate()` in `src/signature-generator/index.ts` delegates to individual style modules in `src/signature-generator/styles/` directory. Each style returns table-based HTML with inline styles for maximum email client compatibility.
 
 ---
 
 ## Development Workflow
 
+### Setup
+```bash
+npm install             # Install dependencies
+```
+
 ### Local Development
 ```bash
-open index.html          # No build needed
-# or
-npx serve               # Simple HTTP server
+npm run dev             # Start Vite dev server (localhost:5173)
+```
+
+### Production Build
+```bash
+npm run build           # Build for production (outputs to dist/)
+npm run preview         # Preview production build locally
+```
+
+### Type Checking
+```bash
+npm run type-check      # Run TypeScript compiler (no emit)
 ```
 
 ### Testing Checklist

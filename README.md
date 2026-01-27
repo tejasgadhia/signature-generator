@@ -2,7 +2,7 @@
 
 **Professional email signatures for Zoho employees**
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-O'Saasy-green.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg) ![License](https://img.shields.io/badge/license-O'Saasy-green.svg)
 
 **Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator/
 
@@ -12,7 +12,7 @@
 
 Privacy-first web app for creating professional, email-compatible signatures. Features 6 layout templates, 4 brand colors, dark mode support, and comprehensive accessibility (WCAG 2.2 AA compliant).
 
-**Built with**: Vanilla JavaScript, CSS Custom Properties, Zero Dependencies
+**Built with**: TypeScript + Vite, CSS Custom Properties, Modern Development Workflow
 
 ---
 
@@ -38,7 +38,7 @@ Privacy-first web app for creating professional, email-compatible signatures. Fe
 
 ### 🔒 Privacy-First
 - **100% Client-Side** - No server communication, no data collection, no tracking
-- **Zero Dependencies** - Vanilla JavaScript, no npm packages or build tools
+- **Zero Runtime Dependencies** - Pure TypeScript compiled to JavaScript, no external libraries loaded
 - **localStorage Only** - Theme preference and color selection saved locally
 
 ### 📧 Email Client Compatibility
@@ -94,6 +94,69 @@ Tested in **9 email clients**: Gmail, Apple Mail, Outlook (Windows/macOS/Web/iOS
 - **[CHANGELOG.md](CHANGELOG.md)** - Full version history with detailed release notes
 - **[CLAUDE.md](CLAUDE.md)** - Developer guidelines (architecture, patterns, workflows)
 - **[LICENSE.md](LICENSE.md)** - O'Saasy License Agreement
+
+---
+
+## Development
+
+This project uses **Vite + TypeScript** for modern development workflow with type safety and hot module replacement (HMR).
+
+### Prerequisites
+- Node.js 20+ and npm
+
+### Setup
+```bash
+git clone https://github.com/tejasgadhia/zoho-signature-generator.git
+cd zoho-signature-generator
+npm install
+```
+
+### Development Server
+```bash
+npm run dev
+```
+Opens http://localhost:5173 with hot reload.
+
+### Production Build
+```bash
+npm run build
+```
+Outputs optimized build to `dist/` directory.
+
+### Preview Production Build
+```bash
+npm run preview
+```
+Serves production build locally for testing.
+
+### Type Checking
+```bash
+npm run type-check
+```
+Runs TypeScript compiler without emitting files.
+
+### Project Structure
+```
+src/
+├── main.ts              # Application entry point
+├── app/                 # Core application logic
+│   ├── state.ts         # State management
+│   ├── form-handler.ts  # Form handling
+│   ├── preview-renderer.ts  # Preview rendering
+│   └── clipboard.ts     # Clipboard operations
+├── signature-generator/ # Signature HTML generation
+│   ├── index.ts
+│   └── styles/          # Individual style implementations
+├── ui/                  # UI controllers
+│   ├── modal.ts
+│   ├── theme.ts
+│   └── drag-drop.ts
+├── utils/               # Utility functions
+├── types.ts             # TypeScript definitions
+└── constants.ts         # App constants
+```
+
+See [CLAUDE.md](CLAUDE.md) for comprehensive developer documentation.
 
 ---
 

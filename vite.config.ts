@@ -10,8 +10,14 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    assetsDir: 'assets',
     sourcemap: true,
+    minify: 'terser',
     // Let Vite handle code splitting automatically - no manual chunks
+  },
+  server: {
+    port: 5173,
+    open: false // Don't auto-open browser
   },
   test: {
     globals: true,
