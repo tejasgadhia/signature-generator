@@ -305,8 +305,16 @@ body {
 .form-section h2 {
     font-size: 20px;
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     color: #333333;
+}
+
+.form-helper-text {
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 24px;
+    margin-top: 0;
+    line-height: 1.5;
 }
 
 /* Preview Section */
@@ -376,7 +384,7 @@ body {
     position: relative;
     width: 48px;
     height: 26px;
-    background: #DC2626;  /* Red when disabled */
+    background: #9CA3AF;  /* Neutral gray when disabled */
     border-radius: 100px;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -1334,6 +1342,10 @@ body {
 [data-theme="dark"] .help-panel {
     background: #2a2a2a;
     color: #e0e0e0;
+}
+
+[data-theme="dark"] .form-helper-text {
+    color: #9CA3AF;  /* Lighter gray for dark mode */
 }
 
 /* URL Prefix Input (LinkedIn, Twitter, etc.) */
