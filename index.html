@@ -82,6 +82,12 @@
                     <span class="disclaimer-icon">⚠️</span>
                     <p class="disclaimer-text">This is an unofficial community tool, not endorsed by Zoho Corporation.</p>
                 </div>
+
+                <!-- Feedback Button -->
+                <button class="feedback-btn" id="feedbackButton" aria-label="Share feedback or suggestions">
+                    <span class="feedback-btn-icon">💬</span>
+                    <span class="feedback-btn-text">Share Feedback</span>
+                </button>
             </div>
         </aside>
 
@@ -382,6 +388,50 @@
             </div>
             <div class="modal-body" id="modal-body-content">
                 <!-- Content will be dynamically inserted by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="modal" role="dialog" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="feedbackModalTitle">Share Your Feedback</h2>
+                <button type="button" class="modal-close" aria-label="Close modal">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: #666;">Choose your preferred way to get in touch:</p>
+
+                <!-- Cliq Option (Zoho Employees) -->
+                <div class="feedback-option">
+                    <span class="feedback-option-icon">💬</span>
+                    <div class="feedback-option-content">
+                        <h3 class="feedback-option-title">Contact on Cliq</h3>
+                        <p class="feedback-option-desc">Search for <strong>@tejas.gadhia</strong> or "Tejas Gadhia"</p>
+                        <p class="feedback-option-note">Fastest for Zoho employees</p>
+                    </div>
+                </div>
+
+                <!-- Email Option -->
+                <a href="mailto:tejas.gadhia@zohocorp.com?subject=Zoho%20Signature%20Generator%20Feedback" class="feedback-option feedback-option-link">
+                    <span class="feedback-option-icon">✉️</span>
+                    <div class="feedback-option-content">
+                        <h3 class="feedback-option-title">Send Email</h3>
+                        <p class="feedback-option-desc">tejas.gadhia@zohocorp.com</p>
+                        <p class="feedback-option-note">Opens your email client</p>
+                    </div>
+                </a>
+
+                <!-- GitHub Issues Option -->
+                <a href="https://github.com/tejasgadhia/zoho-signature-generator/issues/new" target="_blank" rel="noopener noreferrer" class="feedback-option feedback-option-link">
+                    <span class="feedback-option-icon">🐙</span>
+                    <div class="feedback-option-content">
+                        <h3 class="feedback-option-title">Report on GitHub</h3>
+                        <p class="feedback-option-desc">Public feedback benefits others</p>
+                        <p class="feedback-option-note">Requires GitHub account</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

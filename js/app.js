@@ -354,6 +354,64 @@ function setupHoverHighlighting() {
     console.info(`Initialized hover highlighting for ${formInputs.length} form inputs`);
 }
 
+/**
+ * Setup feedback modal (Issue #23)
+ * Provides three contact options: Cliq, Email, GitHub Issues
+ */
+function setupFeedbackModal() {
+    const feedbackButton = document.getElementById('feedbackButton');
+    const feedbackModal = document.getElementById('feedback-modal');
+
+    if (!feedbackButton || !feedbackModal) {
+        console.warn('Feedback button or modal not found');
+        return;
+    }
+
+    const closeButton = feedbackModal.querySelector('.modal-close');
+    const backdrop = feedbackModal.querySelector('.modal-backdrop');
+    const modalContent = feedbackModal.querySelector('.modal-content');
+
+    // Open modal on button click
+    feedbackButton.addEventListener('click', () => {
+        feedbackModal.classList.add('active');
+        feedbackModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal function
+    const closeFeedbackModal = () => {
+        feedbackModal.classList.remove('active');
+        feedbackModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    // Close button click
+    if (closeButton) {
+        closeButton.addEventListener('click', closeFeedbackModal);
+    }
+
+    // Backdrop click to close
+    if (backdrop) {
+        backdrop.addEventListener('click', closeFeedbackModal);
+    }
+
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && feedbackModal.classList.contains('active')) {
+            closeFeedbackModal();
+        }
+    });
+
+    // Prevent modal content clicks from closing
+    if (modalContent) {
+        modalContent.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+
+    console.info('Initialized feedback modal with 3 contact options');
+}
+
 
 // DOM elements
 const elements = {
@@ -416,6 +474,7 @@ function init() {
     setupPhoneFormatting();    // Phone auto-formatting with Cleave.js
     setupHelpButtons();       // Expandable help panels (WCAG 2.2 AA)
     setupHoverHighlighting(); // Hover highlighting for form-to-preview connection
+    setupFeedbackModal();     // Feedback mechanism (Issue #23)
 
     // Initial preview update
     updatePreview();
