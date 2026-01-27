@@ -126,14 +126,15 @@ const SignatureGenerator = {
         }
 
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             contacts.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
 
         if (data.twitter) {
-            const twitterHandle = data.twitter.replace('@', '');
-            const twitterUrl = `https://twitter.com/${twitterHandle}`;
-            contacts.push(`<a href="${twitterUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">@${this.escapeHtml(twitterHandle)}</a>`);
+            const xHandle = this.sanitizeSocialUrl(data.twitter, 'x.com').replace('@', '');
+            const xUrl = `https://x.com/${xHandle}`;
+            contacts.push(`<a href="${xUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">@${this.escapeHtml(xHandle)}</a>`);
         }
 
         // Build Zoho social handles if requested
@@ -232,11 +233,12 @@ const SignatureGenerator = {
         // Tier 2: Personal Connections (LinkedIn + X + Bookings)
         const tier2Links = [];
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
         if (data.twitter) {
-            const xHandle = data.twitter.replace('@', '');
+            const xHandle = this.sanitizeSocialUrl(data.twitter, 'x.com').replace('@', '');
             tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
         }
         if (data.bookings) {
@@ -306,11 +308,12 @@ const SignatureGenerator = {
         // Tier 2: Personal Connections (LinkedIn + X + Bookings)
         const tier2Links = [];
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
         if (data.twitter) {
-            const xHandle = data.twitter.replace('@', '');
+            const xHandle = this.sanitizeSocialUrl(data.twitter, 'x.com').replace('@', '');
             tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
         }
         if (data.bookings) {
@@ -378,11 +381,12 @@ const SignatureGenerator = {
         // Tier 2: Personal Connections (LinkedIn + X + Bookings)
         const tier2Links = [];
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
         if (data.twitter) {
-            const xHandle = data.twitter.replace('@', '');
+            const xHandle = this.sanitizeSocialUrl(data.twitter, 'x.com').replace('@', '');
             tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
         }
         if (data.bookings) {
@@ -446,11 +450,12 @@ const SignatureGenerator = {
         // Tier 2: Personal Connections (LinkedIn + X + Bookings)
         const tier2Links = [];
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
         if (data.twitter) {
-            const xHandle = data.twitter.replace('@', '');
+            const xHandle = this.sanitizeSocialUrl(data.twitter, 'x.com').replace('@', '');
             tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
         }
         if (data.bookings) {
@@ -519,11 +524,12 @@ const SignatureGenerator = {
         // Tier 2: Personal Connections (LinkedIn + X + Bookings)
         const tier2Links = [];
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
         if (data.twitter) {
-            const xHandle = data.twitter.replace('@', '');
+            const xHandle = this.sanitizeSocialUrl(data.twitter, 'x.com').replace('@', '');
             tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
         }
         if (data.bookings) {
@@ -592,11 +598,12 @@ const SignatureGenerator = {
         // Tier 2: Personal Connections (LinkedIn + X + Bookings)
         const tier2Links = [];
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             tier2Links.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
         if (data.twitter) {
-            const xHandle = data.twitter.replace('@', '');
+            const xHandle = this.sanitizeSocialUrl(data.twitter, 'x.com').replace('@', '');
             tier2Links.push(`<a href="https://x.com/${xHandle}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">X</a>`);
         }
         if (data.bookings) {
@@ -726,7 +733,8 @@ const SignatureGenerator = {
             contacts.push(`<a href="tel:${this.sanitizePhone(data.phone)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${this.escapeHtml(data.phone)}</a>`);
         }
         if (data.linkedin) {
-            const linkedinUrl = this.normalizeUrl(data.linkedin);
+            const linkedinPath = this.sanitizeSocialUrl(data.linkedin, 'linkedin.com');
+            const linkedinUrl = `https://www.linkedin.com/${linkedinPath}`;
             contacts.push(`<a href="${linkedinUrl}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">LinkedIn</a>`);
         }
         if (websiteUrl) {
@@ -872,6 +880,45 @@ const SignatureGenerator = {
         const cleaned = phone.replace(/[^\d+]/g, '');
         // Check if we have at least 10 digits (US number) or starts with + and has 10+ digits
         return /^\+?\d{10,}$/.test(cleaned);
+    },
+
+    /**
+     * Sanitize social media URL by extracting username/handle
+     * Prevents double URL bug when users paste full URLs
+     *
+     * Examples:
+     * - "https://x.com/username" → "username"
+     * - "https://www.linkedin.com/in/username/" → "in/username"
+     * - "username" → "username" (unchanged)
+     *
+     * @param {string} input - User input (username or full URL)
+     * @param {string} domain - Social media domain (e.g., 'x.com', 'linkedin.com')
+     * @returns {string} - Sanitized username/path
+     */
+    sanitizeSocialUrl(input, domain) {
+        if (!input) return '';
+
+        try {
+            // Try to parse as URL
+            const urlObj = new URL(input.startsWith('http') ? input : 'https://' + input);
+
+            // Check if hostname matches the expected domain (with or without www.)
+            const hostname = urlObj.hostname.replace(/^www\./, '');
+            if (hostname === domain || hostname === 'www.' + domain) {
+                // Extract the path (remove leading slash)
+                return urlObj.pathname.replace(/^\/+/, '').replace(/\/+$/, '');
+            }
+        } catch {
+            // Not a valid URL, treat as username/handle
+        }
+
+        // Remove any remaining URL artifacts (protocol, www., domain)
+        return input
+            .replace(/^https?:\/\//i, '')        // Remove protocol
+            .replace(/^www\./i, '')               // Remove www.
+            .replace(new RegExp(`^${domain}/?`, 'i'), '') // Remove domain
+            .replace(/^\/+/, '')                  // Remove leading slashes
+            .replace(/\/+$/, '');                 // Remove trailing slashes
     },
 
     /**
