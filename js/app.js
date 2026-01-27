@@ -1413,22 +1413,10 @@ function displayValidationError(input, message) {
             validationIcon.setAttribute('aria-label', 'Invalid input');
         }
     } else {
-        // Check if field has value (show success if valid and not empty)
-        const hasValue = input.value.trim().length > 0;
-
-        if (hasValue) {
-            // Show success state
-            if (validationIcon) {
-                validationIcon.textContent = '✓';
-                validationIcon.className = 'validation-icon valid';
-                validationIcon.style.display = 'flex';
-                validationIcon.setAttribute('aria-label', 'Valid input');
-            }
-        } else {
-            // Hide validation icon for empty fields
-            if (validationIcon) {
-                validationIcon.style.display = 'none';
-            }
+        // No error: Hide validation icon (don't show success checkmarks)
+        // Only show errors, not success states (reduces visual clutter)
+        if (validationIcon) {
+            validationIcon.style.display = 'none';
         }
 
         // Hide error message
