@@ -143,7 +143,9 @@ export class FormHandler {
    * Handle email prefix change
    */
   private handleEmailPrefixChange(prefix: string): void {
-    const fullEmail = prefix ? `${prefix}@zohocorp.com` : '';
+    // Strip @zohocorp.com if user typed it (prevent double domain)
+    const cleanPrefix = prefix.replace(/@zohocorp\.com$/i, '').trim();
+    const fullEmail = cleanPrefix ? `${cleanPrefix}@zohocorp.com` : '';
     this.handleFieldChange('email', fullEmail);
   }
 
@@ -200,23 +202,42 @@ export class FormHandler {
    * Setup toggle switches for optional fields
    */
   private setupToggleListeners(): void {
-    const toggles = document.querySelectorAll('.toggle-switch input[data-field]');
+    // Note: Toggles are <div> elements with data-field, not <input> elements
+    const toggles = document.querySelectorAll<HTMLElement>('.toggle-switch[data-field]:not(.social-toggle)');
 
     toggles.forEach((toggle) => {
-      const checkbox = toggle as HTMLInputElement;
-      const field = checkbox.dataset.field;
+      const field = toggle.dataset.field;
       if (!field) return;
 
-      checkbox.addEventListener('change', () => {
-        const enabled = checkbox.checked;
+      toggle.addEventListener('click', () => {
+        // Toggle active state
+        const isActive = toggle.classList.contains('active');
+        const enabled = !isActive;
+
+        // Update visual state
+        toggle.classList.toggle('active');
+        toggle.setAttribute('aria-checked', String(enabled));
+
         const fieldToggles = this.stateManager.getState().fieldToggles;
 
         // Only update toggle if it's a valid toggle field
         if (field in fieldToggles) {
           this.stateManager.updateFieldToggle(field as any, enabled);
 
+          // Map field name to input ID (handle special cases)
+          let inputId = field;
+          if (field === 'email') {
+            inputId = 'email-prefix';
+          } else if (field === 'linkedin') {
+            inputId = 'linkedin-username';
+          } else if (field === 'twitter') {
+            inputId = 'x-username';
+          } else if (field === 'bookings') {
+            inputId = 'bookings-id';
+          }
+
           // Disable/enable the corresponding input
-          const input = document.getElementById(field) as HTMLInputElement;
+          const input = document.getElementById(inputId) as HTMLInputElement;
           if (input) {
             input.disabled = !enabled;
             if (!enabled) {
