@@ -1225,8 +1225,10 @@ function restoreAccentColor() {
         document.querySelectorAll('.color-btn').forEach(btn => {
             if (btn.dataset.color === savedColor) {
                 btn.classList.add('selected');
+                btn.setAttribute('aria-current', 'true');
             } else {
                 btn.classList.remove('selected');
+                btn.removeAttribute('aria-current');
             }
         });
     }
@@ -1246,8 +1248,12 @@ function setupColorSwitcher() {
             AppState.accentColor = color;
 
             // Update UI - remove selected from all, add to clicked
-            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.color-btn').forEach(b => {
+                b.classList.remove('selected');
+                b.removeAttribute('aria-current');
+            });
             e.target.classList.add('selected');
+            e.target.setAttribute('aria-current', 'true');
 
             // Persist to localStorage
             localStorage.setItem('signature-accent-color', color);

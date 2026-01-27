@@ -726,6 +726,26 @@ body {
 .color-btn.selected {
     border-color: #333333;
     box-shadow: 0 0 0 1px #333333;
+    position: relative;
+}
+
+/* Checkmark indicator for selected color (accessibility - non-color indicator) */
+.color-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    line-height: 1;
+}
+
+/* Dark checkmark for yellow background (better contrast) */
+.color-btn.selected[data-color="#F9B21D"]::after {
+    color: #333333;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
 .color-btn:hover {
