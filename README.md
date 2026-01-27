@@ -63,37 +63,6 @@ Tested in **9 email clients**: Gmail, Apple Mail, Outlook (Windows/macOS/Web/iOS
 
 ---
 
-## Email Client Instructions
-
-### Zoho Mail (~1 minute • 5 steps)
-1. Settings → Email Signature
-2. Click "Insert HTML" button (`</>` icon)
-3. Paste signature HTML
-4. Click "Insert" → "Update"
-5. Done!
-
-### Gmail (~45 seconds • 4 steps)
-1. Settings → See all settings → Signature
-2. Create new signature
-3. Paste directly (no "Insert HTML" button needed)
-4. Save changes
-
-### Apple Mail (~1 minute • 5 steps)
-1. Mail → Settings → Signatures
-2. Create new signature
-3. Paste signature
-4. ✅ **IMPORTANT**: Uncheck "Always match my default font"
-5. Done!
-
-### Outlook (~30 seconds • 3 steps)
-1. Settings → View all Outlook settings → Compose and reply
-2. Paste signature (renders automatically)
-3. Save
-
-See **"How to Import?"** modal in the app for detailed instructions with screenshots.
-
----
-
 ## Troubleshooting
 
 ### Common Issues
@@ -120,47 +89,6 @@ See **"How to Import?"** modal in the app for detailed instructions with screens
 
 ---
 
-## Development
-
-### Local Testing
-```bash
-# Option 1: Direct open
-open index.html
-
-# Option 2: Local server (recommended)
-npx serve
-# Visit http://localhost:3000
-```
-
-### Deployment
-Changes to `main` branch automatically deploy to GitHub Pages (1-2 minutes).
-
-### Pre-Push Checks
-```bash
-./pre-push-check.sh
-# Verifies: JS syntax, CSS validity, required files (.nojekyll)
-```
-
-### Tech Stack
-- **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3
-- **Design System**: CSS Custom Properties (370+ tokens in `.ui-design/`)
-- **No Dependencies**: Zero npm packages or build tools
-- **Browser APIs**: Clipboard API, localStorage, URL/URLSearchParams
-- **Deployment**: GitHub Pages (main branch)
-
-### Key Files
-- `index.html` - Main form UI
-- `js/app.js` - Application state, event handlers
-- `js/signature.js` - Signature HTML generation (6 styles)
-- `js/modal.js` - Modal UI controller
-- `js/help-content.js` - Expandable help text content
-- `css/styles.css` - All styling (2163 lines)
-- `.ui-design/tokens/tokens.css` - Design system tokens
-
-See **[CLAUDE.md](CLAUDE.md)** for detailed development guidelines.
-
----
-
 ## Project Documentation
 
 - **[CHANGELOG.md](CHANGELOG.md)** - Full version history with detailed release notes
@@ -183,34 +111,6 @@ See **[CLAUDE.md](CLAUDE.md)** for detailed development guidelines.
 - CSS Custom Properties
 - Clipboard API
 - localStorage
-
----
-
-## Privacy
-
-All processing happens locally in your browser. No server communication, no data collection, no tracking, no cookies.
-
-**What's stored locally**:
-- Theme preference (dark/light mode)
-- Accent color selection (Red/Green/Blue/Yellow)
-- Social media channel order (drag-drop customization)
-- Smart title case format locks (preserve/override)
-
-**What's NOT stored**:
-- Your name, email, phone, or any personal information
-- Your signature content or preferences
-
----
-
-## Contributing
-
-This project is currently maintained by Tejas Gadhia for Zoho employees. While the code is open source, external contributions are not actively sought at this time.
-
-**Found a bug?** Open an issue on GitHub with:
-- Browser version
-- Steps to reproduce
-- Expected vs actual behavior
-- Screenshots if applicable
 
 ---
 
@@ -254,7 +154,3 @@ See [LICENSE.md](LICENSE.md) for full details.
 - localStorage color persistence
 
 See **[CHANGELOG.md](CHANGELOG.md)** for complete version history.
-
----
-
-**Made with ❤️ for Zoho Employees**
