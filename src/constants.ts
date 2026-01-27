@@ -156,6 +156,7 @@ export const STORAGE_KEYS = {
   THEME: 'zoho-signature-preview-theme',
   ACCENT_COLOR: 'signature-accent-color',
   SOCIAL_ORDER: 'socialChannelOrder',
+  FORMAT_LOCK_PREFIX: 'format-lock-',
   FORMAT_LOCK_NAME: 'format-lock-name',
   FORMAT_LOCK_TITLE: 'format-lock-title',
   FORMAT_LOCK_DEPARTMENT: 'format-lock-department',

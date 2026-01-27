@@ -75,6 +75,15 @@ export interface SocialOptions {
 }
 
 /**
+ * Format lock state for title case auto-formatting
+ */
+export interface FormatLockState {
+  name: boolean;
+  title: boolean;
+  department: boolean;
+}
+
+/**
  * Application state
  * Central state management for the signature generator
  */
@@ -85,6 +94,7 @@ export interface AppState {
   socialOptions: SocialOptions;
   isDarkModePreview: boolean;
   accentColor: string; // Hex color string (e.g., '#E42527')
+  formatLockState: FormatLockState;
 }
 
 /**
