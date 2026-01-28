@@ -81,6 +81,10 @@ export class FormHandler {
         input.value = value;
         this.userEditedEmailPrefix = true; // Mark as manually edited
         this.handleEmailPrefixChange(value);
+        // Real-time validation for immediate feedback
+        if (value) {
+          this.validateField('email', `${value}@zohocorp.com`);
+        }
       });
 
       emailPrefixInput.addEventListener('blur', (e) => {
@@ -166,6 +170,10 @@ export class FormHandler {
         const value = input.value.replace(/[^0-9+\s()-]/g, '');
         input.value = value;
         this.handleFieldChange('phone', value);
+        // Real-time validation for immediate feedback
+        if (value) {
+          this.validateField('phone', value);
+        }
       });
 
       phoneInput.addEventListener('blur', (e) => {

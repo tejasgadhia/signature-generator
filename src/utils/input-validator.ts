@@ -8,8 +8,10 @@ import type { FormData, ValidationResult } from '../types';
 
 /**
  * Email validation regex - must be @zohocorp.com domain
+ * Pattern: starts with letter/number, optionally followed by (dot + letter/number) groups
+ * Rejects: dots at start/end, consecutive dots
  */
-const ZOHOCORP_EMAIL_REGEX = /^[a-z0-9.]+@zohocorp\.com$/i;
+const ZOHOCORP_EMAIL_REGEX = /^[a-z0-9]+(?:\.[a-z0-9]+)*@zohocorp\.com$/i;
 
 /**
  * General email format regex
@@ -105,6 +107,23 @@ export class InputValidator {
       return this.createResult('email', value, true, null);
     }
 
+    // Extract prefix for validation (before checking full regex)
+    const prefix = value.split('@')[0];
+
+    // Check prefix rules first for more specific error messages
+    if (prefix.length < 2) {
+      return this.createResult('email', value, false, 'Email prefix needs at least 2 characters');
+    }
+    if (prefix.startsWith('.')) {
+      return this.createResult('email', value, false, 'Email cannot start with a dot');
+    }
+    if (prefix.endsWith('.')) {
+      return this.createResult('email', value, false, 'Email cannot end with a dot');
+    }
+    if (prefix.includes('..')) {
+      return this.createResult('email', value, false, 'Email cannot have consecutive dots');
+    }
+
     // Check for @zohocorp.com domain
     if (!ZOHOCORP_EMAIL_REGEX.test(value)) {
       // Check if it's a valid email format but wrong domain
@@ -112,15 +131,6 @@ export class InputValidator {
         return this.createResult('email', value, false, 'Must use @zohocorp.com domain');
       }
       return this.createResult('email', value, false, 'Invalid email format. Example: john.doe@zohocorp.com');
-    }
-
-    // Check email prefix rules (lowercase, no consecutive dots, etc.)
-    const prefix = value.split('@')[0];
-    if (prefix.length < 2) {
-      return this.createResult('email', value, false, 'Email prefix needs at least 2 characters');
-    }
-    if (prefix.startsWith('.') || prefix.endsWith('.') || prefix.includes('..')) {
-      return this.createResult('email', value, false, 'Dots cannot be at start, end, or consecutive');
     }
 
     return this.createResult('email', value, true, null);
