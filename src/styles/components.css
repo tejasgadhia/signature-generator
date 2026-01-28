@@ -8,7 +8,14 @@
     font-size: 16px;
     font-weight: 600;
     color: #333333;
+    margin-bottom: 4px;
+}
+
+.import-section-hint {
+    font-size: 13px;
+    color: #6B7280;
     margin-bottom: 16px;
+    line-height: 1.4;
 }
 
 /* Import Buttons */
@@ -49,11 +56,47 @@
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 600;
     padding: 0 16px;
+}
+
+/* Arrow indicator - signals "click for instructions" */
+.import-btn-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    opacity: 0.7;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.import-btn-arrow::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+}
+
+.import-btn:hover .import-btn-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+}
+
+/* For secondary buttons (white background) */
+.import-btn-secondary .import-btn-text {
+    flex: 1;
+    color: #666666;
+}
+
+.import-btn-secondary .import-btn-arrow {
+    color: #9CA3AF;
 }
 
 .import-btn-zoho-mail {

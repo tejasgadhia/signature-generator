@@ -111,11 +111,22 @@ body {
     background: #FAFAFA;
 }
 
-/* Disclaimer Box */
+/* Disclaimer Footer (subtle, non-alarming) */
+.disclaimer-footer {
+    font-size: 11px;
+    color: #9CA3AF;
+    text-align: center;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #E5E7EB;
+    line-height: 1.4;
+}
+
+/* Legacy disclaimer box - kept for backwards compatibility */
 .disclaimer-box {
     background: #F9B21D;
     padding: 16px;
-    margin-top: 24px;  /* Increased from 16px for breathing room (#82) */
+    margin-top: 24px;
     border-radius: 8px;
     display: flex;
     gap: 12px;

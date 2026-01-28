@@ -349,13 +349,41 @@
 }
 
 .email-domain-suffix {
-    padding: 0.625rem 32px 0.625rem 0.5rem;  /* Match input padding-right for alignment */
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.625rem 12px 0.625rem 8px;
     font-size: 0.95rem;
     color: #6B7280;  /* WCAG AA: neutral-500 for 4.6:1 contrast */
     background: #F5F5F5;
     border-left: 1px solid #E0E0E0;
     white-space: nowrap;
     font-family: monospace;
+}
+
+/* Lock icon - indicates domain is fixed */
+.domain-lock-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    color: #6B7280;  /* Slightly darker for better visibility */
+    flex-shrink: 0;
+}
+
+.domain-lock-icon::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 14px;
+    background: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M8 1a4 4 0 00-4 4v3H3a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2v-7a2 2 0 00-2-2h-1V5a4 4 0 00-4-4zm2 7V5a2 2 0 10-4 0v3h4z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M8 1a4 4 0 00-4 4v3H3a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2v-7a2 2 0 00-2-2h-1V5a4 4 0 00-4-4zm2 7V5a2 2 0 10-4 0v3h4z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
 }
 
 /* =============================================================================
