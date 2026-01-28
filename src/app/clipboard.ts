@@ -7,13 +7,59 @@ import type { AppStateManager } from './state';
 import { SignatureGenerator } from '../signature-generator/index';
 import { ANIMATION_DURATIONS } from '../constants';
 
+interface ToastAction {
+  label: string;
+  onClick: () => void;
+}
+
+interface ToastOptions {
+  icon?: string;
+  actions?: ToastAction[];
+  duration?: number;
+}
+
 export class ClipboardManager {
   private stateManager: AppStateManager;
   private toastContainer: HTMLElement | null;
+  private toastTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(stateManager: AppStateManager) {
     this.stateManager = stateManager;
     this.toastContainer = document.getElementById('toast');
+    this.setupToastDismiss();
+  }
+
+  /**
+   * Setup toast dismiss handlers (click X button, Escape key)
+   */
+  private setupToastDismiss(): void {
+    if (!this.toastContainer) return;
+
+    // Dismiss button click
+    const dismissBtn = this.toastContainer.querySelector('.toast-dismiss');
+    dismissBtn?.addEventListener('click', () => this.hideToast());
+
+    // Escape key to dismiss
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.toastContainer?.classList.contains('show')) {
+        this.hideToast();
+      }
+    });
+
+    // Pause timer on hover
+    this.toastContainer.addEventListener('mouseenter', () => {
+      if (this.toastTimeout) {
+        clearTimeout(this.toastTimeout);
+        this.toastTimeout = null;
+      }
+    });
+
+    // Resume timer on mouse leave (restart with reduced time)
+    this.toastContainer.addEventListener('mouseleave', () => {
+      if (this.toastContainer?.classList.contains('show')) {
+        this.toastTimeout = setTimeout(() => this.hideToast(), 2000);
+      }
+    });
   }
 
   /**
@@ -36,14 +82,27 @@ export class ClipboardManager {
       // Try modern clipboard API first
       if (navigator.clipboard && typeof navigator.clipboard.write === 'function') {
         await this.modernClipboard(html);
-        this.showToast('✓ Signature copied! Ready to paste into your email client.');
-        return true;
       } else {
         // Fallback to execCommand
         await this.fallbackClipboard(html);
-        this.showToast('✓ Signature copied! Ready to paste into your email client.');
-        return true;
       }
+
+      // Show success toast with action to open instructions
+      this.showToast('Signature copied to clipboard!', 'success', {
+        actions: [
+          {
+            label: 'How to paste →',
+            onClick: () => {
+              // Open the Zoho Mail instructions modal (most common use case)
+              const zohoMailBtn = document.querySelector('[data-modal-target="zoho-mail-modal"]');
+              if (zohoMailBtn instanceof HTMLElement) {
+                zohoMailBtn.click();
+              }
+            },
+          },
+        ],
+      });
+      return true;
     } catch (error) {
       console.error('Failed to copy signature:', error);
       this.showToast('✗ Failed to copy signature. Please try again.', 'error');
@@ -131,22 +190,76 @@ export class ClipboardManager {
   }
 
   /**
-   * Show toast notification
+   * Show enhanced toast notification with optional actions
    */
-  showToast(message: string, type: 'success' | 'error' = 'success'): void {
+  showToast(message: string, type: 'success' | 'error' = 'success', options?: ToastOptions): void {
     if (!this.toastContainer) {
       console.warn('Toast container not found');
       return;
     }
 
-    // Set message and type
-    this.toastContainer.textContent = message;
+    // Clear any existing timeout
+    if (this.toastTimeout) {
+      clearTimeout(this.toastTimeout);
+    }
+
+    // Set icon
+    const iconEl = this.toastContainer.querySelector('.toast-icon');
+    if (iconEl) {
+      iconEl.textContent = options?.icon || (type === 'success' ? '✓' : '✗');
+    }
+
+    // Set message
+    const messageEl = this.toastContainer.querySelector('.toast-message');
+    if (messageEl) {
+      messageEl.textContent = message;
+    }
+
+    // Set actions
+    const actionsEl = this.toastContainer.querySelector('.toast-actions');
+    if (actionsEl) {
+      actionsEl.innerHTML = '';
+      if (options?.actions) {
+        options.actions.forEach((action) => {
+          const btn = document.createElement('button');
+          btn.className = 'toast-action';
+          btn.textContent = action.label;
+          btn.addEventListener('click', () => {
+            action.onClick();
+            this.hideToast();
+          });
+          actionsEl.appendChild(btn);
+        });
+      }
+    }
+
+    // Reset progress bar animation
+    const progressBar = this.toastContainer.querySelector('.toast-progress-bar') as HTMLElement;
+    if (progressBar) {
+      progressBar.style.animation = 'none';
+      // Trigger reflow
+      void progressBar.offsetWidth;
+      const duration = options?.duration || ANIMATION_DURATIONS.TOAST + 1000; // 4s default
+      progressBar.style.animation = `toast-countdown ${duration}ms linear forwards`;
+    }
+
+    // Set type and show
     this.toastContainer.className = `toast ${type}`;
     this.toastContainer.classList.add('show');
 
-    // Hide after duration
-    setTimeout(() => {
-      this.toastContainer?.classList.remove('show');
-    }, ANIMATION_DURATIONS.TOAST);
+    // Auto-hide after duration
+    const duration = options?.duration || ANIMATION_DURATIONS.TOAST + 1000;
+    this.toastTimeout = setTimeout(() => this.hideToast(), duration);
+  }
+
+  /**
+   * Hide toast notification
+   */
+  hideToast(): void {
+    if (this.toastTimeout) {
+      clearTimeout(this.toastTimeout);
+      this.toastTimeout = null;
+    }
+    this.toastContainer?.classList.remove('show');
   }
 }

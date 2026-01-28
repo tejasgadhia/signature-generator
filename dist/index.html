@@ -6,8 +6,8 @@
     <title>Zoho Email Signature Generator</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <!-- CSS now loaded via Vite in src/main.ts -->
-  <script type="module" crossorigin src="/zoho-signature-generator/assets/index-DMg3Z3vc.js"></script>
-  <link rel="stylesheet" crossorigin href="/zoho-signature-generator/assets/index-CpKVmk8a.css">
+  <script type="module" crossorigin src="/zoho-signature-generator/assets/index-gbuCr3lP.js"></script>
+  <link rel="stylesheet" crossorigin href="/zoho-signature-generator/assets/index-Duu9kSGp.css">
 </head>
 <body>
     <!-- Three-Column Layout -->
@@ -413,7 +413,15 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+    <div id="toast" class="toast" role="alert" aria-live="polite">
+        <div class="toast-content">
+            <span class="toast-icon" aria-hidden="true"></span>
+            <span class="toast-message"></span>
+            <button class="toast-dismiss" aria-label="Dismiss notification">&times;</button>
+        </div>
+        <div class="toast-actions"></div>
+        <div class="toast-progress"><div class="toast-progress-bar"></div></div>
+    </div>
 
 </body>
 </html>

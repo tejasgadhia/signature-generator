@@ -496,15 +496,15 @@
     margin-left: 12px;
 }
 
-/* Social Media Compact Grid - Split button style like Mail/Desk buttons */
+/* Social Media Compact Grid - Subtle, quieter design (#86) */
 .social-compact-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);  /* Single row with all 4 icons */
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     margin-bottom: 8px;
 }
 
-/* Split button style: white logo area + colored text area */
+/* Quieter card design: neutral base with subtle brand hints */
 .social-compact-card {
     width: 100%;
     height: 36px;
@@ -512,24 +512,32 @@
     flex-direction: row;
     align-items: stretch;
     padding: 0;
-    border: none;
+    border: 1px solid #E5E7EB;  /* Subtle border instead of heavy shadow */
     border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
     user-select: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    opacity: 0.5;  /* Disabled by default */
+    background: #F9FAFB;  /* Light neutral background */
+    opacity: 0.5;
 }
 
 .social-compact-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    border-color: #D1D5DB;
+    background: #F3F4F6;
 }
 
 .social-compact-card.active {
-    opacity: 1;  /* Full opacity when enabled */
+    opacity: 1;
+    border-color: #D1D5DB;
+    background: #FFFFFF;
+}
+
+/* Show brand accent on hover when active */
+.social-compact-card.active:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .social-compact-card.dragging {
@@ -537,69 +545,76 @@
     transform: scale(0.95);
 }
 
-/* Drag handle - hidden for cleaner look in 4-column layout */
+/* Drag handle - hidden for cleaner look */
 .social-drag-handle {
     display: none;
 }
 
-/* Icon in white box on left */
+/* Icon area - subtle brand color hint */
 .social-compact-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 100%;
-    background: #FFFFFF;
-    font-size: 12px;
-    font-weight: bold;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
     flex-shrink: 0;
-    border-right: 1px solid rgba(0,0,0,0.1);
+    color: #6B7280;  /* Neutral gray by default */
+    transition: color 0.2s ease;
 }
 
-/* Label in colored area on right */
+/* Label area - neutral text */
 .social-compact-label {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 11px;
-    color: #FFFFFF;
-    font-weight: 600;
+    color: #6B7280;  /* Neutral gray text */
+    font-weight: 500;
     padding: 0 6px;
-    background: #999;  /* Default gray */
+    background: transparent;
     white-space: nowrap;
+    transition: color 0.2s ease;
 }
 
-/* Brand-specific background colors for the text area */
-.social-compact-card[data-channel="twitter"] .social-compact-label {
-    background: #000000;
-}
-
-.social-compact-card[data-channel="linkedin"] .social-compact-label {
-    background: #0A66C2;
-}
-
-.social-compact-card[data-channel="facebook"] .social-compact-label {
-    background: #1877F2;
-}
-
-.social-compact-card[data-channel="instagram"] .social-compact-label {
-    background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF);
-}
-
-/* Brand-specific icon colors */
-.social-compact-card[data-channel="twitter"] .social-compact-icon {
+/* Active state: show brand colors subtly in icon only */
+.social-compact-card.active[data-channel="twitter"] .social-compact-icon {
     color: #000000;
 }
 
-.social-compact-card[data-channel="linkedin"] .social-compact-icon {
+.social-compact-card.active[data-channel="linkedin"] .social-compact-icon {
     color: #0A66C2;
 }
 
-.social-compact-card[data-channel="facebook"] .social-compact-icon {
+.social-compact-card.active[data-channel="facebook"] .social-compact-icon {
     color: #1877F2;
 }
 
-.social-compact-card[data-channel="instagram"] .social-compact-icon {
-    color: #DD2A7B;
+.social-compact-card.active[data-channel="instagram"] .social-compact-icon {
+    color: #E1306C;
+}
+
+/* Active + hover: slightly bolder brand presence */
+.social-compact-card.active:hover[data-channel="twitter"] {
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+.social-compact-card.active:hover[data-channel="linkedin"] {
+    border-color: rgba(10, 102, 194, 0.4);
+}
+
+.social-compact-card.active:hover[data-channel="facebook"] {
+    border-color: rgba(24, 119, 242, 0.4);
+}
+
+.social-compact-card.active:hover[data-channel="instagram"] {
+    border-color: rgba(225, 48, 108, 0.4);
+}
+
+/* Active state: darken label text */
+.social-compact-card.active .social-compact-label {
+    color: #374151;
 }

@@ -61,7 +61,7 @@
   --color-border-strong: var(--color-neutral-300);
   --color-text-primary: var(--color-neutral-900);
   --color-text-secondary: var(--color-neutral-600);
-  --color-text-muted: var(--color-neutral-400);
+  --color-text-muted: var(--color-neutral-500);  /* WCAG AA: 4.6:1 contrast vs white */
   --color-text-inverse: #FFFFFF;
 
   /* ==========================================================================
