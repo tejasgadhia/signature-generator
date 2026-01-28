@@ -263,10 +263,11 @@ export class FormHandler {
     // Update validation icon
     if (iconContent) {
       validationIcon.textContent = iconContent;
-      validationIcon.className = result.isValid ? 'validation-icon valid' : 'validation-icon invalid';
+      validationIcon.className = result.isValid ? 'validation-icon valid show' : 'validation-icon invalid show';
       validationIcon.style.display = 'flex';
       validationIcon.setAttribute('aria-label', result.message ? `✗ ${result.message}` : 'Valid');
     } else {
+      validationIcon.className = 'validation-icon';
       validationIcon.style.display = 'none';
     }
 
