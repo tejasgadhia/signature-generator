@@ -1,10 +1,15 @@
 {
   "name": "zoho-signature-generator",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "type": "module",
   "description": "Professional email signatures for Zoho employees",
   "scripts": {
-    "serve": "npx serve -l 3003",
-    "test": "npm run test:e2e && npm run test:visual",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
@@ -24,6 +29,13 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "^1.58.0",
-    "backstopjs": "^6.3.25"
+    "@types/node": "^20.11.5",
+    "@vitest/ui": "^1.2.0",
+    "backstopjs": "^6.3.25",
+    "jsdom": "^24.0.0",
+    "terser": "^5.46.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vitest": "^1.2.0"
   }
 }

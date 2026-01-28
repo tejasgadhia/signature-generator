@@ -66,8 +66,10 @@ docs/releases/
 *.swo
 *~
 
-# Node.js
+# Node.js / Vite
 node_modules/
+dist/
+*.local
 package-lock.json
 
 # BackstopJS (test output - reference images are committed)
