@@ -407,7 +407,9 @@
    Help Text System (Accordion-Style on Focus)
    ============================================================================= */
 
-/* Help Icon - Clean info icon design */
+/* Help Icon - Ghost style: subtle until hover (modern pattern)
+   Inspired by Notion, Linear, Figma - icon fades into background,
+   becomes prominent only on hover/focus */
 .help-icon {
     display: flex;
     align-items: center;
@@ -415,15 +417,14 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #E5E7EB;
+    background: transparent;
     border: none;
-    color: #6B7280;
-    font-size: 12px;
-    font-weight: 700;
-    font-style: italic;
-    font-family: Georgia, serif;
+    color: #D1D5DB;  /* Very light - nearly invisible */
+    font-size: 13px;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     cursor: help;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     flex-shrink: 0;
     /* Touch target: 44x44px minimum via padding */
     padding: 13px;
@@ -435,6 +436,7 @@
 .help-icon:focus {
     background: #3B82F6;
     color: white;
+    transform: scale(1.1);  /* Subtle grow on hover */
 }
 
 /* Placeholder for fields without help icons - maintains grid alignment (fixes Pin 1) */
@@ -513,14 +515,12 @@
 /* Dark mode support */
 [data-theme="dark"] .help-icon {
     background: transparent;
-    border-color: #9CA3AF;  /* WCAG AA: lighter for dark background visibility */
-    color: #9CA3AF;
+    color: #4B5563;  /* Subtle dark gray - barely visible on dark bg */
 }
 
 [data-theme="dark"] .help-icon:hover,
 [data-theme="dark"] .help-icon:focus {
-    background: #1976D2;
-    border-color: #1976D2;
+    background: #2563EB;
     color: white;
 }
 
