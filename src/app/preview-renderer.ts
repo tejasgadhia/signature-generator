@@ -6,6 +6,7 @@
 
 import type { AppStateManager } from './state';
 import { SignatureGenerator } from '../signature-generator/index';
+import { EXAMPLE_DATA } from '../constants';
 import { eventBus } from '../events';
 import { debounce } from '../utils';
 
@@ -50,8 +51,8 @@ export class PreviewRenderer {
     const formData = state.formData;
     const fieldToggles = state.fieldToggles;
 
-    // Prepare preview data - only show user-entered data, never fill example data
-    // This ensures preview accurately reflects what will be copied
+    // Use example data for empty fields in preview so users can see what signature looks like
+    // Copy validation will warn users if they try to copy with example data
     const previewData = { ...formData };
     Object.keys(previewData).forEach(key => {
       const fieldKey = key as keyof typeof previewData;
@@ -59,6 +60,11 @@ export class PreviewRenderer {
       // Check if this field has a toggle (some fields like 'name' don't)
       const hasToggle = fieldKey in fieldToggles;
       const isEnabled = hasToggle ? fieldToggles[fieldKey as keyof typeof fieldToggles] : true;
+
+      // Fill example data if field is enabled AND empty (for visual preview)
+      if (isEnabled && !previewData[fieldKey] && EXAMPLE_DATA[fieldKey]) {
+        previewData[fieldKey] = EXAMPLE_DATA[fieldKey];
+      }
 
       // Clear data for disabled fields (so they don't show in preview)
       if (hasToggle && !isEnabled) {
