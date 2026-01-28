@@ -2,7 +2,7 @@
 
 **Professional email signatures for Zoho employees**
 
-![Version](https://img.shields.io/badge/version-3.0.0-blue.svg) ![License](https://img.shields.io/badge/license-O'Saasy-green.svg)
+![Version](https://img.shields.io/badge/version-3.1.1-blue.svg) ![License](https://img.shields.io/badge/license-O'Saasy-green.svg)
 
 **Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator/
 
@@ -31,7 +31,7 @@ Privacy-first web app for creating professional, email-compatible signatures. Fe
 - **Real-time Validation** - Instant feedback with WCAG-compliant error messages
 
 ### ♿ Accessibility (WCAG 2.2 AA)
-- **Expandable Help System** - Inline hints + 44×44px help buttons with detailed instructions
+- **Contextual Guidance** - URL prefixes, descriptive placeholders, real-time validation feedback
 - **Keyboard Navigation** - Full keyboard support (Tab, Space, Enter, Escape)
 - **Screen Reader Friendly** - Proper ARIA labels, live regions, semantic HTML
 - **Touch-Friendly** - All interactive elements meet 44×44px minimum touch target size
