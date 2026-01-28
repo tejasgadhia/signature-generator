@@ -626,9 +626,26 @@
     transform: scale(0.95);
 }
 
-/* Drag handle - hidden for cleaner look */
+/* Drag handle - visible on social cards for discoverability */
 .social-drag-handle {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted, #9CA3AF);
+    cursor: grab;
+    padding: 0 4px;
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+.social-drag-handle:hover {
+    opacity: 1;
+}
+
+.social-compact-card:active .social-drag-handle {
+    cursor: grabbing;
 }
 
 /* Icon area - subtle brand color hint */
