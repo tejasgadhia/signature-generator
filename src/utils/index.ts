@@ -16,7 +16,8 @@ export {
   toSmartTitleCase,
   escapeHtml,
   sanitizePhone,
-  generateEmailPrefix
+  generateEmailPrefix,
+  formatPhoneNumber
 } from './formatting';
 
 // URL utilities

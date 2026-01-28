@@ -93,3 +93,47 @@ export function generateEmailPrefix(fullName: string): string {
   }
   return '';
 }
+
+/**
+ * Format US phone number to standard display format: +1 (XXX) XXX-XXXX
+ * Handles extensions (x123, ext 123, ext. 123)
+ *
+ * Examples:
+ * - "2813308004" → "+1 (281) 330-8004"
+ * - "12813308004" → "+1 (281) 330-8004"
+ * - "281-330-8004" → "+1 (281) 330-8004"
+ * - "281-330-8004 x123" → "+1 (281) 330-8004 x123"
+ * - "281330" → "281330" (too short, unchanged)
+ *
+ * @param phone - Phone number to format
+ * @returns Formatted phone number or original if invalid
+ */
+export function formatPhoneNumber(phone: string): string {
+  if (!phone?.trim()) return phone || '';
+
+  const trimmed = phone.trim();
+
+  // Extract extension (x123, ext 123, ext. 123)
+  const extMatch = trimmed.match(/\s*(x|ext\.?\s*)(\d+)\s*$/i);
+  const extension = extMatch ? ` x${extMatch[2]}` : '';
+  const mainNumber = extMatch ? trimmed.slice(0, extMatch.index).trim() : trimmed;
+
+  // Extract digits only
+  const digits = mainNumber.replace(/\D/g, '');
+
+  // < 10 digits: don't format (validation handles error)
+  if (digits.length < 10) return trimmed;
+
+  // US: 10 digits
+  if (digits.length === 10) {
+    return `+1 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}${extension}`;
+  }
+
+  // US: 11 digits starting with 1
+  if (digits.length === 11 && digits.startsWith('1')) {
+    return `+1 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}${extension}`;
+  }
+
+  // Unknown format: preserve as-is
+  return trimmed;
+}

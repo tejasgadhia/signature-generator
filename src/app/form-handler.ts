@@ -12,6 +12,7 @@ import {
   getTrackedWebsiteURL,
   sanitizeSocialUrl,
   extractBookingsSlug,
+  formatPhoneNumber,
   debounce,
   inputValidator
 } from '../utils';
@@ -163,8 +164,16 @@ export class FormHandler {
       });
 
       phoneInput.addEventListener('blur', (e) => {
-        const value = (e.target as HTMLInputElement).value;
-        this.validateField('phone', value);
+        const input = e.target as HTMLInputElement;
+        const value = input.value;
+
+        if (value.trim()) {
+          const formatted = formatPhoneNumber(value);
+          input.value = formatted;
+          this.handleFieldChange('phone', formatted);
+        }
+
+        this.validateField('phone', input.value);
       });
     }
 
