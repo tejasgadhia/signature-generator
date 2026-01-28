@@ -118,17 +118,17 @@ export class ClipboardManager {
       // Format field names for display
       const fieldLabels: Record<string, string> = {
         name: 'Name',
-        title: 'Title',
+        title: 'Job Title',
         department: 'Department',
         email: 'Email',
         phone: 'Phone'
       };
       const fieldNames = exampleFields.map(f => fieldLabels[f] || f).join(', ');
 
-      // Show warning toast with options
-      this.showToast(`Sample data detected: ${fieldNames}`, 'error', {
-        icon: '⚠',
-        duration: 8000,
+      // Show error toast with clear instructions
+      this.showToast(`Fill in or turn off: ${fieldNames}`, 'error', {
+        icon: '✗',
+        duration: 10000,
         actions: [
           {
             label: 'Copy Anyway',
