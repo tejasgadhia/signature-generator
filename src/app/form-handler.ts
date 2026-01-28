@@ -307,6 +307,13 @@ export class FormHandler {
             // The preview renderer will handle hiding disabled fields
           }
 
+          // Disable/enable the format lock button if it exists (title, department)
+          const formatLockBtn = document.querySelector(`.format-lock-icon[data-field="${field}"]`) as HTMLButtonElement;
+          if (formatLockBtn) {
+            formatLockBtn.disabled = !enabled;
+            formatLockBtn.tabIndex = enabled ? 0 : -1;
+          }
+
           this.previewRenderer.render();
         }
       };
