@@ -347,8 +347,9 @@
     width: 24px;  /* Increased to 24px for better touch target */
     height: 24px;
     border-radius: 50%;
-    background: #1976D2;  /* Blue background */
-    color: white;
+    background: transparent;  /* Subtle by default (#80) */
+    border: 1.5px solid #999;  /* Gray outline */
+    color: #999;  /* Gray text */
     font-size: 13px;
     font-weight: 600;
     cursor: help;
@@ -357,8 +358,11 @@
     margin-left: 8px;  /* Small gap from input wrapper */
 }
 
-.help-icon:hover {
-    background: #1565C0;  /* Darker blue on hover */
+.help-icon:hover,
+.help-icon:focus {
+    background: #1976D2;  /* Blue on hover (#80) */
+    border-color: #1976D2;
+    color: white;
     transform: scale(1.1);
 }
 
@@ -437,12 +441,16 @@
 
 /* Dark mode support */
 [data-theme="dark"] .help-icon {
-    background: #1976D2;  /* Keep same blue in dark mode */
-    color: white;
+    background: transparent;
+    border-color: #666;  /* Lighter gray border in dark mode */
+    color: #666;
 }
 
-[data-theme="dark"] .help-icon:hover {
-    background: #1565C0;  /* Darker blue on hover */
+[data-theme="dark"] .help-icon:hover,
+[data-theme="dark"] .help-icon:focus {
+    background: #1976D2;
+    border-color: #1976D2;
+    color: white;
 }
 
 [data-theme="dark"] .help-panel {

@@ -638,7 +638,7 @@ kbd::before {
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    margin-top: 12px;
+    margin-top: 16px;  /* Increased from 12px for breathing room (#82) */
     background: #FFFFFF;
     border: 1px solid #E0E0E0;
     border-radius: 8px;
