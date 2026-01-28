@@ -13,8 +13,6 @@ import * as CompactStyle from './styles/compact';
 import * as ModernStyle from './styles/modern';
 import * as CreativeStyle from './styles/creative';
 import * as MinimalStyle from './styles/minimal';
-import * as ExecutiveStyle from './styles/executive';
-import * as BoldStyle from './styles/bold';
 
 /**
  * Main SignatureGenerator class
@@ -69,28 +67,6 @@ export class SignatureGenerator {
       case 'classic':
       default:
         return ClassicStyle.generate(data, websiteUrl, zohoSocialHtml, accentColor, isPreview);
-    }
-  }
-
-  /**
-   * Generate legacy signature styles (executive, bold)
-   * Kept separate for backward compatibility
-   */
-  static generateLegacy(
-    data: FormData,
-    style: 'executive' | 'bold',
-    socialOptions: SocialOptions,
-    accentColor: string = '#E42527',
-    isPreview: boolean = false
-  ): string {
-    const websiteUrl = data.website || 'https://www.zoho.com';
-
-    switch (style) {
-      case 'executive':
-        return ExecutiveStyle.generate(data, websiteUrl, accentColor, isPreview);
-
-      case 'bold':
-        return BoldStyle.generate(data, websiteUrl, socialOptions, accentColor, isPreview);
     }
   }
 

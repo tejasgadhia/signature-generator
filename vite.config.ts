@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
@@ -12,15 +12,10 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: true,
-    minify: 'terser',
-    // Let Vite handle code splitting automatically - no manual chunks
+    minify: 'terser'
   },
   server: {
     port: 5173,
-    open: false // Don't auto-open browser
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom'
+    open: false
   }
 });

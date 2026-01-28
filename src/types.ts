@@ -45,15 +45,6 @@ export type SignatureStyle =
   | 'creative'      // Bold left accent bar with logo stacked
   | 'minimal';      // Text-only, no logo
 
-/**
- * Legacy signature styles (kept for backward compatibility)
- */
-export type LegacySignatureStyle = 'executive' | 'bold';
-
-/**
- * All signature styles (current + legacy)
- */
-export type AllSignatureStyles = SignatureStyle | LegacySignatureStyle;
 
 /**
  * Social media display type
