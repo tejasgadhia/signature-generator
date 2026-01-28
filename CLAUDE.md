@@ -1,6 +1,6 @@
 # Zoho Email Signature Generator - Developer Guidelines
 
-**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 3.1.0 | **Updated**: 2026-01-28
+**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 3.1.1 | **Updated**: 2026-01-28
 
 Professional, privacy-first web app for Zoho employees. 6 signature templates with Verdana font, 3-tier content hierarchy, 4 accent colors, live preview, one-click copy.
 
@@ -99,8 +99,6 @@ const AppState = {
 
 **Email Client Compatibility**: Table-based HTML (not div), inline styles (no external CSS), maximum compatibility with Gmail/Outlook/Apple Mail
 
-**Help Text System** (WCAG 2.2 AA): Always-visible inline hints + 44x44px expandable help buttons, keyboard navigation (Space/Enter/Escape), screen reader announcements via `announceToScreenReader()`
-
 **Validation Error Messages**: Enhanced with visual icons (✓ green valid, ✗ red invalid), improved phrasing (user-friendly + examples), adaptive feedback (icons shown only when field has value), proper ARIA (`aria-describedby`, `aria-invalid`, `aria-live`)
 
 ---
@@ -164,13 +162,8 @@ npm run type-check      # Run TypeScript compiler (no emit)
 - [ ] UTM tracking added to website URL
 - [ ] Drag-drop reorder works
 - [ ] Email client testing (Gmail, Outlook, Apple Mail, Thunderbird)
-- [ ] Help text: Inline hints visible on all 5 fields (email, phone, linkedin, x, bookings)
-- [ ] Help buttons: 44x44px blue circles with "?" icon
-- [ ] Help panels: Expand on click, collapse on second click or Escape
-- [ ] Help keyboard: Tab to button, Space/Enter toggles, Escape closes all
 - [ ] Validation icons: Green ✓ for valid (with value), red ✗ for invalid, hidden for empty
 - [ ] Error messages: Show red ✗ icon + user-friendly text with examples
-- [ ] Screen reader: VoiceOver/NVDA announces help state changes and validation feedback
 - [ ] Accessibility: Lighthouse audit 95+ score, all WCAG 2.2 AA criteria met
 
 ### Git Workflow

@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.1] - 2026-01-28 🧹 **Cleanup & Simplification**
+
+### 🗑️ Removed
+
+- **Help icons and panels**: Removed all help icon/panel functionality after multiple design attempts (#112)
+  - Ghost-style icons, expandable panels, inline hints all removed
+  - ~400 lines of code deleted for simpler architecture
+  - Form now relies on existing UX patterns (URL prefixes, placeholders, tooltips)
+
+### 🔧 Changed
+
+- **Bookings placeholder**: Now shows "calendar ID (from Settings → Share)" for better guidance
+
+### 📋 New Issues
+
+- **#121**: Rethink help/guidance UX from scratch (low priority, future consideration)
+
+---
+
 ## [3.1.0] - 2026-01-28 ✨ **UX Polish & Visual Refinements**
 
 ### 🎯 Overview
