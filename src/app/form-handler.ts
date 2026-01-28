@@ -266,9 +266,21 @@ export class FormHandler {
       validationIcon.className = result.isValid ? 'validation-icon valid show' : 'validation-icon invalid show';
       validationIcon.style.display = 'flex';
       validationIcon.setAttribute('aria-label', result.message ? `✗ ${result.message}` : 'Valid');
+
+      // Add red border on invalid fields for visibility
+      const inputWrapper = inputElement?.closest('.input-wrapper');
+      if (inputWrapper) {
+        if (!result.isValid) {
+          inputWrapper.classList.add('validation-error');
+        } else {
+          inputWrapper.classList.remove('validation-error');
+        }
+      }
     } else {
       validationIcon.className = 'validation-icon';
       validationIcon.style.display = 'none';
+      const inputWrapper = inputElement?.closest('.input-wrapper');
+      inputWrapper?.classList.remove('validation-error');
     }
 
     return result.isValid;

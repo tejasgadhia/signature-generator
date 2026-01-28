@@ -543,6 +543,17 @@
     color: #DC2626; /* Red */
 }
 
+/* Validation error - red border on invalid fields */
+.input-wrapper.validation-error {
+    border-color: #DC2626 !important;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
+}
+
+[data-theme="dark"] .input-wrapper.validation-error {
+    border-color: #FCA5A5 !important;
+    box-shadow: 0 0 0 2px rgba(252, 165, 165, 0.15);
+}
+
 /* Invalid input state */
 .input-wrapper:has(input[aria-invalid="true"]) {
     border-color: #DC2626;
