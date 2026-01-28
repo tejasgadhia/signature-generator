@@ -151,8 +151,25 @@ export class FormHandler {
       });
     }
 
-    // Standard text inputs (title, department, phone)
-    ['title', 'department', 'phone'].forEach(fieldId => {
+    // Phone input (with character filtering: digits, +, spaces, dashes, parentheses only)
+    const phoneInput = document.getElementById('phone') as HTMLInputElement;
+    if (phoneInput) {
+      phoneInput.addEventListener('input', (e) => {
+        const input = e.target as HTMLInputElement;
+        // Filter to only allowed characters: digits, +, spaces, dashes, parentheses
+        const value = input.value.replace(/[^0-9+\s()-]/g, '');
+        input.value = value;
+        this.handleFieldChange('phone', value);
+      });
+
+      phoneInput.addEventListener('blur', (e) => {
+        const value = (e.target as HTMLInputElement).value;
+        this.validateField('phone', value);
+      });
+    }
+
+    // Standard text inputs (title, department)
+    ['title', 'department'].forEach(fieldId => {
       const input = document.getElementById(fieldId) as HTMLInputElement;
       if (!input) return;
 
