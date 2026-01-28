@@ -298,12 +298,12 @@
     margin: var(--spacing-md) 0;
 }
 
-/* Form Section Dividers - Subtle grouping without adding spacing */
+/* Form Section Dividers - Subtle grouping with increased spacing before LinkedIn section */
 .form-section-divider {
     height: 1px;
     background: var(--color-border);
     opacity: 0.4;
-    margin: 24px 0;
+    margin: 32px 0;
 }
 
 /* Section Title */
