@@ -4,8 +4,9 @@
  */
 
 import type { AppStateManager } from './state';
+import type { FormData, FieldToggles } from '../types';
 import { SignatureGenerator } from '../signature-generator/index';
-import { ANIMATION_DURATIONS } from '../constants';
+import { ANIMATION_DURATIONS, EXAMPLE_DATA } from '../constants';
 
 interface ToastAction {
   label: string;
@@ -22,6 +23,7 @@ export class ClipboardManager {
   private stateManager: AppStateManager;
   private toastContainer: HTMLElement | null;
   private toastTimeout: ReturnType<typeof setTimeout> | null = null;
+  private pendingCopyHtml: string | null = null;
 
   constructor(stateManager: AppStateManager) {
     this.stateManager = stateManager;
@@ -63,10 +65,131 @@ export class ClipboardManager {
   }
 
   /**
+   * Check if form data contains example/placeholder values
+   * Returns array of field names that contain example data
+   */
+  private getExampleDataFields(formData: FormData, fieldToggles: FieldToggles): string[] {
+    const exampleFields: string[] = [];
+
+    // Fields to check (excluding website which is always pre-filled)
+    const checkFields: (keyof FormData)[] = ['name', 'title', 'department', 'email', 'phone'];
+
+    for (const field of checkFields) {
+      const value = formData[field];
+      const exampleValue = EXAMPLE_DATA[field];
+
+      // Check if this field has a toggle
+      const hasToggle = field in fieldToggles;
+      const isEnabled = hasToggle ? fieldToggles[field as keyof FieldToggles] : true;
+
+      // Only flag if field is enabled and matches example data
+      if (isEnabled && value && exampleValue && value === exampleValue) {
+        exampleFields.push(field);
+      }
+    }
+
+    return exampleFields;
+  }
+
+  /**
    * Copy signature HTML to clipboard
    * Returns true on success, false on failure
    */
   async copySignature(): Promise<boolean> {
+    const state = this.stateManager.getState();
+
+    // Check for example data in enabled fields
+    const exampleFields = this.getExampleDataFields(state.formData, state.fieldToggles);
+
+    if (exampleFields.length > 0) {
+      // Store the HTML for potential "Copy Anyway" action
+      this.pendingCopyHtml = SignatureGenerator.generate(
+        state.formData,
+        state.signatureStyle,
+        state.socialOptions,
+        state.accentColor,
+        false
+      );
+
+      // Format field names for display
+      const fieldLabels: Record<string, string> = {
+        name: 'Name',
+        title: 'Title',
+        department: 'Department',
+        email: 'Email',
+        phone: 'Phone'
+      };
+      const fieldNames = exampleFields.map(f => fieldLabels[f] || f).join(', ');
+
+      // Show warning toast with options
+      this.showToast(`Sample data detected: ${fieldNames}`, 'error', {
+        icon: '⚠',
+        duration: 8000,
+        actions: [
+          {
+            label: 'Copy Anyway',
+            onClick: () => this.forceCopy(),
+          },
+        ],
+      });
+      return false;
+    }
+
+    // Check if signature would be empty (no data to copy)
+    const hasAnyData = Object.entries(state.formData).some(([key, value]) => {
+      if (key === 'website') return false; // Website is always pre-filled, don't count it
+      const hasToggle = key in state.fieldToggles;
+      const isEnabled = hasToggle ? state.fieldToggles[key as keyof FieldToggles] : true;
+      return isEnabled && value && value.trim() !== '';
+    });
+
+    if (!hasAnyData) {
+      this.showToast('Please fill in at least your name', 'error', {
+        icon: '✗',
+        duration: 4000,
+      });
+      return false;
+    }
+
+    return await this.performCopy();
+  }
+
+  /**
+   * Force copy even with example data (called from "Copy Anyway" button)
+   */
+  private async forceCopy(): Promise<void> {
+    if (this.pendingCopyHtml) {
+      try {
+        if (navigator.clipboard && typeof navigator.clipboard.write === 'function') {
+          await this.modernClipboard(this.pendingCopyHtml);
+        } else {
+          await this.fallbackClipboard(this.pendingCopyHtml);
+        }
+        this.showToast('Signature copied to clipboard!', 'success', {
+          actions: [
+            {
+              label: 'How to paste →',
+              onClick: () => {
+                const zohoMailBtn = document.querySelector('[data-modal-target="zoho-mail-modal"]');
+                if (zohoMailBtn instanceof HTMLElement) {
+                  zohoMailBtn.click();
+                }
+              },
+            },
+          ],
+        });
+      } catch (error) {
+        console.error('Failed to copy signature:', error);
+        this.showToast('Failed to copy signature. Please try again.', 'error');
+      }
+    }
+    this.pendingCopyHtml = null;
+  }
+
+  /**
+   * Perform the actual clipboard copy operation
+   */
+  private async performCopy(): Promise<boolean> {
     const state = this.stateManager.getState();
 
     try {
@@ -105,7 +228,7 @@ export class ClipboardManager {
       return true;
     } catch (error) {
       console.error('Failed to copy signature:', error);
-      this.showToast('✗ Failed to copy signature. Please try again.', 'error');
+      this.showToast('Failed to copy signature. Please try again.', 'error');
       return false;
     }
   }
