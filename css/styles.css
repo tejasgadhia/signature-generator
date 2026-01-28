@@ -2254,64 +2254,82 @@ kbd::before {
 /* Layout now works on standard laptops (1366px, 1280px) and tablets */
 /* Modals already responsive with width: 90vw, overflow-y: auto */
 
-/* Feedback Modal (Issue #23) */
+/* Feedback Modal (Issue #74 redesign) */
+.feedback-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .feedback-option {
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
-    background: #F9FAFB;
-    border: 1px solid #E5E7EB;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid var(--color-neutral-200, #E5E7EB);
     border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-.feedback-option-link {
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.feedback-option:hover,
-.feedback-option-link:hover {
-    background: #F3F4F6;
-    border-color: #D1D5DB;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.feedback-option:hover {
+    border-color: var(--color-neutral-300, #D1D5DB);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.feedback-option:active {
-    transform: translateY(0);
+.feedback-option:focus {
+    outline: 2px solid var(--color-primary-500, #E42527);
+    outline-offset: 2px;
+}
+
+.feedback-option-icon-container {
+    width: 36px;
+    height: 36px;
+    background: var(--color-neutral-100, #F3F4F6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .feedback-option-icon {
-    font-size: 24px;
-    flex-shrink: 0;
-    line-height: 1;
+    width: 20px;
+    height: 20px;
+    color: var(--color-neutral-600, #4B5563);
 }
 
 .feedback-option-content {
     flex: 1;
+    min-width: 0;
 }
 
 .feedback-option-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #111827;
-    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-neutral-900, #111827);
+    margin: 0;
 }
 
 .feedback-option-desc {
-    font-size: 14px;
-    color: #4B5563;
-    margin: 0 0 4px 0;
+    font-size: 13px;
+    color: var(--color-neutral-500, #6B7280);
+    margin: 2px 0 0 0;
 }
 
-.feedback-option-note {
-    font-size: 12px;
-    color: #6B7280;
-    margin: 0;
-    font-style: italic;
+.feedback-option-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    color: #059669;
+    background: #D1FAE5;
+    padding: 1px 6px;
+    border-radius: 9999px;
+    margin-left: 6px;
+    vertical-align: middle;
 }
 
 /* Accessibility */
