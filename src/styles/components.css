@@ -176,48 +176,136 @@
     margin-right: 8px;
 }
 
-/* Text-only buttons row (Gmail, Apple Mail, Outlook) */
-.import-btn-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+/* Other Email Clients Accordion */
+.other-clients-accordion {
+    margin-top: 16px;
 }
 
-.import-btn-text-only {
-    flex: 1;
-    height: 36px;
-    padding: 0 12px;
-    background: #FFFFFF;
-    border: 1px solid #D1D5DB;
+.other-clients-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 12px;
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
     border-radius: var(--radius-md);
-    color: #4B5563;
     font-size: 13px;
     font-weight: 500;
+    color: #6B7280;
     cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    list-style: none;
 }
 
-.import-btn-text-only:hover {
+.other-clients-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.other-clients-toggle:hover {
     background: #F3F4F6;
-    border-color: #9CA3AF;
+    border-color: #D1D5DB;
+    color: #4B5563;
+}
+
+.accordion-icon {
+    width: 16px;
+    height: 16px;
+    position: relative;
+}
+
+.accordion-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translate(-50%, -70%) rotate(45deg);
+    transition: transform 0.2s ease;
+}
+
+.other-clients-accordion[open] .accordion-icon::before {
+    transform: translate(-50%, -30%) rotate(-135deg);
+}
+
+.other-clients-content {
+    padding-top: 8px;
+}
+
+/* Secondary split buttons (Gmail, Apple Mail, Outlook) */
+.import-btn-secondary-split {
+    height: 40px;
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    box-shadow: none;
+}
+
+.import-btn-secondary-split .import-btn-logo-wrapper {
+    background: #FFFFFF;
+    border-right: 1px solid #E5E7EB;
+}
+
+.import-btn-secondary-split .import-btn-logo {
+    height: 20px;
+}
+
+.import-btn-secondary-split .import-btn-text {
+    color: #4B5563;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.import-btn-secondary-split .import-btn-arrow {
+    color: #9CA3AF;
+}
+
+.import-btn-secondary-split:hover {
+    background: #F3F4F6;
+    border-color: #D1D5DB;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.import-btn-secondary-split:hover .import-btn-text {
     color: #1F2937;
 }
 
-.import-btn-text-only:focus-visible {
-    outline: 2px solid #1976D2;
-    outline-offset: 2px;
-}
-
-/* Dark mode text-only buttons */
-[data-theme="dark"] .import-btn-text-only {
+/* Dark mode accordion */
+[data-theme="dark"] .other-clients-toggle {
     background: #374151;
     border-color: #4B5563;
+    color: #9CA3AF;
+}
+
+[data-theme="dark"] .other-clients-toggle:hover {
+    background: #4B5563;
+    border-color: #6B7280;
     color: #D1D5DB;
 }
 
-[data-theme="dark"] .import-btn-text-only:hover {
+[data-theme="dark"] .import-btn-secondary-split {
+    background: #374151;
+    border-color: #4B5563;
+}
+
+[data-theme="dark"] .import-btn-secondary-split .import-btn-logo-wrapper {
+    background: #1F2937;
+    border-right-color: #4B5563;
+}
+
+[data-theme="dark"] .import-btn-secondary-split .import-btn-text {
+    color: #D1D5DB;
+}
+
+[data-theme="dark"] .import-btn-secondary-split:hover {
     background: #4B5563;
     border-color: #6B7280;
+}
+
+[data-theme="dark"] .import-btn-secondary-split:hover .import-btn-text {
     color: #F3F4F6;
 }
 

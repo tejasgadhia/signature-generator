@@ -46,15 +46,37 @@
                         <span class="import-btn-arrow" aria-hidden="true"></span>
                     </button>
 
-                    <div class="import-section-divider">
-                        <span>Other Email Clients</span>
-                    </div>
+                    <details class="other-clients-accordion">
+                        <summary class="other-clients-toggle">
+                            <span>Other Email Clients</span>
+                            <span class="accordion-icon" aria-hidden="true"></span>
+                        </summary>
+                        <div class="other-clients-content">
+                            <button class="import-btn import-btn-split import-btn-secondary-split" data-client="gmail">
+                                <span class="import-btn-logo-wrapper">
+                                    <img src="assets/gmail-logo.svg" alt="" class="import-btn-logo">
+                                </span>
+                                <span class="import-btn-text">Gmail</span>
+                                <span class="import-btn-arrow" aria-hidden="true"></span>
+                            </button>
 
-                    <div class="import-btn-row">
-                        <button class="import-btn import-btn-text-only" data-client="gmail">Gmail</button>
-                        <button class="import-btn import-btn-text-only" data-client="apple-mail">Apple Mail</button>
-                        <button class="import-btn import-btn-text-only" data-client="outlook">Outlook</button>
-                    </div>
+                            <button class="import-btn import-btn-split import-btn-secondary-split" data-client="apple-mail">
+                                <span class="import-btn-logo-wrapper">
+                                    <img src="assets/apple-mail-logo.svg" alt="" class="import-btn-logo">
+                                </span>
+                                <span class="import-btn-text">Apple Mail</span>
+                                <span class="import-btn-arrow" aria-hidden="true"></span>
+                            </button>
+
+                            <button class="import-btn import-btn-split import-btn-secondary-split" data-client="outlook">
+                                <span class="import-btn-logo-wrapper">
+                                    <img src="assets/outlook-logo.svg" alt="" class="import-btn-logo">
+                                </span>
+                                <span class="import-btn-text">Outlook</span>
+                                <span class="import-btn-arrow" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </details>
                 </div>
             </div>
             <!-- End scrollable wrapper -->
