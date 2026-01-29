@@ -410,7 +410,18 @@ export class FormHandler {
    */
   private setupAccentColorSelector(): void {
     const colorButtons = document.querySelectorAll<HTMLButtonElement>('.color-btn');
+    const currentColor = this.stateManager.getAccentColor();
 
+    // Sync UI to initial state - set selected class on the matching color button
+    colorButtons.forEach((button) => {
+      if (button.dataset.color === currentColor) {
+        button.classList.add('selected');
+      } else {
+        button.classList.remove('selected');
+      }
+    });
+
+    // Setup click handlers
     colorButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const color = button.dataset.color;
