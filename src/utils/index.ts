@@ -18,9 +18,8 @@ export {
   sanitizePhone,
   generateEmailPrefix,
   formatPhoneNumber,
-  liveFormatPhone
+  filterPhoneDigits
 } from './formatting';
-export type { LivePhoneFormatResult } from './formatting';
 
 // URL utilities
 export {

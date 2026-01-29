@@ -12,7 +12,8 @@ import {
   getTrackedWebsiteURL,
   sanitizeSocialUrl,
   extractBookingsSlug,
-  liveFormatPhone,
+  filterPhoneDigits,
+  formatPhoneNumber,
   debounce,
   inputValidator
 } from '../utils';
@@ -161,34 +162,46 @@ export class FormHandler {
       });
     }
 
-    // Phone input (live formatting with +1 prefix, numbers only)
+    // Phone input (digits only on input, format on blur)
     const phoneInput = document.getElementById('phone') as HTMLInputElement;
     if (phoneInput) {
       phoneInput.addEventListener('input', (e) => {
         const input = e.target as HTMLInputElement;
         const cursorPos = input.selectionStart || 0;
 
-        // Live format as user types: auto +1 prefix, digits only, spaced format
-        const { formatted, cursorPosition } = liveFormatPhone(input.value, cursorPos);
+        // Filter to digits only (no formatting yet - let user type freely)
+        const digits = filterPhoneDigits(input.value);
 
-        input.value = formatted;
-        this.handleFieldChange('phone', formatted);
+        // Only update if value changed (preserves cursor on no-op)
+        if (input.value !== digits) {
+          input.value = digits;
+          // Keep cursor at same position (clamped to new length)
+          const newCursorPos = Math.min(cursorPos, digits.length);
+          input.setSelectionRange(newCursorPos, newCursorPos);
+        }
 
-        // Restore cursor position
-        input.setSelectionRange(cursorPosition, cursorPosition);
+        this.handleFieldChange('phone', digits);
 
         // Real-time validation for immediate feedback
-        if (formatted) {
-          this.validateField('phone', formatted);
+        if (digits) {
+          this.validateField('phone', digits);
         } else {
-          // Clear validation when empty
           this.validateField('phone', '');
         }
       });
 
       phoneInput.addEventListener('blur', () => {
-        // Validation on blur (formatting already done live)
-        this.validateField('phone', phoneInput.value);
+        const input = phoneInput;
+        const digits = input.value;
+
+        // Format on blur: add +1 prefix and spacing
+        if (digits.trim()) {
+          const formatted = formatPhoneNumber(digits);
+          input.value = formatted;
+          this.handleFieldChange('phone', formatted);
+        }
+
+        this.validateField('phone', input.value);
       });
     }
 
