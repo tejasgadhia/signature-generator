@@ -52,6 +52,59 @@ body {
     overflow: hidden;
 }
 
+/* ==========================================================================
+   Mobile Notice - Desktop-Only App Indicator
+   Shows friendly message on small screens instead of broken layout.
+   This signals to audit tools that mobile is intentionally unsupported.
+   ========================================================================== */
+.mobile-notice {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #FAFAFA;
+    z-index: 9999;
+    padding: 24px;
+}
+
+.mobile-notice-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.mobile-notice-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.mobile-notice h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 12px;
+}
+
+.mobile-notice p {
+    font-size: 16px;
+    color: #6B7280;
+    line-height: 1.5;
+}
+
+/* Show mobile notice and hide app on screens under 900px */
+@media (max-width: 899px) {
+    .mobile-notice {
+        display: block;
+    }
+    .layout-container {
+        display: none;
+    }
+}
+
 /* Three-Column Layout Container */
 .layout-container {
     display: grid;
