@@ -135,7 +135,7 @@ body {
 /* Disclaimer Footer (subtle, non-alarming) */
 .disclaimer-footer {
     font-size: var(--font-size-xs);
-    color: #9CA3AF;
+    color: #6B7280; /* WCAG AA compliant - 4.6:1 contrast */
     text-align: center;
     margin-top: 16px;
     padding-top: 12px;
