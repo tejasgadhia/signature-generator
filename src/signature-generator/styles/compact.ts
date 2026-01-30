@@ -37,7 +37,7 @@ export function generate(
     `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 12px; line-height: 1.6; color: #333333;">
     <tr>
-        <td style="padding-right: 10px; vertical-align: middle;">
+        <td style="padding-right: 10px; vertical-align: middle; width: 36px;">
             ${generateDualLogos(websiteUrl, 26)}
         </td>
         <td style="vertical-align: middle;">

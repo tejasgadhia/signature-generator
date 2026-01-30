@@ -31,10 +31,68 @@ export class DragDropHandler {
    * Initialize drag-drop functionality
    */
   initialize(): void {
+    this.syncDOMWithState();
     this.setupSortable();
     this.setupCardClickHandlers();
     this.setupMasterToggle();
     this.setupResetButton();
+  }
+
+  /**
+   * Sync DOM cards with state loaded from localStorage
+   * This ensures the UI reflects the saved order and active states
+   */
+  private syncDOMWithState(): void {
+    const grid = document.getElementById('socialCompactGrid');
+    if (!grid) return;
+
+    const state = this.stateManager.getState();
+    const activeChannels = state.socialOptions.channels;
+
+    // Update active/inactive state on all cards
+    const allCards = grid.querySelectorAll('.social-compact-card');
+    allCards.forEach((card) => {
+      const htmlCard = card as HTMLElement;
+      const channel = htmlCard.dataset.channel as SocialChannel;
+      const isActive = activeChannels.includes(channel);
+
+      if (isActive) {
+        htmlCard.classList.add('active');
+      } else {
+        htmlCard.classList.remove('active');
+      }
+      htmlCard.setAttribute('aria-checked', String(isActive));
+    });
+
+    // Reorder DOM to match state order (active channels first, in order)
+    activeChannels.forEach(channel => {
+      const card = grid.querySelector(`[data-channel="${channel}"]`);
+      if (card) {
+        grid.appendChild(card);
+      }
+    });
+
+    // Append remaining inactive cards (maintain their relative order)
+    VALID_CHANNELS.forEach(channel => {
+      if (!activeChannels.includes(channel)) {
+        const card = grid.querySelector(`[data-channel="${channel}"]`);
+        if (card) {
+          grid.appendChild(card);
+        }
+      }
+    });
+
+    // Update master toggle state
+    const masterToggle = document.getElementById('master-social-toggle');
+    if (masterToggle) {
+      const hasActiveChannels = activeChannels.length > 0;
+      if (hasActiveChannels) {
+        masterToggle.classList.add('active');
+      } else {
+        masterToggle.classList.remove('active');
+      }
+      masterToggle.setAttribute('aria-checked', String(hasActiveChannels));
+    }
   }
 
   /**

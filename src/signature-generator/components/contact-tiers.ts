@@ -20,13 +20,13 @@ export function buildTier1Links(
 
   if (data.phone) {
     tier1Links.push(
-      `<a href="tel:${sanitizePhone(data.phone)}" rel="noopener noreferrer" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${escapeHtml(data.phone)}</a>`
+      `<a href="tel:${sanitizePhone(data.phone)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${escapeHtml(data.phone)}</a>`
     );
   }
 
   if (data.email) {
     tier1Links.push(
-      `<a href="mailto:${escapeHtml(data.email)}" rel="noopener noreferrer" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${escapeHtml(data.email)}</a>`
+      `<a href="mailto:${escapeHtml(data.email)}" class="sig-link" style="color: ${accentColor}; text-decoration: none;">${escapeHtml(data.email)}</a>`
     );
   }
 
@@ -47,7 +47,7 @@ export function buildTier2CTA(
     return '';
   }
 
-  return `<a href="${escapeHtml(data.bookings)}" rel="noopener noreferrer" class="sig-link sig-cta" style="color: ${accentColor}; text-decoration: none; font-weight: 500;">Schedule a Meeting</a>`;
+  return `<a href="${escapeHtml(data.bookings)}" rel="noopener noreferrer" class="sig-link sig-cta" style="color: ${accentColor}; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>`;
 }
 
 /**
@@ -80,17 +80,3 @@ export function buildTier2Social(
     : '';
 }
 
-/**
- * @deprecated Use buildTier2CTA and buildTier2Social instead
- * Kept for backward compatibility - combines CTA and social links
- */
-export function buildTier2Links(
-  data: FormData,
-  accentColor: string
-): string {
-  const ctaHtml = buildTier2CTA(data, accentColor);
-  const socialHtml = buildTier2Social(data, accentColor);
-
-  const parts = [ctaHtml, socialHtml].filter(Boolean);
-  return parts.join(` <span class="sig-separator" style="color: ${accentColor};">•</span> `);
-}

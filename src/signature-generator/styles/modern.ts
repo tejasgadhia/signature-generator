@@ -40,7 +40,7 @@ export function generate(
         <td style="padding-right: 14px; vertical-align: top; width: 75px;">
             ${generateDualLogos(websiteUrl, 38)}
         </td>
-        <td style="width: 2px; background: ${accentColor}; opacity: 0.3;">&nbsp;</td>
+        <td style="width: 2px; background: ${accentColor}4D;">&nbsp;</td>
         <td style="padding-left: 14px; vertical-align: top;">
             <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
                 ${escapeHtml(data.name)}
