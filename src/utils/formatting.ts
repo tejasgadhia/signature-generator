@@ -157,3 +157,24 @@ export function filterPhoneDigits(input: string): string {
   // Limit to 10 digits (US phone number)
   return digits.slice(0, 10);
 }
+
+/**
+ * Minify HTML by removing unnecessary whitespace
+ * Preserves content within tags, removes whitespace between tags
+ *
+ * @param html - HTML string to minify
+ * @returns Minified HTML string
+ */
+export function minifyHtml(html: string): string {
+  return html
+    // Remove whitespace between tags
+    .replace(/>\s+</g, '><')
+    // Remove leading/trailing whitespace from each line
+    .replace(/^\s+|\s+$/gm, '')
+    // Collapse multiple whitespace into single space (within text content)
+    .replace(/\s{2,}/g, ' ')
+    // Remove empty lines
+    .replace(/\n\s*\n/g, '\n')
+    // Final trim
+    .trim();
+}

@@ -8,6 +8,7 @@ import type { FormData, FieldToggles } from '../types';
 import { SignatureGenerator } from '../signature-generator/index';
 import { ANIMATION_DURATIONS, EXAMPLE_DATA } from '../constants';
 import { ModalController } from '../ui/modal';
+import { minifyHtml } from '../utils';
 
 interface ToastAction {
   label: string;
@@ -108,13 +109,13 @@ export class ClipboardManager {
 
     if (exampleFields.length > 0) {
       // Store the HTML for potential "Copy Anyway" action
-      this.pendingCopyHtml = SignatureGenerator.generate(
+      this.pendingCopyHtml = minifyHtml(SignatureGenerator.generate(
         state.formData,
         state.signatureStyle,
         state.socialOptions,
         state.accentColor,
         false
-      );
+      ));
 
       // Format field names for display
       const fieldLabels: Record<string, string> = {
@@ -195,14 +196,14 @@ export class ClipboardManager {
     const state = this.stateManager.getState();
 
     try {
-      // Generate the actual signature HTML (not preview)
-      const html = SignatureGenerator.generate(
+      // Generate the actual signature HTML (not preview) and minify it
+      const html = minifyHtml(SignatureGenerator.generate(
         state.formData,
         state.signatureStyle,
         state.socialOptions,
         state.accentColor,
         false  // isPreview = false for actual clipboard copy
-      );
+      ));
 
       // Try modern clipboard API first
       if (navigator.clipboard && typeof navigator.clipboard.write === 'function') {
