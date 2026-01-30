@@ -85,7 +85,8 @@
     cursor: pointer;
     transition: background 0.2s ease-out, box-shadow 0.2s ease-out;
     flex-shrink: 0;
-    margin-right: var(--spacing-xs);
+    margin-left: 8px;   /* Match right-side icon spacing (8px from edge) */
+    margin-right: 12px; /* Comfortable gap before input text */
 }
 
 .toggle-switch:hover {
