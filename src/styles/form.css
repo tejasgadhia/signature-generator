@@ -9,6 +9,8 @@
     padding: 32px;
     overflow-y: auto;
     box-shadow: -2px 0 10px rgba(0,0,0,0.05);
+    position: relative;  /* Required for z-index to work */
+    z-index: var(--z-10);  /* Raises stacking context above preview for tooltips */
 }
 
 .form-section h2 {
@@ -205,30 +207,124 @@
     content: 'Aa';  /* Always show "Aa" to indicate title case */
 }
 
-/* Lock icon tooltip - appears to the RIGHT of the icon */
-.format-lock-icon:hover::after {
+/* Lock icon tooltip - rounded rectangle with arrow, appears ABOVE the icon */
+.format-lock-icon::after {
     content: 'Title Case OFF';
     position: absolute;
-    left: calc(100% + 12px);
-    top: 50%;
-    transform: translateY(-50%);
-    background: #374151;
-    color: #F3F4F6;
-    padding: 8px 12px;
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-xs);
-    font-weight: 400;
-    line-height: 1.4;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+    color: #FFFFFF;
+    padding: 8px 14px;
+    border-radius: var(--radius-md);  /* Rounded rectangle to match UI */
+    font-size: 12px;
+    font-weight: 500;
     white-space: nowrap;
-    z-index: 10000;
+    z-index: var(--z-tooltip);
     pointer-events: none;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center bottom;
 }
 
-.format-lock-icon.locked:hover::after {
-    content: 'Title Case ON\AAutomatically capitalizes text';
-    white-space: pre-line;
+.format-lock-icon:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.format-lock-icon.locked::after {
+    content: 'Title Case ON';
+}
+
+/* Arrow pointer - uses input-wrapper's ::after */
+.input-wrapper:has(.format-lock-icon)::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: -6px;
+    border: 6px solid transparent;
+    border-top-color: #374151;
+    z-index: var(--z-tooltip);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+}
+
+.input-wrapper:has(.format-lock-icon:hover)::after {
+    opacity: 1;
+}
+
+/* Phone format hint icon - shows "123" with tooltip */
+.phone-format-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #DBEAFE;  /* Light blue */
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    cursor: help;
+    padding: 4px 6px;
+    line-height: 1;
+    color: #2563EB;
+    transition: all 0.2s ease;
+}
+
+.phone-format-icon:hover {
+    background: #BFDBFE;
+}
+
+.phone-format-icon::before {
+    content: '123';
+}
+
+/* Phone format tooltip */
+.phone-format-icon::after {
+    content: '10 digits only, no dashes or spaces';
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+    color: #FFFFFF;
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: var(--z-tooltip);
+    pointer-events: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center bottom;
+}
+
+.phone-format-icon:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Arrow pointer for phone format icon */
+.input-wrapper:has(.phone-format-icon)::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: -6px;
+    border: 6px solid transparent;
+    border-top-color: #374151;
+    z-index: var(--z-tooltip);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+}
+
+.input-wrapper:has(.phone-format-icon:hover)::after {
+    opacity: 1;
 }
 
 .input-wrapper:focus-within {
