@@ -580,7 +580,7 @@
     margin-left: auto;
     padding: 4px 10px;
     font-size: var(--font-size-xs);
-    color: #9CA3AF;
+    color: #6B7280;
     background: transparent;
     border: none;
     border-radius: var(--radius-sm);
@@ -607,7 +607,7 @@
 
 .social-hint {
     font-size: var(--font-size-xs);
-    color: #9CA3AF;
+    color: #6B7280;
     margin-left: 8px;
 }
 
@@ -644,7 +644,7 @@
     background: #F3F4F6;  /* Slightly darker gray for inactive */
     font-size: var(--font-size-xs);
     font-weight: 500;
-    color: #9CA3AF;  /* Muted text for inactive */
+    color: #6B7280;  /* Muted text for inactive - WCAG AA compliant */
     white-space: nowrap;
 }
 

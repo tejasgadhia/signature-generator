@@ -60,6 +60,7 @@ export class ThemeManager {
     const themeToggle = document.getElementById('themeToggle') as HTMLInputElement;
     if (themeToggle) {
       themeToggle.checked = theme === 'dark';
+      themeToggle.setAttribute('aria-checked', String(theme === 'dark'));
     }
   }
 

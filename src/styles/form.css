@@ -501,7 +501,7 @@
 }
 /* Dark mode form helper text */
 [data-theme="dark"] .form-helper-text {
-    color: #9CA3AF;
+    color: #6B7280;
 }
 
 /* URL Prefix Input (LinkedIn, Twitter, etc.) */
