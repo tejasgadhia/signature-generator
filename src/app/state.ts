@@ -7,6 +7,19 @@ import type { AppState, FormData, FieldToggles, SocialOptions, SignatureStyle, S
 import { STORAGE_KEYS, SCHEMA_VERSION } from '../constants';
 
 /**
+ * SECURITY NOTE - localStorage Encryption:
+ * Currently only non-sensitive data is persisted to localStorage:
+ * - Accent color, social order, format locks (preferences, not PII)
+ * - FormData (name, email, phone) is transient and NOT persisted
+ *
+ * Encryption utilities available in:
+ * - utils/crypto.ts - Low-level AES-GCM encryption
+ * - utils/encrypted-storage.ts - High-level encrypted localStorage wrapper
+ *
+ * Export/Import uses JSON format (can be encrypted if saved to disk)
+ */
+
+/**
  * Create a deep frozen copy of an object (immutable)
  */
 function deepFreeze<T extends object>(obj: T): Readonly<T> {
