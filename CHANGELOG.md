@@ -7,6 +7,90 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.3.0] - 2026-02-02 🔒 **Security & Testing Infrastructure**
+
+### 🔒 Security Enhancements (Issue #183)
+
+#### localStorage Encryption & Tamper Detection
+- **HMAC-SHA256 signatures**: All encrypted localStorage keys now include tamper detection
+- **Automatic migration**: Plaintext keys automatically encrypted on first load (backward compatible)
+- **5 encrypted keys**: `signature-accent-color`, `socialChannelOrder`, `format-lock-*` now encrypted with AES-GCM-256
+- **Ephemeral session keys**: Encryption keys stored in memory only (not exportable)
+- **Tamper detection**: Corrupted data automatically detected and cleared with warning logs
+
+#### New Security Utilities
+- **`src/utils/tamper-detection.ts`**: HMAC signature generation and verification
+- **Enhanced `encrypted-storage.ts`**: Added `setEncryptedSigned()` and `getEncryptedVerified()` functions
+- **State management**: All localStorage operations now async with encryption
+
+#### Security Documentation
+- **`docs/SECURITY.md`**: Comprehensive security documentation (300+ lines)
+  - CSP directive explanations
+  - Encryption architecture diagrams
+  - Threat model and attack scenarios
+  - What's protected vs limitations
+- **Updated `CLAUDE.md`**: Added security section with encrypted key documentation
+- **Data classification**: Clear documentation of encrypted vs plaintext keys
+
+### 🧪 Testing Infrastructure (Issue #185)
+
+#### Snapshot Tests
+- **102 total tests**: 88 passing, 12 snapshot tests created
+- **`tests/signature-generator.test.ts`**: Comprehensive signature generation testing
+  - Structure validation (table-based HTML, inline styles)
+  - Dark mode support (CSS blocks, dual logos)
+  - Production URLs verification
+  - Edge cases (long names, minimal data, special characters)
+  - Security (XSS prevention, URL sanitization)
+- **Test fixtures**: 8 data sets in `tests/fixtures/signature-data.ts`
+
+#### Visual Regression Testing
+- **Playwright integration**: Screenshot-based testing for signature rendering
+- **`tests/visual/signature-rendering.spec.ts`**: Visual tests for all 6 styles × 2 modes
+- **Interaction tests**: Copy button, style selector, dark mode toggle
+- **`playwright.config.ts`**: Dev server integration, retry on failure
+
+#### CI/CD Integration
+- **`.github/workflows/test.yml`**: Automated unit and visual tests
+- **Modified `deploy.yml`**: Added test gate (deploy only if tests pass)
+- **Test scripts**: `test:visual`, `test:all`, `test:update-snapshots`
+
+#### Manual Testing Documentation
+- **`tests/email-clients/README.md`**: 200+ line guide for email client testing
+  - Gmail, Outlook, Apple Mail, Thunderbird instructions
+  - Test data sets and edge cases
+  - Verification checklist (typography, layout, links, dark mode)
+  - Known issues (Gmail spacing, Outlook CSS stripping)
+- **`tests/email-clients/test-checklist.md`**: Printable checklist for testing sessions
+
+### 🔧 Changed
+
+#### Core Application
+- **`src/app/state.ts`**: Async storage methods, encryption migration logic
+- **`src/main.ts`**: Async initialization with migration call
+- **`src/constants.ts`**: Added `ENCRYPTED_KEYS`, `PLAINTEXT_KEYS`, `STORAGE_ENCRYPTION_VERSION`
+- **`vitest.config.ts`**: Changed environment to `jsdom` for DOM testing
+
+#### Dependencies
+- **Added**: `@playwright/test` (^1.58.1), `jsdom` (^25.0.1)
+- **Test coverage**: 88 passing tests, 12 snapshots, 15+ visual regression scenarios
+
+### 📚 Documentation
+
+- **Security threat model**: What's protected (XSS, clickjacking, tampering, MITM)
+- **Attack scenarios**: Malicious extensions, manual tampering, data exfiltration
+- **Testing guides**: Automated (snapshot/visual) + manual (email clients)
+
+### 🎯 What to Verify on Live Site
+
+1. **Encryption migration**: Open DevTools → Application → Local Storage
+   - Verify encrypted keys show base64 strings (not plaintext)
+   - Change accent color → verify key updates with new encrypted value
+2. **Functionality**: All features work normally (no breaking changes)
+3. **Performance**: No noticeable slowdown from encryption overhead
+
+---
+
 ## [3.2.0] - 2026-01-29 🎨 **Social Links Drag-Drop Redesign**
 
 ### ✨ Added

@@ -170,6 +170,34 @@ export const STORAGE_KEYS = {
 export const SCHEMA_VERSION = 1;
 
 /**
+ * Storage encryption version
+ * Increment when changing encryption/signing implementation
+ */
+export const STORAGE_ENCRYPTION_VERSION = 1;
+
+/**
+ * Keys that should be encrypted in localStorage (with tamper detection)
+ * These store user preferences that could be maliciously modified
+ */
+export const ENCRYPTED_KEYS = [
+  'signature-accent-color',
+  'socialChannelOrder',
+  'format-lock-name',
+  'format-lock-title',
+  'format-lock-department'
+] as const;
+
+/**
+ * Keys that remain plaintext in localStorage (intentional)
+ * These are non-sensitive and needed before decryption infrastructure loads
+ */
+export const PLAINTEXT_KEYS = [
+  'zoho-signature-preview-theme',    // Theme preference (not sensitive)
+  'app-schema-version',              // Migration tracking (needed before decryption)
+  'thanks-count'                     // Easter egg counter (not sensitive)
+] as const;
+
+/**
  * Logo asset URLs (production)
  */
 export const LOGO_URLS_PRODUCTION = {

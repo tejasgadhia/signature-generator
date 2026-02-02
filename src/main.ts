@@ -14,7 +14,7 @@ import { ModalController } from './ui/modal';
 import { DragDropHandler } from './ui/drag-drop';
 
 // Initialize application when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   if (import.meta.env.DEV) {
     console.log('Zoho Signature Generator - Initializing...');
   }
@@ -22,7 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize state manager
   const state = new AppStateManager();
   state.migrateSchema(); // Run schema migration if needed
-  state.loadFromStorage();
+
+  // Run encryption migration and load from storage (async)
+  await state.migrateLocalStorageToEncrypted();
+  await state.loadFromStorage();
 
   // Initialize preview renderer
   const previewRenderer = new PreviewRenderer(state);

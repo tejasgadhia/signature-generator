@@ -1,0 +1,747 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SignatureGenerator - Snapshot Tests > Classic Style > classic: dark mode snapshot 1`] = `
+"<style>
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-bottom: 10px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 34px; display: block; border: 0;"
+         height="34">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 34px; display: none; border: 0;"
+         height="34">
+</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Classic Style > classic: light mode snapshot 1`] = `
+"<style>
+@media (prefers-color-scheme: dark) {
+.sig-name { color: #FFFFFF !important; }
+.sig-title { color: #E0E0E0 !important; }
+.sig-separator { color: #666666 !important; }
+.sig-logo-light { display: none !important; }
+.sig-logo-dark { display: inline-block !important; }
+}
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-bottom: 10px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 34px; display: block; border: 0;"
+         height="34">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 34px; display: none; border: 0;"
+         height="34">
+</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Compact Style > compact: dark mode snapshot 1`] = `
+"<style>
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 12px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-right: 10px; vertical-align: middle; width: 36px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 26px; display: block; border: 0;"
+         height="26">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 26px; display: none; border: 0;"
+         height="26">
+</a>
+        </td>
+        <td style="vertical-align: middle;">
+            <div style="margin-bottom: 3px;">
+                <span class="sig-name" style="font-weight: bold; color: #333333;">Jasmine Frank</span>
+                <span class="sig-separator" style="color: #E42527;"> • </span><span class="sig-title" style="color: #666666;">Director of Marketing | Zoho One</span>
+            </div>
+            
+            <div style="margin-bottom: 3px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="margin-bottom: 3px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="margin-bottom: 3px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Compact Style > compact: light mode snapshot 1`] = `
+"<style>
+@media (prefers-color-scheme: dark) {
+.sig-name { color: #FFFFFF !important; }
+.sig-title { color: #E0E0E0 !important; }
+.sig-separator { color: #666666 !important; }
+.sig-logo-light { display: none !important; }
+.sig-logo-dark { display: inline-block !important; }
+}
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 12px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-right: 10px; vertical-align: middle; width: 36px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 26px; display: block; border: 0;"
+         height="26">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 26px; display: none; border: 0;"
+         height="26">
+</a>
+        </td>
+        <td style="vertical-align: middle;">
+            <div style="margin-bottom: 3px;">
+                <span class="sig-name" style="font-weight: bold; color: #333333;">Jasmine Frank</span>
+                <span class="sig-separator" style="color: #E42527;"> • </span><span class="sig-title" style="color: #666666;">Director of Marketing | Zoho One</span>
+            </div>
+            
+            <div style="margin-bottom: 3px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="margin-bottom: 3px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="margin-bottom: 3px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Creative Style > creative: dark mode snapshot 1`] = `
+"<style>
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="width: 4px; background: #E42527;">&nbsp;</td>
+        <td style="padding-left: 14px; vertical-align: top;">
+            <div style="margin-bottom: 10px;">
+                <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 32px; display: block; border: 0;"
+         height="32">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 32px; display: none; border: 0;"
+         height="32">
+</a>
+            </div>
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Creative Style > creative: light mode snapshot 1`] = `
+"<style>
+@media (prefers-color-scheme: dark) {
+.sig-name { color: #FFFFFF !important; }
+.sig-title { color: #E0E0E0 !important; }
+.sig-separator { color: #666666 !important; }
+.sig-logo-light { display: none !important; }
+.sig-logo-dark { display: inline-block !important; }
+}
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="width: 4px; background: #E42527;">&nbsp;</td>
+        <td style="padding-left: 14px; vertical-align: top;">
+            <div style="margin-bottom: 10px;">
+                <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 32px; display: block; border: 0;"
+         height="32">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 32px; display: none; border: 0;"
+         height="32">
+</a>
+            </div>
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Minimal Style > minimal: dark mode snapshot 1`] = `
+"<style>
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333; max-width: 450px;">
+    <tr>
+        <td>
+            <div class="sig-name" style="font-size: 16px; font-weight: bold; color: #333333; margin-bottom: 2px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 8px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Minimal Style > minimal: light mode snapshot 1`] = `
+"<style>
+@media (prefers-color-scheme: dark) {
+.sig-name { color: #FFFFFF !important; }
+.sig-title { color: #E0E0E0 !important; }
+.sig-separator { color: #666666 !important; }
+.sig-logo-light { display: none !important; }
+.sig-logo-dark { display: inline-block !important; }
+}
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333; max-width: 450px;">
+    <tr>
+        <td>
+            <div class="sig-name" style="font-size: 16px; font-weight: bold; color: #333333; margin-bottom: 2px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 8px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Modern Style > modern: dark mode snapshot 1`] = `
+"<style>
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-right: 14px; vertical-align: top; width: 75px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 38px; display: block; border: 0;"
+         height="38">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 38px; display: none; border: 0;"
+         height="38">
+</a>
+        </td>
+        <td style="width: 2px; background: #E425274D;">&nbsp;</td>
+        <td style="padding-left: 14px; vertical-align: top;">
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Modern Style > modern: light mode snapshot 1`] = `
+"<style>
+@media (prefers-color-scheme: dark) {
+.sig-name { color: #FFFFFF !important; }
+.sig-title { color: #E0E0E0 !important; }
+.sig-separator { color: #666666 !important; }
+.sig-logo-light { display: none !important; }
+.sig-logo-dark { display: inline-block !important; }
+}
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-right: 14px; vertical-align: top; width: 75px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 38px; display: block; border: 0;"
+         height="38">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 38px; display: none; border: 0;"
+         height="38">
+</a>
+        </td>
+        <td style="width: 2px; background: #E425274D;">&nbsp;</td>
+        <td style="padding-left: 14px; vertical-align: top;">
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Professional Style > professional: dark mode snapshot 1`] = `
+"<style>
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-right: 14px; vertical-align: top; width: 75px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 38px; display: block; border: 0;"
+         height="38">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 38px; display: none; border: 0;"
+         height="38">
+</a>
+        </td>
+        <td style="vertical-align: top;">
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;
+
+exports[`SignatureGenerator - Snapshot Tests > Professional Style > professional: light mode snapshot 1`] = `
+"<style>
+@media (prefers-color-scheme: dark) {
+.sig-name { color: #FFFFFF !important; }
+.sig-title { color: #E0E0E0 !important; }
+.sig-separator { color: #666666 !important; }
+.sig-logo-light { display: none !important; }
+.sig-logo-dark { display: inline-block !important; }
+}
+.dark-mode .sig-name { color: #FFFFFF !important; }
+.dark-mode .sig-title { color: #E0E0E0 !important; }
+.dark-mode .sig-separator { color: #666666 !important; }
+.dark-mode .sig-logo-light { display: none !important; }
+.dark-mode .sig-logo-dark { display: inline-block !important; }
+.sig-logo-dark { display: none; }
+</style><table cellpadding="0" cellspacing="0" border="0" style="font-family: Verdana, Geneva, sans-serif; font-size: 13px; line-height: 1.6; color: #333333;">
+    <tr>
+        <td style="padding-right: 14px; vertical-align: top; width: 75px;">
+            <a href="https://www.zoho.com" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
+    <img src="./assets/zoho-logo-light.png"
+         alt="Zoho"
+         class="sig-logo-light"
+         style="height: 38px; display: block; border: 0;"
+         height="38">
+    <img src="./assets/zoho-logo-dark.png"
+         alt="Zoho"
+         class="sig-logo-dark"
+         style="height: 38px; display: none; border: 0;"
+         height="38">
+</a>
+        </td>
+        <td style="vertical-align: top;">
+            <div class="sig-name" style="font-size: 15px; font-weight: bold; color: #333333; margin-bottom: 3px;">
+                Jasmine Frank
+            </div>
+            
+            <div class="sig-title" style="font-size: 13px; color: #666666; margin-bottom: 7px;">
+                Director of Marketing | Zoho One
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="tel:+12813308004" class="sig-link" style="color: #E42527; text-decoration: none;">+1 (281) 330-8004</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="mailto:jasmine.frank@zohocorp.com" class="sig-link" style="color: #E42527; text-decoration: none;">jasmine.frank@zohocorp.com</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 4px;">
+                <a href="https://bookings.zohocorp.com/#/jasminefrank" rel="noopener noreferrer" class="sig-link sig-cta" style="color: #E42527; text-decoration: none; font-weight: bold;">Schedule a Meeting</a>
+            </div>
+            
+            
+            <div style="font-size: 12px; margin-bottom: 2px;">
+                <a href="https://www.linkedin.com/in/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/jasminefrank" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a>
+            </div>
+            
+            
+            <div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #EBEBEB;">
+                <div style="font-size: 10px; color: #999999; margin-bottom: 2px;">Follow Zoho:</div>
+                <div style="font-size: 10px;">
+                    <a href="https://www.linkedin.com/company/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">LinkedIn</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://x.com/Zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">X</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.instagram.com/zoho/" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Instagram</a> <span class="sig-separator" style="color: #E42527;">•</span> <a href="https://www.facebook.com/zoho" rel="noopener noreferrer" class="sig-link" style="color: #E42527; text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+        
+        </td>
+    </tr>
+</table>"
+`;

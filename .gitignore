@@ -47,7 +47,14 @@ docs/dark-mode-test-results.md
 
 # Testing directories (local only)
 testing/
-tests/
+tests/chaos/
+tests/screenshots/
+
+# But DO include test source files
+!tests/fixtures/
+!tests/visual/
+!tests/email-clients/
+!tests/*.test.ts
 
 # Testing artifacts (keep local, don't publish)
 baseline-screenshots/

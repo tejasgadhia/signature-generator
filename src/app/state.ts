@@ -5,6 +5,7 @@
 
 import type { AppState, FormData, FieldToggles, SocialOptions, SignatureStyle, SocialChannel } from '../types';
 import { STORAGE_KEYS, SCHEMA_VERSION } from '../constants';
+import { setEncryptedSigned, getEncryptedVerified } from '../utils/encrypted-storage';
 
 /**
  * SECURITY NOTE - localStorage Encryption:
@@ -77,6 +78,7 @@ function createDefaultState(): AppState {
 
 export class AppStateManager {
   private state: AppState;
+  private migrationComplete: boolean = false;
 
   constructor() {
     this.state = createDefaultState();
@@ -245,19 +247,78 @@ export class AppStateManager {
   // ===== STORAGE OPERATIONS =====
 
   /**
-   * Load state from localStorage (immutable updates)
+   * Migrate plaintext localStorage keys to encrypted storage
+   * Runs once per session, preserves original data until migration confirmed
+   * IMPORTANT: Must be called before loadFromStorage()
    */
-  loadFromStorage(): void {
+  async migrateLocalStorageToEncrypted(): Promise<void> {
+    if (this.migrationComplete) return;
+
+    const migrationKey = 'encryption-migration-v1';
+    const alreadyMigrated = localStorage.getItem(migrationKey);
+
+    // Skip if already migrated
+    if (alreadyMigrated === 'complete') {
+      this.migrationComplete = true;
+      return;
+    }
+
+    console.log('Starting localStorage encryption migration...');
+
+    let migratedCount = 0;
+    const keysToMigrate = [
+      STORAGE_KEYS.ACCENT_COLOR,
+      STORAGE_KEYS.SOCIAL_ORDER,
+      STORAGE_KEYS.FORMAT_LOCK_NAME,
+      STORAGE_KEYS.FORMAT_LOCK_TITLE,
+      STORAGE_KEYS.FORMAT_LOCK_DEPARTMENT
+    ];
+
+    for (const key of keysToMigrate) {
+      try {
+        const plaintext = localStorage.getItem(key);
+
+        // Skip if key doesn't exist or already encrypted
+        if (!plaintext) continue;
+
+        // Check if already encrypted (signed data contains pipe separator)
+        if (plaintext.includes('|')) {
+          console.log(`Key ${key} already encrypted, skipping`);
+          continue;
+        }
+
+        // Encrypt and sign the plaintext value
+        await setEncryptedSigned(key, plaintext);
+        migratedCount++;
+        console.log(`Migrated key: ${key}`);
+      } catch (error) {
+        console.error(`Failed to migrate key ${key}:`, error);
+        // Continue with other keys even if one fails
+      }
+    }
+
+    // Mark migration as complete
+    localStorage.setItem(migrationKey, 'complete');
+    this.migrationComplete = true;
+
+    console.log(`Migration complete. Encrypted ${migratedCount} keys.`);
+  }
+
+  /**
+   * Load state from localStorage (immutable updates)
+   * IMPORTANT: Must call migrateLocalStorageToEncrypted() first
+   */
+  async loadFromStorage(): Promise<void> {
     let updates: Partial<AppState> = {};
 
-    // Load accent color
-    const savedColor = localStorage.getItem(STORAGE_KEYS.ACCENT_COLOR);
+    // Load accent color (encrypted)
+    const savedColor = await getEncryptedVerified(STORAGE_KEYS.ACCENT_COLOR);
     if (savedColor) {
       updates.accentColor = savedColor;
     }
 
-    // Load social channel order
-    const savedOrder = localStorage.getItem(STORAGE_KEYS.SOCIAL_ORDER);
+    // Load social channel order (encrypted)
+    const savedOrder = await getEncryptedVerified(STORAGE_KEYS.SOCIAL_ORDER);
     if (savedOrder) {
       try {
         const channels = JSON.parse(savedOrder);
@@ -280,15 +341,15 @@ export class AppStateManager {
       }
     }
 
-    // Load format lock states
+    // Load format lock states (encrypted)
     const formatLockUpdates: Partial<Record<'name' | 'title' | 'department', boolean>> = {};
-    (['name', 'title', 'department'] as const).forEach(field => {
+    for (const field of ['name', 'title', 'department'] as const) {
       const key = `${STORAGE_KEYS.FORMAT_LOCK_PREFIX}${field}`;
-      const saved = localStorage.getItem(key);
+      const saved = await getEncryptedVerified(key);
       if (saved !== null) {
         formatLockUpdates[field] = saved !== 'false';
       }
-    });
+    }
 
     if (Object.keys(formatLockUpdates).length > 0) {
       updates.formatLockState = {
@@ -307,28 +368,28 @@ export class AppStateManager {
   }
 
   /**
-   * Save accent color to localStorage
+   * Save accent color to localStorage (encrypted)
    */
-  private saveAccentColor(color: string): void {
-    localStorage.setItem(STORAGE_KEYS.ACCENT_COLOR, color);
+  private async saveAccentColor(color: string): Promise<void> {
+    await setEncryptedSigned(STORAGE_KEYS.ACCENT_COLOR, color);
   }
 
   /**
-   * Save social channel order to localStorage
+   * Save social channel order to localStorage (encrypted)
    */
-  saveSocialOrder(): void {
-    localStorage.setItem(
+  async saveSocialOrder(): Promise<void> {
+    await setEncryptedSigned(
       STORAGE_KEYS.SOCIAL_ORDER,
       JSON.stringify(this.state.socialOptions.channels)
     );
   }
 
   /**
-   * Save format lock state to localStorage
+   * Save format lock state to localStorage (encrypted)
    */
-  private saveFormatLock(field: 'name' | 'title' | 'department', enabled: boolean): void {
+  private async saveFormatLock(field: 'name' | 'title' | 'department', enabled: boolean): Promise<void> {
     const key = `${STORAGE_KEYS.FORMAT_LOCK_PREFIX}${field}`;
-    localStorage.setItem(key, String(enabled));
+    await setEncryptedSigned(key, String(enabled));
   }
 
   // ===== DATA EXPORT/IMPORT =====

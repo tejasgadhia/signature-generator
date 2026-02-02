@@ -1,6 +1,6 @@
 # Zoho Email Signature Generator - Developer Guidelines
 
-**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 3.2.0 | **Updated**: 2026-01-30
+**Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator | **Version**: 3.3.0 | **Updated**: 2026-02-02
 
 Professional, privacy-first web app for Zoho employees. 6 signature templates with Verdana font, 3-tier content hierarchy, 4 accent colors, live preview, one-click copy.
 
@@ -8,9 +8,9 @@ Professional, privacy-first web app for Zoho employees. 6 signature templates wi
 
 ## Recent Changes
 
-**Version**: 3.1.0 (2026-01-28) - **UX Polish & Visual Refinements**
-**Latest**: Phases 3-8 complete - animations, accessibility, form clarity, micro-interactions
-**Previous**: 3.0.0 - TypeScript + Vite refactor (27 modules, full type safety)
+**Version**: 3.3.0 (2026-02-02) - **Security & Testing Infrastructure**
+**Latest**: localStorage encryption with HMAC tamper detection, 102 tests, Playwright visual regression, CI/CD integration
+**Previous**: 3.2.0 - Social links drag-drop redesign, YouTube channel
 **Full history**: See [CHANGELOG.md](CHANGELOG.md)
 
 ---
@@ -21,7 +21,8 @@ Professional, privacy-first web app for Zoho employees. 6 signature templates wi
 - **Build Tool**: Vite 5.x (module bundler with HMR)
 - **Type System**: TypeScript 5.x (full type safety)
 - **Styling**: CSS3 with custom properties (370+ design tokens)
-- **Browser APIs**: Clipboard API, localStorage, URL API
+- **Browser APIs**: Clipboard API, localStorage, URL API, Web Crypto API
+- **Security**: Content Security Policy (CSP), AES-GCM-256 encryption, HMAC-SHA256 tamper detection
 - **Deployment**: GitHub Pages (via GitHub Actions, deploying `dist/` folder)
 
 ---
@@ -51,6 +52,9 @@ Professional, privacy-first web app for Zoho employees. 6 signature templates wi
 
 **Utilities & Shared**:
 - `src/utils/` - Reusable utility functions (title case, URL cleaning, validation)
+- `src/utils/crypto.ts` - AES-GCM-256 encryption/decryption (Web Crypto API)
+- `src/utils/tamper-detection.ts` - HMAC-SHA256 signature generation/verification
+- `src/utils/encrypted-storage.ts` - High-level encrypted localStorage wrapper
 - `src/types.ts` - TypeScript type definitions and interfaces
 - `src/constants.ts` - Application constants (storage keys, URLs, example data)
 - `src/styles/main.css` - Main stylesheet entry point
@@ -72,14 +76,24 @@ const AppState = {
 ```
 
 ### localStorage Keys
+
+**Encrypted (AES-GCM-256 + HMAC-SHA256)**:
 ```javascript
-'theme'                      // 'dark' or null (light mode)
-'signature-accent-color'     // Hex color (#E42527, #089949, #226DB4, #F9B21D)
-'social-order'               // JSON array of channel order
-'format-lock-name'           // boolean (default: true)
-'format-lock-title'          // boolean (default: true)
-'format-lock-department'     // boolean (default: true)
+'signature-accent-color'     // Hex color - encrypted to prevent injection
+'socialChannelOrder'         // JSON array - encrypted to prevent manipulation
+'format-lock-name'           // boolean - encrypted for integrity
+'format-lock-title'          // boolean - encrypted for integrity
+'format-lock-department'     // boolean - encrypted for integrity
 ```
+
+**Plaintext (intentionally unencrypted)**:
+```javascript
+'zoho-signature-preview-theme'  // Theme preference (not sensitive)
+'app-schema-version'            // Migration tracking (needed before decryption)
+'thanks-count'                  // Easter egg counter (not sensitive)
+```
+
+**Security Note**: FormData (name, email, phone) is **transient** and never persisted to localStorage. See [docs/SECURITY.md](docs/SECURITY.md) for details.
 
 ### Key Implementation Patterns
 
