@@ -102,18 +102,22 @@ jobs:
           for html in $(find . -name "*.html"); do
             echo "Checking $html..."
 
-            # Extract CSS references
+            # Extract CSS references and strip GitHub Pages base path
             grep -oP 'href="[^"]+\.css"' "$html" | sed 's/href="//;s/"//' | while read -r css; do
-              if [ ! -f "$css" ] && [ ! -f ".$(echo $css | sed 's/^\.\.//')" ]; then
-                echo "❌ Missing CSS file referenced in $html: $css"
+              # Strip /zoho-signature-generator/ prefix if present
+              local_css=$(echo "$css" | sed 's#^/zoho-signature-generator/#./#')
+              if [ ! -f "$local_css" ]; then
+                echo "❌ Missing CSS file referenced in $html: $css (looked for $local_css)"
                 exit 1
               fi
             done
 
-            # Extract JS references
+            # Extract JS references and strip GitHub Pages base path
             grep -oP 'src="[^"]+\.js"' "$html" | sed 's/src="//;s/"//' | while read -r js; do
-              if [ ! -f "$js" ] && [ ! -f ".$(echo $js | sed 's/^\.\.//')" ]; then
-                echo "❌ Missing JS file referenced in $html: $js"
+              # Strip /zoho-signature-generator/ prefix if present
+              local_js=$(echo "$js" | sed 's#^/zoho-signature-generator/#./#')
+              if [ ! -f "$local_js" ]; then
+                echo "❌ Missing JS file referenced in $html: $js (looked for $local_js)"
                 exit 1
               fi
             done
