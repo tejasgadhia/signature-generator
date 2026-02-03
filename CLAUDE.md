@@ -32,6 +32,7 @@ Professional, privacy-first web app for Zoho employees. 6 signature templates wi
 ## Browser Support
 
 **Minimum Requirements**:
+- Screen resolution: 1366x768 (most common laptop resolution worldwide)
 - Chrome 90+ (April 2021)
 - Firefox 88+ (April 2021)
 - Safari 14+ (September 2020, macOS Big Sur, iOS 14+)

@@ -144,3 +144,37 @@
     font-size: var(--font-size-sm);
     flex-shrink: 0;
 }
+
+/* =============================================================================
+   Responsive Adjustments for Lower Resolutions (1366x768)
+   ============================================================================= */
+@media (max-width: 1439px) and (min-width: 1280px) {
+    /* Reduce preview section padding */
+    .preview-section {
+        padding: 20px; /* Down from 32px - saves 24px */
+    }
+
+    /* Reduce preview container padding */
+    .preview-container {
+        padding: 20px; /* Down from 32px - saves 24px */
+    }
+
+    /* Tighten design section spacing */
+    .design-section {
+        padding: 12px; /* Down from 16px - saves 8px */
+    }
+
+    /* Reduce step label margins */
+    .step-label {
+        margin-bottom: 8px; /* Down from 12px - saves 4px */
+    }
+
+    /* Tighten color switcher */
+    .color-switcher {
+        gap: 8px; /* Down from 12px - saves 4px per gap */
+    }
+
+    .color-btn {
+        height: 32px; /* Down from 36px - saves 4px */
+    }
+}

@@ -262,24 +262,8 @@ body {
     margin: 24px 0;
 }
 
-/* Desktop-Only Design (No responsive needed) */
-/* Minimum viewport: 1440x900 (13" MacBook) */
-@media (max-width: 1439px) {
-    body::before {
-        content: 'Please use a larger screen (1440px+ width) for best experience';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #F9B21D;
-        color: #333333;
-        padding: 12px;
-        text-align: center;
-        font-size: var(--font-size-sm);
-        font-weight: 600;
-        z-index: 10000;
-    }
-}
+/* Responsive Design - Supports 1366x768 and above */
+/* Warning banner removed - app now works at lower resolutions */
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
