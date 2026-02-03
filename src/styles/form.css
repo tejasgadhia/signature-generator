@@ -161,7 +161,7 @@
 .input-wrapper input[type="email"]:disabled,
 .input-wrapper input[type="tel"]:disabled,
 .input-wrapper input[type="url"]:disabled {
-    opacity: 0.5;
+    opacity: 0.7;  /* Increased from 0.5 for better legibility while maintaining disabled appearance */
     cursor: not-allowed;
     background: var(--color-surface);
 }

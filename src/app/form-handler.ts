@@ -280,7 +280,7 @@ export class FormHandler {
       validationIcon.textContent = iconContent;
       validationIcon.className = result.isValid ? 'validation-icon valid show' : 'validation-icon invalid show';
       validationIcon.style.display = 'flex';
-      validationIcon.setAttribute('aria-label', result.message ? `✗ ${result.message}` : 'Valid');
+      validationIcon.setAttribute('aria-label', result.message ? `Invalid: ${result.message}` : 'Valid input');
 
       // Add red border on invalid fields for visibility
       const inputWrapper = inputElement?.closest('.input-wrapper');
