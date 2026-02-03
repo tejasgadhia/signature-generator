@@ -27,6 +27,30 @@ Professional, privacy-first web app for Zoho employees. 6 signature templates wi
 
 ---
 
+## Browser Support
+
+**Minimum Requirements**:
+- Chrome 90+ (April 2021)
+- Firefox 88+ (April 2021)
+- Safari 14+ (September 2020, macOS Big Sur, iOS 14+)
+- Edge 90+ (April 2021, Chromium-based only)
+- Mobile Safari iOS 14+
+- Chrome Mobile 90+
+
+**Unsupported**:
+- IE11 (no ES6 modules, no Clipboard API)
+- Safari 13 (missing Clipboard API for HTML content)
+- Firefox ESR 78 (untested, may work)
+- Samsung Internet (untested, may work)
+
+**Required APIs**: ES6+ modules, Clipboard API with HTML blob support, localStorage, CSS Grid, CSS Custom Properties
+
+**Graceful Degradation**: Clipboard API fallback to `execCommand('copy')`, localStorage optional (theme won't persist)
+
+See [README.md](README.md#browser-support) for full compatibility matrix.
+
+---
+
 ## Architecture Principles
 
 ### Module Organization (TypeScript Modules)

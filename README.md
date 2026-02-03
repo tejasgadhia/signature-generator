@@ -16,6 +16,26 @@ Privacy-first web app for creating professional, email-compatible signatures. Fe
 
 ---
 
+## Why Use This vs Zoho Mail's Native Editor?
+
+**Zoho Mail has a built-in signature editor. So why use this tool?**
+
+| Feature | This Tool | Zoho Mail Native Editor |
+|---------|-----------|------------------------|
+| **Professional Templates** | 6 layout options (Classic, Modern, Minimal, etc.) | 1 basic template |
+| **Brand Compliance** | Enforces Zoho brand colors & design standards | Freeform editing, inconsistent styles |
+| **Dark Mode** | Automatic theme detection in Gmail/Apple Mail | Manual HTML tweaking required |
+| **Email Client Testing** | Tested in 9 clients (Gmail, Outlook, Apple Mail, etc.) | No testing guarantees |
+| **Privacy** | 100% client-side, no data sent to servers | Unknown data handling |
+| **Accessibility** | WCAG 2.2 AA compliant (screen readers, keyboard nav) | Basic accessibility |
+| **One-Click Copy** | Copy entire signature with formatting | Manual HTML/CSS editing |
+| **UTM Tracking** | Automatic campaign parameters on website links | Manual URL editing |
+| **Format Locks** | Prevent accidental capitalization changes | No safeguards |
+
+**TL;DR**: Use this tool for professional, brand-compliant signatures that look consistent across all email clients. Use Zoho Mail's editor for quick, informal signatures without branding requirements.
+
+---
+
 ## Key Features
 
 ### ✨ Design & Customization
@@ -99,18 +119,43 @@ Tested in **9 email clients**: Gmail, Apple Mail, Outlook (Windows/macOS/Web/iOS
 
 ## Browser Support
 
-**Minimum Requirements**:
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+### ✅ Supported Browsers
 
-**Features Used**:
-- ES6+ JavaScript (async/await, modules, arrow functions)
-- CSS Grid & Flexbox
-- CSS Custom Properties
-- Clipboard API
-- localStorage
+| Browser | Minimum Version | Release Date | Notes |
+|---------|----------------|--------------|-------|
+| **Chrome** | 90+ | April 2021 | Includes Chromium-based Edge |
+| **Firefox** | 88+ | April 2021 | Includes Developer Edition |
+| **Safari** | 14+ | September 2020 | macOS Big Sur, iOS 14+ |
+| **Edge** | 90+ | April 2021 | Chromium-based only |
+| **Mobile Safari** | iOS 14+ | September 2020 | iPhone, iPad |
+| **Chrome Mobile** | 90+ | April 2021 | Android |
+
+### ⚠️ Limited/Unsupported
+
+| Browser | Status | Reason |
+|---------|--------|--------|
+| **Firefox ESR** | ⚠️ May work | ESR 78 (June 2020) supports most features, but untested |
+| **Samsung Internet** | ⚠️ May work | Chromium-based, but clipboard API support varies |
+| **IE11** | ❌ Not supported | No ES6 modules, no Clipboard API, no CSS Grid |
+| **Safari 13** | ❌ Not supported | Missing Clipboard API for HTML content |
+| **Chrome <90** | ❌ Not supported | Missing Clipboard API improvements |
+
+### Required Browser Features
+- **ES6+ JavaScript**: async/await, modules, arrow functions, template literals
+- **CSS Grid & Flexbox**: Layout system
+- **CSS Custom Properties**: Design tokens (370+ variables)
+- **Clipboard API**: `navigator.clipboard.write()` with HTML blob support
+- **localStorage**: Theme and color preference persistence
+- **URL API**: Link cleaning and validation
+
+### Graceful Degradation
+- **Clipboard API unavailable**: Falls back to `document.execCommand('copy')` (legacy)
+- **localStorage blocked**: App works, but theme preference won't persist
+- **No JavaScript**: Static content only, no signature generation
+
+### Testing Coverage
+**Automated**: 102 Playwright tests (Chrome, Firefox, Safari)
+**Manual**: Tested in Gmail, Apple Mail, Outlook (Windows/macOS/Web/iOS/Android), Zoho Mail, Yahoo Mail, ProtonMail, Thunderbird
 
 ---
 
