@@ -1,0 +1,122 @@
+name: Deployment Validation
+
+on:
+  workflow_call:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check-files:
+    name: Check Required Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check .nojekyll exists
+        run: |
+          if [ ! -f .nojekyll ]; then
+            echo "❌ ERROR: .nojekyll file missing!"
+            echo "This file is required for GitHub Pages to serve .ui-design directory."
+            echo "Create it with: touch .nojekyll"
+            exit 1
+          fi
+          echo "✅ .nojekyll file found"
+
+      - name: Check index.html exists
+        run: |
+          if [ ! -f index.html ]; then
+            echo "❌ ERROR: index.html missing!"
+            exit 1
+          fi
+          echo "✅ index.html found"
+
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Run Lighthouse CI
+        run: npm run lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload Lighthouse results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-results
+          path: .lighthouseci/
+
+  link-check:
+    name: Check for Broken Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Check for broken internal links
+        run: |
+          echo "Checking for broken links in built HTML..."
+          cd dist
+
+          # Check for common broken link patterns
+          if grep -r 'href="undefined"' . 2>/dev/null; then
+            echo "❌ Found undefined href attributes"
+            exit 1
+          fi
+
+          if grep -r 'src="undefined"' . 2>/dev/null; then
+            echo "❌ Found undefined src attributes"
+            exit 1
+          fi
+
+          # Check all HTML files reference existing assets
+          for html in $(find . -name "*.html"); do
+            echo "Checking $html..."
+
+            # Extract CSS references
+            grep -oP 'href="[^"]+\.css"' "$html" | sed 's/href="//;s/"//' | while read -r css; do
+              if [ ! -f "$css" ] && [ ! -f ".$(echo $css | sed 's/^\.\.//')" ]; then
+                echo "❌ Missing CSS file referenced in $html: $css"
+                exit 1
+              fi
+            done
+
+            # Extract JS references
+            grep -oP 'src="[^"]+\.js"' "$html" | sed 's/src="//;s/"//' | while read -r js; do
+              if [ ! -f "$js" ] && [ ! -f ".$(echo $js | sed 's/^\.\.//')" ]; then
+                echo "❌ Missing JS file referenced in $html: $js"
+                exit 1
+              fi
+            done
+          done
+
+          echo "✅ No broken links found"

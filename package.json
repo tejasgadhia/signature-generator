@@ -14,8 +14,11 @@
     "test:visual": "playwright test",
     "test:visual:ui": "playwright test --ui",
     "test:visual:headed": "playwright test --headed",
-    "test:all": "npm run test && npm run test:visual",
-    "test:update-snapshots": "vitest run -u && playwright test --update-snapshots"
+    "test:a11y": "playwright test tests/a11y/",
+    "test:all": "npm run test && npm run test:visual && npm run test:a11y",
+    "test:update-snapshots": "vitest run -u && playwright test --update-snapshots",
+    "prepare": "husky",
+    "lighthouse": "lhci autorun"
   },
   "keywords": [
     "email-signature",
@@ -24,10 +27,14 @@
   "author": "Tejas Gadhia",
   "license": "SEE LICENSE IN LICENSE.md",
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@lhci/cli": "^0.14.0",
     "@playwright/test": "^1.58.1",
     "@types/node": "^20.11.5",
     "@types/sortablejs": "^1.15.9",
+    "husky": "^9.1.7",
     "jsdom": "^28.0.0",
+    "lint-staged": "^15.5.2",
     "terser": "^5.46.0",
     "typescript": "^5.3.3",
     "vite": "^6.4.1",
@@ -35,5 +42,10 @@
   },
   "dependencies": {
     "sortablejs": "^1.15.6"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "npm run type-check"
+    ]
   }
 }

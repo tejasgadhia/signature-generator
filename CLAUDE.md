@@ -24,6 +24,8 @@ Professional, privacy-first web app for Zoho employees. 6 signature templates wi
 - **Browser APIs**: Clipboard API, localStorage, URL API, Web Crypto API
 - **Security**: Content Security Policy (CSP), AES-GCM-256 encryption, HMAC-SHA256 tamper detection
 - **Deployment**: GitHub Pages (via GitHub Actions, deploying `dist/` folder)
+- **CDN**: Cloudflare (free tier, global caching + DDoS protection)
+- **Monitoring**: UptimeRobot (5min checks, email/Slack alerts on downtime)
 
 ---
 
@@ -237,13 +239,53 @@ npm run type-check      # Run TypeScript compiler (no emit)
 
 **CRITICAL**: `.nojekyll` file required (Jekyll blocks `.ui-design` directory otherwise)
 
-### Pre-Push Checklist
+### Automated Deployment Pipeline
+Every push to `main` triggers:
+1. **Validate** - Check required files (.nojekyll, index.html), Lighthouse CI (90+ scores)
+2. **Test** - Run unit tests (102+), visual regression (12), accessibility (15+)
+3. **Build** - Compile TypeScript, bundle with Vite
+4. **Deploy** - Upload to GitHub Pages
+
+### Pre-Commit Hooks (Husky)
+Automatically runs on `git commit`:
+- TypeScript type-check (`tsc --noEmit`)
+- Lint-staged (validates changed files)
+
+**Bypass if needed**: `git commit --no-verify` (use sparingly)
+
+### Pre-Push Checklist (Automated)
+✅ TypeScript compiles (`npm run type-check`)
+✅ All tests pass (`npm run test:all`)
+✅ Lighthouse scores >90 (automated via CI)
+✅ `.nojekyll` exists (checked by validation workflow)
+✅ No broken links (checked by validation workflow)
+
+**Manual verification** (optional):
 ```bash
-node --check js/*.js  # Validate syntax
-python3 -c "assert open('css/styles.css').read().count('{') == open('css/styles.css').read().count('}'), 'Unmatched braces'"
-test -f .nojekyll  # Verify exists
-open index.html  # Manual test
+npm run build      # Build production bundle
+npm run preview    # Preview locally
+open http://localhost:4173
 ```
+
+### Monitoring & Uptime
+- **Status Page**: `https://stats.uptimerobot.com/[id]` (to be set up)
+- **Alerts**: Email/Slack on downtime (5min checks)
+- **Uptime Target**: 99.9%
+- **Response Time Target**: <500ms
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for Cloudflare/UptimeRobot setup.
+
+### Failover Strategy
+**Primary**: GitHub Pages + Cloudflare CDN
+**Backup**: Netlify (manual deploy)
+
+If GitHub Pages is down:
+```bash
+npm run build
+netlify deploy --prod --dir=dist
+```
+
+Update Cloudflare DNS CNAME to point to Netlify URL.
 
 ### Common Issues
 1. **Dot dirs 404**: Need `.nojekyll` in root

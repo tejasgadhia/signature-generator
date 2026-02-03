@@ -15,8 +15,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  validate:
+    name: Validate Deployment
+    uses: ./.github/workflows/validate.yml
+
   test:
     name: Run Tests
+    needs: validate
     uses: ./.github/workflows/test.yml
 
   build:

@@ -2,9 +2,13 @@
 
 **Professional email signatures for Zoho employees**
 
-![Version](https://img.shields.io/badge/version-3.2.0-blue.svg) ![License](https://img.shields.io/badge/license-O'Saasy-green.svg)
+![Version](https://img.shields.io/badge/version-3.3.0-blue.svg) ![License](https://img.shields.io/badge/license-O'Saasy-green.svg) [![Build Status](https://github.com/tejasgadhia/zoho-signature-generator/actions/workflows/deploy.yml/badge.svg)](https://github.com/tejasgadhia/zoho-signature-generator/actions/workflows/deploy.yml)
 
 **Live Demo**: https://tejasgadhia.github.io/zoho-signature-generator/
+
+<!-- UptimeRobot badge will be added after setup -->
+<!-- [![Uptime](https://img.shields.io/uptimerobot/status/[monitor-id]?label=status)](https://stats.uptimerobot.com/[your-id]) -->
+<!-- [![Uptime %](https://img.shields.io/uptimerobot/ratio/7/[monitor-id])](https://stats.uptimerobot.com/[your-id]) -->
 
 ---
 

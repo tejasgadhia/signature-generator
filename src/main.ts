@@ -12,6 +12,10 @@ import { PreviewRenderer } from './app/preview-renderer';
 import { ClipboardManager } from './app/clipboard';
 import { ModalController } from './ui/modal';
 import { DragDropHandler } from './ui/drag-drop';
+import { setupErrorBoundary } from './utils/error-tracking';
+
+// Setup error boundary BEFORE any other initialization
+setupErrorBoundary();
 
 // Initialize application when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
@@ -177,4 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     (window as any).ClipboardManager = clipboardManager;
     console.log('Initialization complete');
   }
+
+  // Expose AppState globally for error tracking (PII-safe state access)
+  (window as any).AppState = state;
 });
