@@ -3,6 +3,9 @@
  * Pure URL transformation and sanitization functions
  */
 
+/** Maximum input length for URL processing functions (defense-in-depth against ReDoS) */
+const MAX_INPUT_LENGTH = 2048;
+
 /**
  * Normalize URL by adding https:// if missing
  * @param url - URL to normalize
@@ -31,6 +34,7 @@ export function normalizeUrl(url: string): string {
  */
 export function sanitizeSocialUrl(input: string, domain: string): string {
   if (!input) return '';
+  if (input.length > MAX_INPUT_LENGTH) return '';
 
   let result = '';
 
@@ -78,6 +82,8 @@ export function sanitizeSocialUrl(input: string, domain: string): string {
  * @returns Cleaned URL without tracking parameters
  */
 export function cleanLinkedInUrl(url: string): string {
+  if (!url || url.length > MAX_INPUT_LENGTH) return url;
+
   try {
     const urlObj = new URL(normalizeUrl(url));
     if (urlObj.hostname.includes('linkedin.com')) {
@@ -105,6 +111,7 @@ export function extractBookingsSlug(input: string): string {
   if (!input) return '';
 
   const trimmed = input.trim();
+  if (trimmed.length > MAX_INPUT_LENGTH) return '';
   let slug = '';
 
   // Pattern 1: bookings.zohocorp.com/#/slug
