@@ -1,6 +1,6 @@
 # Security Documentation
 
-**Version**: 3.2.0 | **Last Updated**: 2026-02-02
+**Version**: 3.4.0 | **Last Updated**: 2026-02-05
 
 This document explains the security measures implemented in the Zoho Email Signature Generator to protect user data and prevent common web vulnerabilities.
 
@@ -9,8 +9,6 @@ This document explains the security measures implemented in the Zoho Email Signa
 ## Table of Contents
 
 - [Content Security Policy](#content-security-policy)
-- [Encryption Architecture](#encryption-architecture)
-- [Tamper Detection](#tamper-detection)
 - [Data Classification](#data-classification)
 - [Privacy-First Design](#privacy-first-design)
 - [Threat Model](#threat-model)
@@ -23,10 +21,10 @@ This document explains the security measures implemented in the Zoho Email Signa
 
 ### Overview
 
-The application implements a comprehensive Content Security Policy (CSP) via meta tag in `index.html:10`:
+The application implements a Content Security Policy (CSP) via meta tag in `index.html:10`:
 
 ```html
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tejasgadhia.github.io; font-src 'self'; connect-src 'self' ws:; media-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 ```
 
 ### CSP Directives Explained
@@ -36,26 +34,32 @@ The application implements a comprehensive Content Security Policy (CSP) via met
 | `default-src 'self'` | Only allow resources from same origin | Blocks all external resources by default |
 | `script-src 'self'` | Only allow scripts from same origin | **Prevents XSS via inline scripts** |
 | `style-src 'self' 'unsafe-inline'` | Allow same-origin + inline styles | Inline styles needed for signature HTML |
-| `img-src 'self' data:` | Allow same-origin + data URIs | Supports logo images + data URIs |
+| `img-src 'self' data: https://tejasgadhia.github.io` | Allow same-origin + data URIs + GitHub Pages | Supports logo images (absolute URLs in signatures) |
 | `font-src 'self'` | Only allow fonts from same origin | Prevents font-based tracking |
-| `connect-src 'self'` | Only allow API calls to same origin | Prevents data exfiltration via XHR/fetch |
+| `connect-src 'self' ws:` | Allow same-origin + WebSocket | WebSocket needed for Vite HMR in dev; inert in production |
+| `media-src 'self'` | Only allow media from same origin | Explicit declaration for audio/video |
 | `base-uri 'self'` | Restrict `<base>` tag | Prevents base tag injection attacks |
 | `form-action 'self'` | Only submit forms to same origin | Prevents form hijacking |
-| `frame-ancestors 'none'` | Prevent embedding in iframes | **Prevents clickjacking attacks** |
-| `upgrade-insecure-requests` | Upgrade HTTP → HTTPS | Forces secure connections |
+| `upgrade-insecure-requests` | Upgrade HTTP to HTTPS | Forces secure connections |
+
+### Clickjacking Protection
+
+**Note**: `frame-ancestors` is **not supported** in CSP meta tags per the [CSP specification](https://w3c.github.io/webappsec-csp/#meta-element). It only works via HTTP headers. For GitHub Pages deployments, clickjacking protection requires either:
+
+1. **Cloudflare Transform Rules** (recommended): Add `X-Frame-Options: DENY` response header
+2. **Custom server**: Set `Content-Security-Policy: frame-ancestors 'none'` as an HTTP header
 
 ### What CSP Protects Against
 
-- ✅ **XSS (Cross-Site Scripting)**: Blocks inline scripts, only allows scripts from same origin
-- ✅ **Clickjacking**: Prevents embedding in malicious iframes
-- ✅ **Data Exfiltration**: Blocks unauthorized API calls to external domains
-- ✅ **Mixed Content**: Automatically upgrades HTTP resources to HTTPS
-- ✅ **Malicious Extensions**: Limits what injected scripts can do
+- **XSS (Cross-Site Scripting)**: Blocks inline scripts, only allows scripts from same origin
+- **Data Exfiltration**: Blocks unauthorized API calls to external domains
+- **Mixed Content**: Automatically upgrades HTTP resources to HTTPS
+- **Malicious Extensions**: Limits what injected scripts can do
 
 ### Testing CSP
 
 **Manual test**:
-1. Open browser DevTools → Console
+1. Open browser DevTools Console
 2. Try to execute inline script:
    ```javascript
    eval('alert("xss")')
@@ -64,194 +68,45 @@ The application implements a comprehensive Content Security Policy (CSP) via met
 
 ---
 
-## Encryption Architecture
-
-### Overview
-
-The application uses **AES-GCM 256-bit encryption** via the Web Crypto API to protect localStorage data from unauthorized access.
-
-### Key Components
-
-**Files**:
-- `src/utils/crypto.ts` - Low-level AES-GCM encryption/decryption
-- `src/utils/tamper-detection.ts` - HMAC-SHA256 signature generation
-- `src/utils/encrypted-storage.ts` - High-level encrypted storage API
-- `src/app/state.ts` - State management with encrypted persistence
-
-### Encryption Process
-
-```
-┌─────────────┐
-│ Plaintext   │
-│ "mydata"    │
-└─────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ 1. Sign (HMAC)      │  Generate HMAC-SHA256 signature
-│    signature = HMAC │
-└─────────────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ 2. Pack             │  Combine: "data|signature"
-│    packed           │
-└─────────────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ 3. Encrypt (AES)    │  Encrypt with AES-GCM-256
-│    ciphertext       │
-└─────────────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ 4. Store            │  Save to localStorage
-│    localStorage     │
-└─────────────────────┘
-```
-
-### Decryption Process
-
-```
-┌─────────────────────┐
-│ localStorage        │
-│ ciphertext          │
-└─────────────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ 1. Decrypt (AES)    │  Decrypt with AES-GCM-256
-│    packed           │
-└─────────────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ 2. Unpack           │  Extract: "data" + "signature"
-│    data, signature  │
-└─────────────────────┘
-       │
-       ▼
-┌─────────────────────┐
-│ 3. Verify (HMAC)    │  Verify signature matches data
-│    isValid?         │
-└─────────────────────┘
-       │
-       ├─ ✅ Valid → Return data
-       └─ ❌ Invalid → Return null (tampered)
-```
-
-### Encryption Key Management
-
-**Ephemeral Session Keys**:
-- Encryption key: Generated once per session, stored in memory cache
-- HMAC key: Generated once per session, stored in memory cache
-- **Not exportable**: Keys use `extractable: false` flag (Web Crypto API)
-- **Not persisted**: Keys are lost when browser tab closes (intentional)
-
-**Why ephemeral keys?**
-- ✅ **Enhanced security**: Keys can't be extracted or stolen
-- ✅ **Simplicity**: No need to manage key storage/rotation
-- ❌ **Tradeoff**: Encrypted data is session-specific (not portable between devices)
-
-### Algorithm Details
-
-**AES-GCM (Advanced Encryption Standard - Galois/Counter Mode)**:
-- Key length: 256 bits (strongest AES variant)
-- IV (Initialization Vector): 96 bits, randomly generated per encryption
-- Authenticated encryption: Provides both confidentiality and integrity
-- Standard: NIST SP 800-38D
-
-**HMAC-SHA256 (Hash-based Message Authentication Code)**:
-- Hash function: SHA-256
-- Purpose: Data integrity verification, tamper detection
-- Standard: FIPS 198-1
-
----
-
-## Tamper Detection
-
-### Overview
-
-HMAC-SHA256 signatures are generated for all encrypted data to detect unauthorized modifications.
-
-### How It Works
-
-1. **On Write**:
-   - Generate HMAC signature from plaintext
-   - Pack data with signature: `data|signature`
-   - Encrypt the signed data
-
-2. **On Read**:
-   - Decrypt the data
-   - Unpack to extract data + signature
-   - Verify signature matches data
-   - If mismatch → **tamper detected**, clear data, return null
-
-### What Tamper Detection Protects Against
-
-- ✅ **Malicious Browser Extensions**: Extensions that modify localStorage
-- ✅ **Manual Tampering**: User/attacker editing localStorage via DevTools
-- ✅ **Integrity Attacks**: Data corruption or bit flipping
-- ✅ **Replay Attacks**: Using old encrypted values
-
-### Example Attack Scenario
-
-**Attack**: Malicious extension tries to change accent color from red to green
-
-```javascript
-// Attacker's action (DevTools Console):
-localStorage.setItem('signature-accent-color', '<encrypted green value>');
-
-// App's response:
-// 1. Decrypt value
-// 2. Verify signature
-// 3. Signature mismatch detected ❌
-// 4. Clear corrupted key
-// 5. Log warning: "Tampered data detected for key: signature-accent-color"
-// 6. Fall back to default value
-```
-
----
-
 ## Data Classification
 
-### Encrypted Keys (5 keys)
+### Validated Plaintext Keys (5 keys)
 
-**Purpose**: Prevent malicious modification of user preferences
+**Purpose**: Store user preferences with validation-on-read to reject invalid values
 
-| Key | Value Type | Rationale |
-|-----|------------|-----------|
-| `signature-accent-color` | String (hex color) | Prevent color injection attacks |
-| `socialChannelOrder` | JSON array | Prevent order manipulation |
-| `format-lock-name` | Boolean | Preserve user formatting preferences |
-| `format-lock-title` | Boolean | Preserve user formatting preferences |
-| `format-lock-department` | Boolean | Preserve user formatting preferences |
+All persisted values are stored as plaintext and validated when loaded. This replaced the previous encryption approach (v3.2.0-v3.3.0), which used ephemeral Web Crypto API keys that were lost on every page reload — making encrypted data unreadable.
 
-### Plaintext Keys (intentional)
+| Key | Value Type | Validation |
+|-----|------------|------------|
+| `signature-accent-color` | String (hex color) | Whitelist: 4 valid hex values via `VALID_ACCENT_COLORS` Set |
+| `socialChannelOrder` | JSON array | Schema: array of max 5 valid channel name strings |
+| `format-lock-name` | Boolean string | Strict match: `"true"` or `"false"` only |
+| `format-lock-title` | Boolean string | Strict match: `"true"` or `"false"` only |
+| `format-lock-department` | Boolean string | Strict match: `"true"` or `"false"` only |
 
-**Purpose**: Non-sensitive data or needed before encryption loads
+**Legacy data handling**: On first load after upgrade, `cleanupLegacyEncryptedData()` detects and removes old encrypted values (pipe-separated or base64 blobs) so defaults are used instead.
 
-| Key | Value Type | Rationale |
-|-----|------------|-----------|
+### Other Plaintext Keys
+
+| Key | Value Type | Purpose |
+|-----|------------|---------|
 | `zoho-signature-preview-theme` | String | Theme preference (not sensitive) |
-| `app-schema-version` | Number | Migration tracking (needed before decryption) |
+| `app-schema-version` | Number | Migration tracking |
 | `thanks-count` | Number | Easter egg counter (not sensitive) |
-| `encryption-migration-v1` | String | Migration flag (not sensitive) |
 
 ### NOT Stored in localStorage
 
 **Critical**: FormData (name, email, phone, LinkedIn) is **transient** and **never persisted**.
 
 **Why?**
-- ✅ **Privacy**: No PII in localStorage (GDPR/privacy-friendly)
-- ✅ **Security**: No sensitive data to protect
-- ✅ **User control**: Users must enter data each session
+- **Privacy**: No PII in localStorage (GDPR/privacy-friendly)
+- **Security**: No sensitive data to protect
+- **User control**: Users must enter data each session
 
 **Export/Import**:
 - Users can export state as JSON (includes FormData)
 - Export is unencrypted (user responsibility to protect file)
-- Import validates schema version and structure
+- Import validates schema version, structure, and sanitizes keys against allowlists (prototype pollution protection)
 
 ---
 
@@ -280,10 +135,10 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 
 ### GDPR/Privacy Compliance
 
-- ✅ **No consent needed**: No cookies, no tracking, no PII storage
-- ✅ **Right to erasure**: Users can clear all data (localStorage.clear())
-- ✅ **Data portability**: Users can export state as JSON
-- ✅ **Privacy by design**: No PII collected or stored
+- **No consent needed**: No cookies, no tracking, no PII storage
+- **Right to erasure**: Users can clear all data (localStorage.clear())
+- **Data portability**: Users can export state as JSON
+- **Privacy by design**: No PII collected or stored
 
 ---
 
@@ -293,35 +148,35 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 
 | Threat | Protection | Status |
 |--------|------------|--------|
-| **XSS (Cross-Site Scripting)** | CSP blocks inline scripts | ✅ Protected |
-| **Clickjacking** | CSP `frame-ancestors 'none'` | ✅ Protected |
-| **Malicious Extensions** | Encryption + tamper detection | ✅ Protected |
-| **localStorage Tampering** | HMAC signatures | ✅ Protected |
-| **MITM (Man-in-the-Middle)** | HTTPS-only, CSP upgrade | ✅ Protected |
-| **Data Exfiltration** | CSP `connect-src 'self'` | ✅ Protected |
-| **Phishing (user enters data)** | User education (README) | ⚠️ Partial |
+| **XSS (Cross-Site Scripting)** | CSP blocks inline scripts | Protected |
+| **Prototype Pollution** | Key allowlists on setSocialOptions() and importData() | Protected |
+| **localStorage Tampering** | Validation-on-read (whitelist, schema, strict boolean) | Protected |
+| **MITM (Man-in-the-Middle)** | HTTPS-only, CSP upgrade | Protected |
+| **Data Exfiltration** | CSP `connect-src 'self'` | Protected |
+| **Clickjacking** | Requires HTTP header (see CSP section) | Needs Cloudflare |
+| **Phishing** | User education (README) | Partial |
 
 ### Attack Scenarios
 
-**Scenario 1: Malicious Browser Extension**
-- **Attack**: Extension tries to modify `signature-accent-color` to inject malicious HTML
-- **Defense**: Tampering detected, corrupted data cleared, fallback to default
-- **Result**: ✅ Attack mitigated
+**Scenario 1: localStorage Tampering**
+- **Attack**: Extension or user modifies `signature-accent-color` to inject malicious value
+- **Defense**: `isValidAccentColor()` checks against whitelist of 4 hex values; invalid values are removed
+- **Result**: Attack mitigated — falls back to default
 
 **Scenario 2: XSS via Input Field**
 - **Attack**: User enters `<script>alert(1)</script>` in name field
 - **Defense**: HTML escaping in signature generation (escapeHtml utility)
-- **Result**: ✅ Output is `&lt;script&gt;...`, safe to paste in email
+- **Result**: Output is `&lt;script&gt;...`, safe to paste in email
 
-**Scenario 3: Clickjacking**
-- **Attack**: Attacker embeds app in malicious iframe, tricks user into clicking
-- **Defense**: CSP `frame-ancestors 'none'` blocks iframe embedding
-- **Result**: ✅ App refuses to load in iframe
+**Scenario 3: Prototype Pollution via importData()**
+- **Attack**: Crafted JSON with `__proto__` keys attempts to pollute Object.prototype
+- **Defense**: `sanitizeKeys()` only copies explicitly allowlisted keys using `hasOwnProperty`
+- **Result**: `__proto__`, `constructor`, and other dangerous keys are silently dropped
 
 **Scenario 4: Data Exfiltration**
 - **Attack**: Injected script tries to send localStorage data to attacker's server
 - **Defense**: CSP `connect-src 'self'` blocks external fetch/XHR
-- **Result**: ✅ Network request blocked
+- **Result**: Network request blocked
 
 ---
 
@@ -330,7 +185,7 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 ### Limitations & Out-of-Scope Threats
 
 **1. Compromised Browser**
-- If browser itself is compromised (malware), encryption keys in memory can be stolen
+- If browser itself is compromised (malware), all bets are off
 - **Mitigation**: Use trusted browsers, keep them updated
 
 **2. Physical Access**
@@ -338,20 +193,20 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 - **Mitigation**: Lock device, don't leave unattended
 
 **3. Phishing**
-- If user is tricked into entering data on fake site, encryption can't help
+- If user is tricked into entering data on fake site, client-side protections can't help
 - **Mitigation**: User education, verify URL (github.io)
 
-**4. Session Hijacking**
-- If attacker gains access to browser session, they can use the app
-- **Mitigation**: Session-only keys (lost on tab close)
-
-**5. Supply Chain Attacks**
+**4. Supply Chain Attacks**
 - If GitHub Pages or dependencies are compromised, app could be malicious
 - **Mitigation**: Subresource Integrity (SRI) for CDN resources (future)
 
-**6. Social Engineering**
+**5. Social Engineering**
 - If user is tricked into exporting data and sharing JSON file, data is unencrypted
 - **Mitigation**: User education (don't share exports)
+
+**6. Clickjacking (meta tag limitation)**
+- `frame-ancestors` in CSP meta tags is ignored by browsers
+- **Mitigation**: Add `X-Frame-Options: DENY` via Cloudflare Transform Rules
 
 ---
 
@@ -359,10 +214,9 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 
 ### Potential Enhancements
 
-**1. IndexedDB Key Storage**
-- Store encryption keys in IndexedDB (more secure than memory-only)
-- Allow key persistence across sessions (if user opts in)
-- Trade-off: More complex key management
+**1. Clickjacking via HTTP Headers**
+- Add `X-Frame-Options: DENY` and `Content-Security-Policy: frame-ancestors 'none'` via Cloudflare Transform Rules
+- Priority: Medium (static site with no auth — low clickjacking risk)
 
 **2. CSP Report-Only Mode**
 - Add `Content-Security-Policy-Report-Only` header
@@ -378,10 +232,9 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 - Add SRI hashes to external resources (if any added in future)
 - Ensures resources haven't been tampered with
 
-**5. Security Headers (if backend added)**
+**5. Security Headers (via Cloudflare)**
 - `X-Content-Type-Options: nosniff`
 - `X-Frame-Options: DENY`
-- `X-XSS-Protection: 1; mode=block`
 - `Referrer-Policy: no-referrer`
 - `Permissions-Policy: geolocation=(), microphone=(), camera=()`
 
@@ -391,18 +244,18 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 
 ### Automated Tests
 
-- **Unit Tests**: Encryption/decryption, signature verification (Vitest)
+- **Unit Tests**: State validation, key sanitization, prototype pollution protection (Vitest)
 - **Integration Tests**: State persistence, migration logic
 - **Security Tests**: XSS payload sanitization, URL validation
 
 ### Manual Testing Checklist
 
-- [ ] **CSP Test**: Try `eval('alert(1)')` in console → Should be blocked
-- [ ] **Tamper Test**: Edit encrypted localStorage value → Should detect tampering
-- [ ] **XSS Test**: Enter `<script>alert(1)</script>` in fields → Should escape in output
-- [ ] **Clickjacking Test**: Try embedding in iframe → Should refuse to load
-- [ ] **HTTPS Test**: Try HTTP → Should upgrade to HTTPS
-- [ ] **Migration Test**: Clear localStorage, reload → Should migrate plaintext to encrypted
+- [ ] **CSP Test**: Try `eval('alert(1)')` in console — should be blocked
+- [ ] **XSS Test**: Enter `<script>alert(1)</script>` in fields — should escape in output
+- [ ] **HTTPS Test**: Try HTTP — should upgrade to HTTPS
+- [ ] **Validation Test**: Edit `signature-accent-color` in localStorage to `#000000` — should reset to default on reload
+- [ ] **Validation Test**: Edit `socialChannelOrder` to `["__proto__"]` — should reset to default
+- [ ] **Validation Test**: Edit `format-lock-name` to `maybe` — should reset to default
 
 ---
 
@@ -422,16 +275,23 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 
 ## Changelog
 
+**Version 3.4.0 (2026-02-05)**:
+- Removed deprecated encryption files (`crypto.ts`, `tamper-detection.ts`, `encrypted-storage.ts`)
+- Replaced encryption with validation-on-read (whitelist, schema, strict boolean)
+- Added prototype pollution protection to `setSocialOptions()` and `importData()`
+- Updated CSP: added `img-src` GitHub Pages, `ws:` for dev, `media-src`; removed unsupported `frame-ancestors`
+- Documented `frame-ancestors` meta tag limitation and Cloudflare workaround
+
 **Version 3.2.0 (2026-02-02)**:
-- ✅ Added HMAC-SHA256 tamper detection
-- ✅ Implemented encryption migration for 5 localStorage keys
-- ✅ Enhanced CSP documentation
-- ✅ Created comprehensive security docs
+- Added HMAC-SHA256 tamper detection
+- Implemented encryption migration for 5 localStorage keys
+- Enhanced CSP documentation
+- Created comprehensive security docs
 
 **Version 3.0.0 (2026-01-27)**:
-- ✅ TypeScript migration (type safety)
-- ✅ CSP implementation (XSS protection)
-- ✅ AES-GCM-256 encryption utilities (ready, not yet used)
+- TypeScript migration (type safety)
+- CSP implementation (XSS protection)
+- AES-GCM-256 encryption utilities (ready, not yet used)
 
 ---
 
@@ -439,6 +299,4 @@ localStorage.setItem('signature-accent-color', '<encrypted green value>');
 
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [Content Security Policy (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
-- [Web Crypto API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
-- [AES-GCM (NIST)](https://csrc.nist.gov/publications/detail/sp/800-38d/final)
-- [HMAC (FIPS 198-1)](https://csrc.nist.gov/publications/detail/fips/198/1/final)
+- [CSP Meta Tag Restrictions](https://w3c.github.io/webappsec-csp/#meta-element)
