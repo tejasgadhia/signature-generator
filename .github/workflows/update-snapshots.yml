@@ -1,0 +1,76 @@
+name: Update Visual Regression Snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to update snapshots on'
+        required: true
+        default: 'main'
+
+jobs:
+  update-snapshots:
+    name: Generate Linux Snapshots
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Generate visual regression snapshots
+        run: npx playwright test tests/visual/ --update-snapshots
+
+      - name: Check for new snapshots
+        id: check
+        run: |
+          if git diff --name-only | grep -q 'chromium-linux.png'; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          elif git ls-files --others --exclude-standard | grep -q 'chromium-linux.png'; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit snapshots
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "tests/visual/**/*-chromium-linux.png"
+          git commit -m "test: Add Linux visual regression snapshots (#226)
+
+          Generated on ubuntu-latest with Playwright 1.58.1 + Chromium.
+          These baselines enable visual regression testing in CI.
+
+          Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
+          git push
+
+      - name: Summary
+        run: |
+          echo "## Snapshot Generation Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ steps.check.outputs.has_changes }}" == "true" ]; then
+            echo "New Linux snapshots were generated and committed." >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Generated files:" >> "$GITHUB_STEP_SUMMARY"
+            git log --name-only -1 --format="" | head -20 >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No new snapshots needed - Linux baselines already exist." >> "$GITHUB_STEP_SUMMARY"
+          fi
