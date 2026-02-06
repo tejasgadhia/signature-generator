@@ -275,6 +275,7 @@
     font-weight: 600;
     cursor: help;
     padding: 4px 6px;
+    min-height: 24px;
     line-height: 1;
     color: #2563EB;
     transition: all 0.2s ease;
