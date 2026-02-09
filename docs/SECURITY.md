@@ -153,7 +153,7 @@ All persisted values are stored as plaintext and validated when loaded. This rep
 | **localStorage Tampering** | Validation-on-read (whitelist, schema, strict boolean) | Protected |
 | **MITM (Man-in-the-Middle)** | HTTPS-only, CSP upgrade | Protected |
 | **Data Exfiltration** | CSP `connect-src 'self'` | Protected |
-| **Clickjacking** | Requires HTTP header (see CSP section) | Needs Cloudflare |
+| **Clickjacking** | Low risk — no auth, no sensitive actions, no server-side state | Accepted risk |
 | **Phishing** | User education (README) | Partial |
 
 ### Attack Scenarios
@@ -204,9 +204,10 @@ All persisted values are stored as plaintext and validated when loaded. This rep
 - If user is tricked into exporting data and sharing JSON file, data is unencrypted
 - **Mitigation**: User education (don't share exports)
 
-**6. Clickjacking (meta tag limitation)**
+**6. Clickjacking (accepted risk)**
 - `frame-ancestors` in CSP meta tags is ignored by browsers
-- **Mitigation**: Add `X-Frame-Options: DENY` via Cloudflare Transform Rules
+- **Risk assessment**: Low — no authentication, no sensitive actions, no server-side state. An attacker embedding this page in an iframe gains nothing actionable.
+- **If needed later**: Add `X-Frame-Options: DENY` via Cloudflare Transform Rules
 
 ---
 
@@ -214,9 +215,9 @@ All persisted values are stored as plaintext and validated when loaded. This rep
 
 ### Potential Enhancements
 
-**1. Clickjacking via HTTP Headers**
-- Add `X-Frame-Options: DENY` and `Content-Security-Policy: frame-ancestors 'none'` via Cloudflare Transform Rules
-- Priority: Medium (static site with no auth — low clickjacking risk)
+**1. Clickjacking via HTTP Headers (accepted risk)**
+- Could add `X-Frame-Options: DENY` via Cloudflare Transform Rules if needed
+- Priority: Low — no auth, no sensitive actions, no server-side state. Revisit if Cloudflare is adopted for other reasons (CDN, security headers)
 
 **2. CSP Report-Only Mode**
 - Add `Content-Security-Policy-Report-Only` header
