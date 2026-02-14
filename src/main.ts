@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Expose copySignatureFromModal globally for modal inline onclick handlers
-  (window as any).copySignatureFromModal = async (event: Event) => {
+  window.copySignatureFromModal = async (event: Event) => {
     event.preventDefault();
     await clipboardManager.copySignature();
   };
@@ -177,12 +177,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Expose state for debugging (development only)
   if (import.meta.env.DEV) {
-    (window as any).AppState = state;
-    (window as any).PreviewRenderer = previewRenderer;
-    (window as any).ClipboardManager = clipboardManager;
+    window.AppState = state;
+    window.PreviewRenderer = previewRenderer;
+    window.ClipboardManager = clipboardManager;
     console.log('Initialization complete');
   }
 
   // Expose AppState globally for error tracking (PII-safe state access)
-  (window as any).AppState = state;
+  window.AppState = state;
 });

@@ -95,13 +95,18 @@ function captureErrorContext(error: any): ErrorContext {
 function getAppStateSafe(): ErrorContext['appState'] {
   try {
     // Try to get AppState if available
-    // @ts-ignore - AppState may not be available in some contexts
-    const state = window.AppState || {};
+    if (window.AppState) {
+      const state = window.AppState;
+      return {
+        style: state.getSignatureStyle() || 'unknown',
+        // Dark mode is trackable via DOM attribute
+        darkMode: document.documentElement.getAttribute('data-theme') === 'dark'
+      };
+    }
 
     return {
-      style: state.signatureStyle || 'unknown',
-      darkMode: state.isDarkMode || false
-      // NO formData - intentionally excluded to prevent PII leakage
+      style: 'unknown',
+      darkMode: false
     };
   } catch (err) {
     return {

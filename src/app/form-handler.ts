@@ -5,7 +5,7 @@
 
 import type { AppStateManager } from './state';
 import type { PreviewRenderer } from './preview-renderer';
-import type { FormData } from '../types';
+import type { FormData, FieldToggles, SignatureStyle } from '../types';
 import {
   generateEmailPrefix,
   toSmartTitleCase,
@@ -325,8 +325,8 @@ export class FormHandler {
         const fieldToggles = this.stateManager.getState().fieldToggles;
 
         // Only update toggle if it's a valid toggle field
-        if (field in fieldToggles) {
-          this.stateManager.updateFieldToggle(field as any, enabled);
+        if (field && field in fieldToggles) {
+          this.stateManager.updateFieldToggle(field as keyof FieldToggles, enabled);
 
           // Map field name to input ID (handle special cases)
           let inputId = field;
@@ -382,11 +382,14 @@ export class FormHandler {
       radio.addEventListener('change', (e) => {
         const target = e.target as HTMLInputElement;
         if (target.checked) {
-          const style = target.value as any;
-          this.stateManager.setSignatureStyle(style);
-          eventBus.emit('style:changed', { style });
-          // Use immediate render for style changes (not debounced)
-          this.previewRenderer.render();
+          const style = target.value;
+          // Validate style is a known SignatureStyle
+          if (['classic', 'professional', 'compact', 'modern', 'creative', 'minimal'].includes(style)) {
+            this.stateManager.setSignatureStyle(style as SignatureStyle);
+            eventBus.emit('style:changed', { style });
+            // Use immediate render for style changes (not debounced)
+            this.previewRenderer.render();
+          }
         }
       });
 
@@ -396,9 +399,11 @@ export class FormHandler {
         label.addEventListener('click', () => {
           if (!radio.checked) {
             radio.checked = true;
-            const style = radio.value as any;
-            this.stateManager.setSignatureStyle(style);
-            this.previewRenderer.render();
+            const style = radio.value;
+            if (['classic', 'professional', 'compact', 'modern', 'creative', 'minimal'].includes(style)) {
+              this.stateManager.setSignatureStyle(style as SignatureStyle);
+              this.previewRenderer.render();
+            }
           }
         });
       }
